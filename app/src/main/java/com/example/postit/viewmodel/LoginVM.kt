@@ -14,14 +14,20 @@ class LoginVM(private val repo:AppRepo) : ViewModel() {
     val loginRes= MutableLiveData<Res>()
     fun login(body:ReqSignIn){
         viewModelScope.launch(Dispatchers.IO) {
-            repo.signIn(body).let { res->
-                if (res.isSuccessful){
-                    loginRes.postValue(res.body())
+            try {
+                repo.signIn(body).also {res->
+                    if (res.isSuccessful){
+                        loginRes.postValue(res.body())
+                        Log.d("TAG","success")
+                    }
+                    else{
+                        Log.d("TAG",res.message())
+                        Log.d("TAG",res.errorBody().toString())
+                    }
                 }
-                else{
-                    Log.d("TAG","message : ${res.message()}")
-                    Log.d("TAG","error : ${res.errorBody()}")
-                }
+            }
+            catch (e:Throwable){
+                Log.d("TAG",e.toString())
             }
         }
     }

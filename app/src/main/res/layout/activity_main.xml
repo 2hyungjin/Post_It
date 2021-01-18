@@ -42,12 +42,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
             android:id="@+id/login_btn_sign_in"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="onSignInClick"
             android:text="@string/login" />
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"

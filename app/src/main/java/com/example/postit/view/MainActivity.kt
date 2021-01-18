@@ -2,6 +2,7 @@ package com.example.postit.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.postit.R
@@ -23,12 +24,12 @@ class MainActivity : AppCompatActivity() {
         val factory=ViewModelProviderFactory(repo)
         VM=ViewModelProvider(this,factory).get(LoginVM::class.java)
     }
-    fun onSignInClick(){
+    fun onSignInClick(view:View){
         val id=login_edt_id.editText?.text.toString()
         val pw=login_edt_pw.editText?.text.toString()
         VM.login(Req.ReqSignIn(id,pw,1))
         VM.loginRes.observe(this, Observer {
-            
+
         })
     }
 }
