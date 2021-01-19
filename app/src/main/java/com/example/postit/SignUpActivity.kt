@@ -22,7 +22,6 @@ class SignUpActivity : AppCompatActivity() {
         if (check()) {
             Toast.makeText(this, "suc", Toast.LENGTH_SHORT).show()
             val intent=Intent(this,SignUpDetailActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("id",id)
             intent.putExtra("pw",pw)
             startActivity(intent)
