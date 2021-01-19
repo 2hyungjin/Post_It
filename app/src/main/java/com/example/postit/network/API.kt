@@ -10,5 +10,5 @@ interface API {
     @POST("signin")
     suspend fun signIn(
         @Body req: Req.ReqSignIn
-    ): Response<Res>
+    ): Response<Res.ResSignIn>
 }

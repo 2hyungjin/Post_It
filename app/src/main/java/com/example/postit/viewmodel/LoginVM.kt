@@ -11,18 +11,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginVM(private val repo:AppRepo) : ViewModel() {
-    val loginRes= MutableLiveData<Res>()
+    val loginRes= MutableLiveData<Res.ResSignIn>()
     fun login(body:ReqSignIn){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repo.signIn(body).also {res->
+                repo.signIn(body).let {res->
                     if (res.isSuccessful){
-                        loginRes.postValue(res.body())
-                        Log.d("TAG","success")
+                        Log.d("TAG","suc ${res.body()?.token.toString()}")
                     }
                     else{
-                        Log.d("TAG",res.message())
-                        Log.d("TAG",res.errorBody().toString())
+                        Log.d("TAG","message : ${res.message()}")
+                        Log.d("TAG","error : ${res.errorBody()}")
                     }
                 }
             }
