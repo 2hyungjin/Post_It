@@ -128,7 +128,8 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/login_btn_sign_up_done"
+        android:onClick="onSignUpDoneClicked"
         style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
         android:layout_width="match_parent"
         android:layout_height="60dp"

@@ -17,7 +17,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
     }
 
-    fun onNextBtnClicked(view: View) {
+    fun onSignUpDoneClicked(view: View) {
         if (check()) {
             Toast.makeText(this, "suc", Toast.LENGTH_SHORT).show()
             finish()
