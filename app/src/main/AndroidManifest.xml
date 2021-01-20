@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp">
         <activity android:name=".SignUpDetailActivity"></activity>
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".view.SignUpActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,12 +1,11 @@
-package com.example.postit
+package com.example.postit.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.example.postit.network.model.Req
+import com.example.postit.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,10 +20,6 @@ class SignUpActivity : AppCompatActivity() {
     fun onNextBtnClicked(view: View) {
         if (check()) {
             Toast.makeText(this, "suc", Toast.LENGTH_SHORT).show()
-            val intent=Intent(this,SignUpDetailActivity::class.java)
-            intent.putExtra("id",id)
-            intent.putExtra("pw",pw)
-            startActivity(intent)
         }
 
     }

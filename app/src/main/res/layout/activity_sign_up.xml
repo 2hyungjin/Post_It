@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".SignUpActivity">
+    tools:context=".view.SignUpActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -24,9 +24,10 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="id"
             app:counterEnabled="true"
             app:counterMaxLength="15"
-            app:helperText="ID를 입력하세요">
+            app:helperText="4에서 15자리 영문 혹은 숫자">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -40,9 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:hint="비밀번호"
             app:counterEnabled="true"
             app:counterMaxLength="15"
-            app:helperText="비밀번호를 입력하세요"
+            app:helperText="4에서 15자리 영문 혹은 숫자"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             app:counterEnabled="true"
             app:counterMaxLength="15"
-            app:helperText="비밀번호를 다시 입력하세요"
+            app:helperText="비밀번호를 다시 입력하세요."
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -66,19 +68,12 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <
+        </LinearLayout>
     </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/sing_up_btn_next"
-        android:onClick="onNextBtnClicked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        app:icon="@drawable/ic_baseline_arrow_forward_24"
-        app:iconTint="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
