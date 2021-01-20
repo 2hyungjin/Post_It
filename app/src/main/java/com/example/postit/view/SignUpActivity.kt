@@ -20,6 +20,7 @@ class SignUpActivity : AppCompatActivity() {
     fun onNextBtnClicked(view: View) {
         if (check()) {
             Toast.makeText(this, "suc", Toast.LENGTH_SHORT).show()
+            finish()
         }
 
     }
