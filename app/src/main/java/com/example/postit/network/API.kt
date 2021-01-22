@@ -9,6 +9,15 @@ import retrofit2.http.POST
 interface API {
     @POST("signin")
     suspend fun signIn(
-        @Body req: Req.ReqSignIn
+        @Body body: Req.ReqSignIn
     ): Response<Res.ResSignIn>
+    @POST("signup")
+    suspend fun signUp(
+        @Body body: Req.ReqSignUp
+    ):Response<Int> //성공시 1 아닐시 0
+    @POST("/user/idCheck")
+    suspend fun chkid(
+        @Body id:String
+    ):Response<Int> //성공시 1 아닐시 0
+
 }

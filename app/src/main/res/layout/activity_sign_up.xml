@@ -50,7 +50,6 @@
             android:layout_marginTop="10dp"
             android:hint="이름"
             app:counterEnabled="true"
-            app:counterMaxLength="10"
             app:helperText="다른 사용자들에게 표시됨">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -73,13 +72,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/sign_up_btn_chkid"
+            android:onClick="chkid"
+            android:textColor="#2E2D2D"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아이디 중복 확인"
+            android:clickable="true"
+            android:layout_margin="5sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sign_up_edt_pw"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:hint="비밀번호"
             app:counterEnabled="true"
             app:counterMaxLength="15"
@@ -109,23 +116,6 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_edt_bd"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="생년월일"
-            app:counterEnabled="true"
-            app:counterMaxLength="8"
-            app:helperText="yyyymmdd">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -139,6 +129,7 @@
                 android:weightSum="2">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:checked="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
