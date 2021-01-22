@@ -14,8 +14,8 @@ import java.lang.Exception
 
 class LoginVM(private val repo:AppRepo) : ViewModel() {
     val loginRes= MutableLiveData<Res.ResSignIn>()
-    val singUpRes=MutableLiveData<Int>()
-    val idChk=MutableLiveData<Int>()
+    val singUpRes=MutableLiveData<Res.ResSignUp>()
+    val idChk=MutableLiveData<Res.ResChkId>()
     fun login(body:ReqSignIn){
         viewModelScope.launch(Dispatchers.IO) {
             try {

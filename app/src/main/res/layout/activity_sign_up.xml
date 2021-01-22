@@ -130,6 +130,7 @@
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:checked="true"
+                    android:id="@+id/sign_up_radio_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -137,6 +138,7 @@
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:layout_width="wrap_content"
+                    android:id="@+id/sign_up_radio_female"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="여성" />
