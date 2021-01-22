@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
-    private var idchk = false
+    private var idChk = false
     private lateinit var id: String
     private lateinit var pw: String
     private lateinit var pw2: String
@@ -28,11 +28,19 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         init()
-
+        VM.idChk.observe(this, androidx.lifecycle.Observer {
+            if (it == 1) {
+                idChk=true
+                Toast.makeText(this, "사용 가능한 id 입니다.", Toast.LENGTH_SHORT).show()
+                Log.d("TAG",idChk.toString())
+            }
+            else Toast.makeText(this, "사용 불가능한 id 입니다.", Toast.LENGTH_SHORT).show()
+        })
         sign_up_edt_id.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                idchk = false
+                Log.d("TAG",idChk.toString())
+                idChk = false
             }
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -47,10 +55,8 @@ class SignUpActivity : AppCompatActivity() {
     fun onSignUpDoneClicked(view: View) {
         if (check()) {
             Log.d("TAG","info is available")
-            val body=Req.ReqSignUp(id,pw,name,)
-            VM.signUp()
-            finish()
-
+            val body=Req.ReqSignUp(id,pw,name)
+            VM.signUp(body)
         }
 
     }
@@ -75,8 +81,9 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    fun chkid(view: View) {
-
+    fun chkId(view: View) {
+        id = sign_up_edt_id.editText?.text.toString()
+        VM.chkId(id)
     }
 
 }

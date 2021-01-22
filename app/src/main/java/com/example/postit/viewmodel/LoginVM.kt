@@ -15,6 +15,7 @@ import java.lang.Exception
 class LoginVM(private val repo:AppRepo) : ViewModel() {
     val loginRes= MutableLiveData<Res.ResSignIn>()
     val singUpRes=MutableLiveData<Int>()
+    val idChk=MutableLiveData<Int>()
     fun login(body:ReqSignIn){
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -51,6 +52,17 @@ class LoginVM(private val repo:AppRepo) : ViewModel() {
                 Log.d("TAG",e.toString())
             }
 
+        }
+    }
+    fun chkId(id:String){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.chkId(id).let {res->
+                if (res.isSuccessful)idChk.postValue(res.body())
+                else {
+                    Log.d("TAG","message : ${res.message()}")
+                    Log.d("TAG","error : ${res.errorBody()}")
+                }
+            }
         }
     }
 }

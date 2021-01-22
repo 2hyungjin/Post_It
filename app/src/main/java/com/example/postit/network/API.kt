@@ -16,7 +16,7 @@ interface API {
         @Body body: Req.ReqSignUp
     ):Response<Int> //성공시 1 아닐시 0
     @POST("/user/idCheck")
-    suspend fun chkid(
+    suspend fun chkId(
         @Body id:String
     ):Response<Int> //성공시 1 아닐시 0
 

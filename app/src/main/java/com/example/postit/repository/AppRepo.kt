@@ -8,4 +8,5 @@ import retrofit2.Retrofit
 class AppRepo {
     suspend fun signIn(body:Req.ReqSignIn)=myRetrofit.signIn(body)
     suspend fun signUp(body:Req.ReqSignUp)= myRetrofit.signUp(body)
+    suspend fun chkId(id:String)= myRetrofit.chkId(id)
 }
