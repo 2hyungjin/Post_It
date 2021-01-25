@@ -56,7 +56,7 @@ class SignUpActivity : AppCompatActivity() {
             if (check()) {
                 Log.d("TAG","info is available")
                 if (idChk){
-                    val gender=if(sign_up_radio_female.isChecked)1 else 0
+                    val gender=if(sign_up_radio_female.isChecked)2 else 1
                     val body=Req.ReqSignUp(id.text.toString(),pw.text.toString(),name.text.toString(),gender)
                     Log.d("TAG","body : $body")
                     VM.signUp(body)
