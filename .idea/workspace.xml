@@ -24,14 +24,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/model/Req.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/model/Req.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/model/Res.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/network/model/Res.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/view/SignUpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/view/SignUpActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/viewmodel/LoginVM.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/viewmodel/LoginVM.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sign_up.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,25 +173,25 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="654" y="92" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1611125256823" />
-    <state width="1750" height="307" key="GridCell.Tab.0.bottom" timestamp="1611543603550">
+    <state width="1750" height="251" key="GridCell.Tab.0.bottom" timestamp="1611543818201">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1611543603550" />
+    <state width="1750" height="251" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1611543818201" />
     <state width="1750" height="307" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1611542974708" />
-    <state width="1750" height="307" key="GridCell.Tab.0.center" timestamp="1611543603549">
+    <state width="1750" height="251" key="GridCell.Tab.0.center" timestamp="1611543818200">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1611543603549" />
+    <state width="1750" height="251" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1611543818200" />
     <state width="1750" height="307" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1611542974707" />
-    <state width="1750" height="307" key="GridCell.Tab.0.left" timestamp="1611543603548">
+    <state width="1750" height="251" key="GridCell.Tab.0.left" timestamp="1611543818200">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1611543603548" />
+    <state width="1750" height="251" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1611543818200" />
     <state width="1750" height="307" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1611542974706" />
-    <state width="1750" height="307" key="GridCell.Tab.0.right" timestamp="1611543603550">
+    <state width="1750" height="251" key="GridCell.Tab.0.right" timestamp="1611543818201">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1611543603550" />
+    <state width="1750" height="251" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1611543818201" />
     <state width="1750" height="307" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1611542974707" />
     <state x="100" y="100" width="1592" height="920" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1610961429493">
       <screen x="0" y="0" width="1792" height="1120" />
