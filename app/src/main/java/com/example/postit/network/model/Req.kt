@@ -8,5 +8,6 @@ object Req {
         val userId: String,
         val password: String,
         val name: String,
+        val genderId:Int
     )
 }

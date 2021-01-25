@@ -10,12 +10,11 @@ import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class LoginVM(private val repo:AppRepo) : ViewModel() {
     val loginRes= MutableLiveData<Res.ResSignIn>()
-    val singUpRes=MutableLiveData<Res.ResSignUp>()
-    val idChk=MutableLiveData<Res.ResChkId>()
+    val singUpRes=MutableLiveData<Res.Res>()
+    val idChk=MutableLiveData<Res.Res>()
     fun login(body:ReqSignIn){
         viewModelScope.launch(Dispatchers.IO) {
             try {

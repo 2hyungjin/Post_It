@@ -14,11 +14,11 @@ interface API {
     @POST("signup")
     suspend fun signUp(
         @Body body: Req.ReqSignUp
-    ):Response<Res.ResSignUp> //성공시 1 아닐시 0
+    ):Response<Res.Res> //성공시 1 아닐시 0
 
     @GET("user/idCheck")
     suspend fun chkId(
         @Query("userId") userId:String
-    ):Response<Res.ResChkId> //성공시 1 아닐시 0
+    ):Response<Res.Res> //성공시 1 아닐시 0
 
 }
