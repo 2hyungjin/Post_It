@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".view.LogInActivity">
 
+
     <LinearLayout
+        android:id="@+id/login_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -39,14 +41,16 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:inputType="textPassword"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
         </com.google.android.material.textfield.TextInputLayout>
+
         <CheckBox
             android:id="@+id/login_chk_auto_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자동 로그인"/>
+            android:text="자동 로그인" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn_sign_in"
@@ -55,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:onClick="onSignInClick"
+            android:onClick="onLoginClick"
             android:text="@string/login" />
 
         <com.google.android.material.button.MaterialButton
@@ -67,6 +71,11 @@
             android:text="@string/sign_up"
             android:textColor="#ffffff" />
     </LinearLayout>
+
+    <include
+        android:id="@+id/login_pb"
+        layout="@layout/progress_bar"
+        android:visibility="invisible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

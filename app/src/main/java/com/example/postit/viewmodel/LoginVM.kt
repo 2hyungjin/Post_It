@@ -1,6 +1,7 @@
 package com.example.postit.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class LoginVM(private val repo:AppRepo) : ViewModel() {
     val loginRes= MutableLiveData<Res.ResSignIn>()
+    val autoLoginRes=MutableLiveData<Res.ResSignIn>()
     val singUpRes=MutableLiveData<Res.Res>()
     val idChk=MutableLiveData<Res.Res>()
     fun login(body:ReqSignIn){
@@ -61,6 +63,19 @@ class LoginVM(private val repo:AppRepo) : ViewModel() {
                 else {
                     Log.d("TAG","message : ${res.message()}")
                     Log.d("TAG","error : ${res.errorBody()}")
+                }
+            }
+        }
+    }
+    fun autoLogin(){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.autoLogin().let {
+                if (it.isSuccessful){
+                    autoLoginRes.postValue(it.body())
+                }
+                else{
+                    Log.d("TAG",it.message())
+                    Log.d("TAG",it.errorBody().toString())
                 }
             }
         }
