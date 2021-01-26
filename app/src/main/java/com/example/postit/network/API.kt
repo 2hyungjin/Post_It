@@ -21,4 +21,5 @@ interface API {
         @Query("userId") userId:String
     ):Response<Res.Res> //성공시 1 아닐시 0
 
+
 }

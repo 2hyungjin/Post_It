@@ -20,6 +20,7 @@ class LoginVM(private val repo:AppRepo) : ViewModel() {
             try {
                 repo.signIn(body).let {res->
                     if (res.isSuccessful){
+                        loginRes.postValue(res.body())
                         Log.d("TAG","login suc : ${res.body()?.token.toString()}")
                     }
                     else{

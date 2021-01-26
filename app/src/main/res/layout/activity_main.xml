@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.LogInActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,13 +42,18 @@
                 android:inputType="textPassword"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
+        <CheckBox
+            android:id="@+id/login_chk_auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동 로그인"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn_sign_in"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:onClick="onSignInClick"
             android:text="@string/login" />
