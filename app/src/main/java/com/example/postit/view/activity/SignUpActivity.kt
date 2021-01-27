@@ -1,4 +1,4 @@
-package com.example.postit.view
+package com.example.postit.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

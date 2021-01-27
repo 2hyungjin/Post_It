@@ -1,14 +1,12 @@
-package com.example.postit.view
+package com.example.postit.view.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.postit.HomeActivity
 import com.example.postit.R
 import com.example.postit.network.Pref.App
 import com.example.postit.network.model.Req
