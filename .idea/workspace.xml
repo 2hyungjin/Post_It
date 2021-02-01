@@ -15,7 +15,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5926d7e4-2a9e-4eea-b71d-9a6b09f76614" name="Default Changelist" comment="" />
+    <list default="true" id="5926d7e4-2a9e-4eea-b71d-9a6b09f76614" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/rv_item.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,9 +42,9 @@
         <option value="Kotlin Object" />
         <option value="Class" />
         <option value="Kotlin File" />
-        <option value="layoutResourceFile" />
         <option value="resourceFile" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -175,10 +177,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="484" y="322" key="AndroidCreateResourceDirectoryDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1611727069828" />
-    <state x="484" y="322" key="AndroidCreateResourceFileDialog" timestamp="1611727081719">
+    <state x="484" y="322" key="AndroidCreateResourceFileDialog" timestamp="1612163001534">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="484" y="322" key="AndroidCreateResourceFileDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1611727081719" />
+    <state x="484" y="322" key="AndroidCreateResourceFileDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1612163001534" />
     <state width="1750" height="251" key="GridCell.Tab.0.bottom" timestamp="1611648955047">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
