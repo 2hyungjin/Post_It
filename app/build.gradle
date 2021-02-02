@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.postit"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -16,6 +16,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -47,8 +51,7 @@ dependencies {
     compile 'gun0912.ted:tedpermission:2.0.0'
 
     //image picker
-    implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
-    
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.0'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
