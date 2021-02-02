@@ -28,20 +28,27 @@ class LogInActivity : AppCompatActivity() {
         }
 
         VM.loginRes.observe(this, Observer {
-            hidePb()
-
-            App.prefs.isAutoLoginChked = login_chk_auto_login.isChecked
-            App.prefs.token = it.token
-            startActivity(Intent(this, HomeActivity::class.java))
+            if(it.result==1){
+                App.prefs.isAutoLoginChked = login_chk_auto_login.isChecked
+                App.prefs.token = it.token
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
+            else{
+                Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
+                hidePb()
+            }
         })
 
         VM.autoLoginRes.observe(this, Observer {
             hidePb()
-
             if (it.result == 1) {
+                hidePb()
                 App.prefs.token = it.token
                 startActivity(Intent(this, HomeActivity::class.java))
-            } else Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "자동 로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
+                hidePb()
+            }
         })
     }
 
