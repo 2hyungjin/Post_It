@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.esafirm.imagepicker.features.ImagePicker
 import com.example.postit.R
 import kotlinx.android.synthetic.main.fragment_add.*
+import java.io.File
 
 
 class AddFragment : Fragment() {
@@ -42,7 +43,7 @@ class AddFragment : Fragment() {
             Glide.with(this)
                 .load(image.uri)
                 .into(imageView4)
-            Log.d("TAG",image.toString())
+            Log.d("TAG",image.uri.toString())
         }
         super.onActivityResult(requestCode, resultCode, data)
 
