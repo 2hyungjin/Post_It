@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide
 import com.esafirm.imagepicker.features.ImagePicker
 import com.example.postit.R
 import kotlinx.android.synthetic.main.fragment_add.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 
 
@@ -44,6 +47,10 @@ class AddFragment : Fragment() {
                 .load(image.uri)
                 .into(imageView4)
             Log.d("TAG",image.uri.toString())
+            val file=File(image.uri.path!!)
+            val reqBody=RequestBody.create(MediaType.parse("image/jpeg"),file)
+            val fileP=MultipartBody.Part.createFormData("files",file.name,reqBody)
+            Log.d("TAG",fileP.toString())
         }
         super.onActivityResult(requestCode, resultCode, data)
 
