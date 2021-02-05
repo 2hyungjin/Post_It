@@ -19,7 +19,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/home_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/nav_menu"

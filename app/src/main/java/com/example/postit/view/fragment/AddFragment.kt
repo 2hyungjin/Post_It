@@ -1,24 +1,27 @@
 package com.example.postit.view.fragment
 
 import android.content.Intent
-import android.media.Image
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import android.widget.ArrayAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.esafirm.imagepicker.features.ImagePicker
 import com.example.postit.R
+import com.example.postit.adapter.ImgRvAdapter
 import kotlinx.android.synthetic.main.fragment_add.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 
-
+val arr= arrayListOf<String>("all","me","friend")
 class AddFragment : Fragment() {
+    lateinit var rvAdapter: ImgRvAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,12 +31,21 @@ class AddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        add_btn_add_image.setOnClickListener {
-            selectPic()
-        }
-
+        initV()
+        add_btn_add_img.setOnClickListener { selectPic() }
     }
 
+    private fun initV(){
+        rvAdapter=ImgRvAdapter()
+
+        val arrayAdapter=ArrayAdapter(context!!,android.R.layout.simple_spinner_item, arr)
+        add_spinner.adapter=arrayAdapter
+
+        add_rv.apply {
+            adapter=rvAdapter
+            layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+        }
+    }
     fun selectPic() {
         ImagePicker.create(this)
             .limit(5)
@@ -42,15 +54,17 @@ class AddFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (ImagePicker.shouldHandle(requestCode,resultCode,data)){
-            val image=ImagePicker.getFirstImageOrNull(data)
-            Glide.with(this)
-                .load(image.uri)
-                .into(imageView4)
-            Log.d("TAG",image.uri.toString())
-            val file=File(image.uri.path!!)
-            val reqBody=RequestBody.create(MediaType.parse("image/jpeg"),file)
-            val fileP=MultipartBody.Part.createFormData("files",file.name,reqBody)
-            Log.d("TAG",fileP.toString())
+            val imgList= arrayListOf<Uri>()
+            val images=ImagePicker.getImages(data)
+            for (i in images){
+                imgList.add(i.uri)
+            }
+            rvAdapter.setList(imgList)
+
+//            val file=File(image.uri.path!!)
+//            val reqBody=RequestBody.create(MediaType.parse("image/jpeg"),file)
+//            val fileP=MultipartBody.Part.createFormData("files",file.name,reqBody)
+//            Log.d("TAG",fileP.toString())
         }
         super.onActivityResult(requestCode, resultCode, data)
 
