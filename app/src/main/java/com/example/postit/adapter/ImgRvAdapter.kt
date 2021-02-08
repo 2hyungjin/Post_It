@@ -12,7 +12,7 @@ import com.example.postit.R
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class ImgRvAdapter : RecyclerView.Adapter<ImgRvAdapter.ImgViewHolder>() {
-    private var imgList= emptyList<Uri>()
+    private var imgList= ArrayList<Uri>()
     private lateinit var context: Context
     inner class ImgViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val img=view.findViewById<ImageView>(R.id.rv_item_img)
@@ -21,6 +21,10 @@ class ImgRvAdapter : RecyclerView.Adapter<ImgRvAdapter.ImgViewHolder>() {
                 .load(uri)
                 .centerCrop()
                 .into(img)
+            img.setOnClickListener {
+                imgList.remove(uri)
+                notifyDataSetChanged()
+            }
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImgRvAdapter.ImgViewHolder {

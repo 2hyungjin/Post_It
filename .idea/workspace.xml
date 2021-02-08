@@ -16,23 +16,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5926d7e4-2a9e-4eea-b71d-9a6b09f76614" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/adapter/ImgRvAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/rv_item_add_img.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/adapter/ImgRvAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/adapter/ImgRvAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/postit/view/fragment/AddFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/postit/view/fragment/AddFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,25 +190,25 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="484" y="322" key="AndroidCreateResourceFileDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1612513309301" />
-    <state width="1750" height="307" key="GridCell.Tab.0.bottom" timestamp="1612514692268">
+    <state width="1750" height="307" key="GridCell.Tab.0.bottom" timestamp="1612759829154">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1612514692268" />
+    <state width="1750" height="307" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1612759829154" />
     <state width="1750" height="307" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1612259259858" />
-    <state width="1750" height="307" key="GridCell.Tab.0.center" timestamp="1612514692267">
+    <state width="1750" height="307" key="GridCell.Tab.0.center" timestamp="1612759829153">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1612514692267" />
+    <state width="1750" height="307" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1612759829153" />
     <state width="1750" height="307" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1612259259857" />
-    <state width="1750" height="307" key="GridCell.Tab.0.left" timestamp="1612514692267">
+    <state width="1750" height="307" key="GridCell.Tab.0.left" timestamp="1612759829153">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1612514692267" />
+    <state width="1750" height="307" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1612759829153" />
     <state width="1750" height="307" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1612259259857" />
-    <state width="1750" height="307" key="GridCell.Tab.0.right" timestamp="1612514692268">
+    <state width="1750" height="307" key="GridCell.Tab.0.right" timestamp="1612759829153">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="307" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1612514692268" />
+    <state width="1750" height="307" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1612759829153" />
     <state width="1750" height="307" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1612259259858" />
     <state x="100" y="100" width="1592" height="920" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1610961429493">
       <screen x="0" y="0" width="1792" height="1120" />

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esafirm.imagepicker.features.ImagePicker
 import com.example.postit.R
@@ -21,6 +22,7 @@ import java.io.File
 
 val arr= arrayListOf<String>("all","me","friend")
 class AddFragment : Fragment() {
+    val imgList= arrayListOf<Uri>()
     lateinit var rvAdapter: ImgRvAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +34,10 @@ class AddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initV()
-        add_btn_add_img.setOnClickListener { selectPic() }
+        add_btn_add_img.setOnClickListener {
+            if(imgList.size>=5) Toast.makeText(context, "사진은 5개만 선택할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            else selectPic()
+        }
     }
 
     private fun initV(){
@@ -48,13 +53,12 @@ class AddFragment : Fragment() {
     }
     fun selectPic() {
         ImagePicker.create(this)
-            .limit(5)
+            .limit(5-imgList.size)
             .start()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (ImagePicker.shouldHandle(requestCode,resultCode,data)){
-            val imgList= arrayListOf<Uri>()
             val images=ImagePicker.getImages(data)
             for (i in images){
                 imgList.add(i.uri)
