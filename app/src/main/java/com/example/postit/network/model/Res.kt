@@ -9,7 +9,6 @@ object Res {
         val token: String,
         val message: String
     )
-
     data class Res(
         val result: Int
     )

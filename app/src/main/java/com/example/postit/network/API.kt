@@ -4,6 +4,7 @@ import android.security.identity.AccessControlProfile
 import com.example.postit.network.model.Req
 import com.example.postit.network.model.Res
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 import java.io.File
@@ -30,10 +31,11 @@ interface API {
     @Multipart
     @POST("board")
     suspend fun postContent(
-        @Part("date") date:String,
-        @Part("contents") content: String,
-        @Part("profile") profile: Int,
-        @Part("files") files:MultipartBody.Part,
-        @Part("show") show:String
-        )
+        @Part("date") date: RequestBody,
+        @Part("contents") content: RequestBody,
+        @Part("profile") profile:Int,
+        @Part files: ArrayList<MultipartBody.Part>,
+        @Part("show") show: RequestBody
+    ) : Response<Res.Res>
+
 }

@@ -1,5 +1,7 @@
 package com.example.postit.network.model
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.util.*
 
 object Req {
@@ -10,4 +12,5 @@ object Req {
         val name: String,
         val genderId:Int
     )
+
 }
