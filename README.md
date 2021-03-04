@@ -15,7 +15,50 @@ JSON Web Token의 약자로 안정성 있게 데이터를 교환하기 위해 �
 
 ---
 
-#### OkHttp3 Interceptor 사용하기
+### Shared Preference
+
+간단한 설정 값을 앱 내부의 DB에 저장하기 용이함 (앱 삭제시 데이터도 소거됨)
+
+#### 사용방법
+
+1. Preference Class 생성 후 preference 인스턴스 생성
+
+```kotlin
+class Prefs(context: Context) {
+    private val prefNm="mPref"
+    private val prefs=context.getSharedPreferences(prefNm,MODE_PRIVATE)
+}
+```
+
+2. get set 메서드를 통해 관리
+
+```kotlin
+var token:String?
+    get() = prefs.getString("token",null)
+    set(value){
+        prefs.edit().putString("token",value).apply()
+    }
+```
+
+3. activity보다 먼저 시작하기 위해 application에서 실행
+
+```kotlin
+class App :Application(){
+    companion object{
+        lateinit var prefs:Prefs
+    }
+    override fun onCreate() {
+        prefs=Prefs(applicationContext)
+        super.onCreate()
+    }
+}
+```
+
+
+
+---
+
+### OkHttp3 Interceptor 사용하기
 
 일일히 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
 
@@ -62,3 +105,4 @@ val retrofit: Retrofit by lazy {
         }
 ```
 
+### 
