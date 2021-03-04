@@ -10,17 +10,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 const val BASE_URL = "https://noons.herokuapp.com/"
 
 class Object {
-    companion object{
-        val okHttpClient=OkHttpClient.Builder().addInterceptor(AuthInterceptor())
-        val client= okHttpClient.build()
+    companion object {
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(AuthInterceptor()).build()
         val retrofit: Retrofit by lazy {
-         Retrofit.Builder().client(client).baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+            Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build()
         }
         val myRetrofit: API by lazy { retrofit.create(API::class.java) }
     }
-    class AuthInterceptor: Interceptor {
+
+    class AuthInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-            var req=chain.request().newBuilder().addHeader("Authorization", App.prefs.token).build()
+            var req =
+                chain.request().newBuilder().addHeader("Authorization", App.prefs.token).build()
             return chain.proceed(req)
         }
     }
