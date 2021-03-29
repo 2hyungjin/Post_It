@@ -14,8 +14,8 @@ import com.example.postit.R
 import com.example.postit.network.model.Res
 
 class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
-    val BoardList = arrayListOf<Res.Board>()
-    lateinit var context:Context
+    val boardList = arrayListOf<Res.FindBoard>()
+    lateinit var context: Context
 
     inner class BoardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvUserName = view.findViewById<TextView>(R.id.tv_rv_item_username)
@@ -26,22 +26,23 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
         fun bind(board: Res.FindBoard) {
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString()
-            if (board.user.profile!=0){
+            if (board.user.profile != 0) {
                 Glide.with(context)
                     .load(board.user.profile)
                     .into(imgProfile)
             }
-            if (board.images != null){
-                val snapHelper=PagerSnapHelper()
+            if (board.images != null) {
+                val snapHelper = PagerSnapHelper()
 
                 rvImage.apply {
-                    RecyclerView.LayoutManager = LinearLayoutManager(context)
-                    adapter = ImageAdapter(board.images as List<ImageView>)
+                    layoutManager = LinearLayoutManager(context).also {
+                        it.orientation = LinearLayoutManager.HORIZONTAL
+                    }
+                    adapter = ImageAdapter(board.images as List<String>)
                 }
-                
+
                 snapHelper.attachToRecyclerView(rvImage)
             }
-
 
 
         }
@@ -51,17 +52,24 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): BoardAdapter.BoardViewHolder {
-        context=parent.context
+        context = parent.context
         return BoardViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rv_board_item, parent, false)
         )
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return boardList.size
     }
 
     override fun onBindViewHolder(holder: BoardAdapter.BoardViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(boardList[position])
+    }
+
+    fun getList(list: List<Res.FindBoard>) {
+        for (board in list) {
+            boardList.add(board)
+        }
+        notifyDataSetChanged()
     }
 }
