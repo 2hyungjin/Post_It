@@ -33,9 +33,14 @@ interface API {
     suspend fun postContent(
         @Part("date") date: RequestBody,
         @Part("contents") content: RequestBody,
-        @Part("profile") profile:Int,
+        @Part("profile") profile: Int,
         @Part files: ArrayList<MultipartBody.Part>,
         @Part("show") show: RequestBody
-    ) : Response<Res.Res>
+    ): Response<Res.Res>
+
+    @GET("board")
+    suspend fun getBoards(
+        @Query("boardIds") boardId: List<Int>
+    ):Response<Res.Board>
 
 }
