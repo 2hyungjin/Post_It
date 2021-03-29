@@ -1,19 +1,60 @@
 package com.example.postit.adapter
 
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.postit.R
+import com.example.postit.network.model.Res
 
 class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
-    inner class BoardViewHolder(view:View):RecyclerView.ViewHolder(view) {
+    val BoardList = arrayListOf<Res.Board>()
+    lateinit var context:Context
 
+    inner class BoardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvUserName = view.findViewById<TextView>(R.id.tv_rv_item_username)
+        val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
+        val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
+        val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
+
+        fun bind(board: Res.FindBoard) {
+            tvUserName.text = board.user.userName
+            tvLikeCount.text = board.likeNum.toString()
+            if (board.user.profile!=0){
+                Glide.with(context)
+                    .load(board.user.profile)
+                    .into(imgProfile)
+            }
+            if (board.images != null){
+                val snapHelper=PagerSnapHelper()
+
+                rvImage.apply {
+                    RecyclerView.LayoutManager = LinearLayoutManager(context)
+                    adapter = ImageAdapter(board.images as List<ImageView>)
+                }
+                
+                snapHelper.attachToRecyclerView(rvImage)
+            }
+
+
+
+        }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BoardAdapter.BoardViewHolder {
-        TODO("Not yet implemented")
+        context=parent.context
+        return BoardViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.rv_board_item, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
