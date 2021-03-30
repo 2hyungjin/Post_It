@@ -31,7 +31,7 @@ class LogInActivity : AppCompatActivity() {
             if(it.result==1){
                 App.prefs.isAutoLoginChked = login_chk_auto_login.isChecked
                 App.prefs.token = it.token
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, BoardActivity::class.java))
             }
             else{
                 Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
@@ -44,7 +44,7 @@ class LogInActivity : AppCompatActivity() {
             if (it.result == 1) {
                 hidePb()
                 App.prefs.token = it.token
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, BoardActivity::class.java))
             } else {
                 Toast.makeText(this, "자동 로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                 hidePb()

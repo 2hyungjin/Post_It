@@ -23,6 +23,6 @@ class AppRepo {
         files: ArrayList<MultipartBody.Part>,
         show: RequestBody
     ) = myRetrofit.postContent(date,content,profile,files, show)
-
     suspend fun getBoard(boardIds:List<Int>)= myRetrofit.getBoards(boardIds)
+
 }

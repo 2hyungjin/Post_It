@@ -33,14 +33,12 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
             }
             if (board.images != null) {
                 val snapHelper = PagerSnapHelper()
-
                 rvImage.apply {
                     layoutManager = LinearLayoutManager(context).also {
                         it.orientation = LinearLayoutManager.HORIZONTAL
                     }
                     adapter = ImageAdapter(board.images as List<String>)
                 }
-
                 snapHelper.attachToRecyclerView(rvImage)
             }
 
@@ -66,10 +64,13 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
         holder.bind(boardList[position])
     }
 
-    fun getList(list: List<Res.FindBoard>) {
+    fun setList(list: List<Res.FindBoard>) {
         for (board in list) {
             boardList.add(board)
         }
         notifyDataSetChanged()
+    }
+    fun initScrollListner(){
+
     }
 }

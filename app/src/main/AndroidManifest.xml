@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="q">
-        <activity android:name=".view.activity.HomeActivity"></activity>
+        <activity android:name=".view.activity.BoardActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LogInActivity">
             <intent-filter>

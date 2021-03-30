@@ -11,6 +11,9 @@ class ViewModelProviderFactory(
         if (modelClass.isAssignableFrom(LoginVM::class.java)){
             return LoginVM(repo) as T
         }
+        else if (modelClass.isAssignableFrom(BoardVM::class.java)){
+            return BoardVM(repo) as T
+        }
         throw IllegalArgumentException("Unknown class name")
     }
 
