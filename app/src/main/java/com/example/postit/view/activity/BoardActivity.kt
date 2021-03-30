@@ -23,7 +23,11 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
         init()
         boardViewModel.getBoardRes.observe(this, Observer { res ->
-//            boardAdapter.setList(res.findBoard)
+            boardAdapter.apply {
+                setViewType(true)
+                setList(res.findBoard)
+                removeProgressBar()
+            }
         })
 
     }
@@ -54,6 +58,7 @@ class BoardActivity : AppCompatActivity() {
                 super.onScrolled(recyclerView, dx, dy)
                 if (rv_board.canScrollVertically(1)) {
                     loadBoard()
+                    boardAdapter.setViewType(false)
                 }
             }
         })

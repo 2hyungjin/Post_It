@@ -14,34 +14,36 @@ import com.example.postit.R
 import com.example.postit.network.model.Res
 
 class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
-    val boardList = arrayListOf<Res.FindBoard>()
+    private var VIEW_TYPE = true
+    private val boardList = arrayListOf<Res.FindBoard>()
     lateinit var context: Context
 
-    inner class BoardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvUserName = view.findViewById<TextView>(R.id.tv_rv_item_username)
-        val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
-        val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
-        val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
-
+    inner class BoardViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(board: Res.FindBoard) {
-            tvUserName.text = board.user.userName
-            tvLikeCount.text = board.likeNum.toString()
-            if (board.user.profile != 0) {
-                Glide.with(context)
-                    .load(board.user.profile)
-                    .into(imgProfile)
-            }
-            if (board.images != null) {
-                val snapHelper = PagerSnapHelper()
-                rvImage.apply {
-                    layoutManager = LinearLayoutManager(context).also {
-                        it.orientation = LinearLayoutManager.HORIZONTAL
-                    }
-                    adapter = ImageAdapter(board.images as List<String>)
-                }
-                snapHelper.attachToRecyclerView(rvImage)
-            }
+            if (VIEW_TYPE){
+                val tvUserName = view.findViewById<TextView>(R.id.tv_rv_item_username)
+                val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
+                val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
+                val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
 
+                tvUserName.text = board.user.userName
+                tvLikeCount.text = board.likeNum.toString()
+                if (board.user.profile != 0) {
+                    Glide.with(context)
+                        .load(board.user.profile)
+                        .into(imgProfile)
+                }
+                if (board.images != null) {
+                    val snapHelper = PagerSnapHelper()
+                    rvImage.apply {
+                        layoutManager = LinearLayoutManager(context).also {
+                            it.orientation = LinearLayoutManager.HORIZONTAL
+                        }
+                        adapter = ImageAdapter(board.images as List<String>)
+                    }
+                    snapHelper.attachToRecyclerView(rvImage)
+                }
+            }
 
         }
     }
@@ -51,9 +53,16 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
         viewType: Int
     ): BoardAdapter.BoardViewHolder {
         context = parent.context
-        return BoardViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_board_item, parent, false)
-        )
+        if (VIEW_TYPE) {
+            return BoardViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.rv_board_item, parent, false)
+            )
+        } else {
+            return BoardViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.rv_item_loading, parent, false)
+            )
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -70,7 +79,12 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.BoardViewHolder>() {
         }
         notifyDataSetChanged()
     }
-    fun initScrollListner(){
+    fun removeProgressBar(){
+        notifyItemRemoved(boardList.size)
+        notifyDataSetChanged()
+    }
 
+    fun setViewType(chk:Boolean){
+        VIEW_TYPE=chk
     }
 }
