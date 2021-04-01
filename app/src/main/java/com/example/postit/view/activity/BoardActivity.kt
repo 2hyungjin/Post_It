@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postit.R
 import com.example.postit.adapter.BoardAdapter
+import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -25,7 +26,7 @@ class BoardActivity : AppCompatActivity() {
         boardViewModel.getBoardRes.observe(this, Observer { res ->
             boardAdapter.apply {
                 setViewType(true)
-                setList(res.findBoard)
+                setList(res.findBoard as List<Res.FindBoard>)
                 removeProgressBar()
             }
         })
@@ -37,15 +38,15 @@ class BoardActivity : AppCompatActivity() {
         val factory = ViewModelProviderFactory(repo)
         boardViewModel = ViewModelProvider(this, factory).get(BoardVM::class.java)
 
+        initScrollListener()
+
         boardAdapter = BoardAdapter()
         rv_board.apply {
             layoutManager = LinearLayoutManager(this@BoardActivity)
             adapter = boardAdapter
         }
-
         // 게시글 받아오기
         loadBoard()
-        initScrollListener()
     }
 
     fun loadBoard() {
