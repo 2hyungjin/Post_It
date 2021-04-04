@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_board.*
 
 class BoardActivity : AppCompatActivity() {
     lateinit var boardViewModel: BoardVM
-    private val boardIdxList = arrayListOf<Int>(-1,-2)
+    private val boardIdxList = arrayListOf<Int>(-1, -2)
 
     private lateinit var boardAdapter: BoardAdapter
 
@@ -26,6 +26,8 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
         init()
         boardViewModel.getBoardRes.observe(this, Observer { res ->
+            boardIdxList.clear()
+            for (i in res.findBoard) boardIdxList.add(i.boardId)
             boardAdapter.apply {
                 setViewType(true)
                 setList(res.findBoard as List<Res.FindBoard>)
@@ -42,36 +44,38 @@ class BoardActivity : AppCompatActivity() {
 
         initScrollListener()
 
-        boardAdapter = BoardAdapter()
-        rv_board.apply {
-            layoutManager = LinearLayoutManager(this@BoardActivity)
-            adapter = boardAdapter
-        }
         // 게시글 받아오기
         loadBoard()
     }
 
     fun loadBoard() {
-        var boardIdxListVerString="["
-        var chkIdx=0
-        for (i in boardIdxList){
+        var boardIdxListVerString = "["
+        var chkIdx = 0
+        for (i in boardIdxList) {
             boardIdxListVerString += "$i"
-            if (chkIdx!=boardIdxList.lastIndex){
-                Log.d("Board",boardIdxList.lastIndex.toString())
+            if (chkIdx != boardIdxList.lastIndex) {
+                Log.d("Board", boardIdxList.lastIndex.toString())
                 boardIdxListVerString += ","
             }
             chkIdx++
         }
-        boardIdxListVerString+="]"
+        boardIdxListVerString += "]"
         boardViewModel.getBoard(boardIdxListVerString)
     }
 
     fun initScrollListener() {
+        boardAdapter = BoardAdapter()
+        val layoutManager = LinearLayoutManager(this)
+        rv_board.apply {
+            this.layoutManager = layoutManager
+            adapter = boardAdapter
+        }
         rv_board.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (rv_board.canScrollVertically(1)) {
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.size-1) {
 //                    loadBoard()
+                    Log.d("board","load more")
                     boardAdapter.setViewType(false)
                 }
             }
