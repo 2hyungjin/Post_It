@@ -71,7 +71,7 @@ class BoardActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (rv_board.canScrollVertically(1)) {
-                    loadBoard()
+//                    loadBoard()
                     boardAdapter.setViewType(false)
                 }
             }
