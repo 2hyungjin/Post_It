@@ -40,7 +40,7 @@ interface API {
 
     @GET("board")
     suspend fun getBoards(
-        @Query("boardIds") boardId: List<Int>
+        @Query("boardIds") boardId: String
     ):Response<Res.Board>
 
 }

@@ -2,6 +2,7 @@ package com.example.postit.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,8 @@ import kotlinx.android.synthetic.main.activity_board.*
 
 class BoardActivity : AppCompatActivity() {
     lateinit var boardViewModel: BoardVM
-    private val boardIdxList = arrayListOf<Int>(-1)
+    private val boardIdxList = arrayListOf<Int>(-1,-2)
+
     private lateinit var boardAdapter: BoardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,18 @@ class BoardActivity : AppCompatActivity() {
     }
 
     fun loadBoard() {
-        boardViewModel.getBoard(boardIdxList)
+        var boardIdxListVerString="["
+        var chkIdx=0
+        for (i in boardIdxList){
+            boardIdxListVerString += "$i"
+            if (chkIdx!=boardIdxList.lastIndex){
+                Log.d("Board",boardIdxList.lastIndex.toString())
+                boardIdxListVerString += ","
+            }
+            chkIdx++
+        }
+        boardIdxListVerString+="]"
+        boardViewModel.getBoard(boardIdxListVerString)
     }
 
     fun initScrollListener() {

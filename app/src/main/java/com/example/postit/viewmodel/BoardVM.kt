@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class BoardVM(val repo:AppRepo):ViewModel() {
     val getBoardRes= MutableLiveData<Res.Board>()
-    fun getBoard(id:List<Int>){
+    fun getBoard(id:String){
         viewModelScope.launch {
             repo.getBoard(id).let { res->
                 if (res.isSuccessful){

@@ -5,7 +5,7 @@
 
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_item_rv"
@@ -31,11 +31,11 @@
             android:src="@drawable/ic_baseline_person_24" />
 
         <TextView
-            android:layout_margin="7dp"
             android:id="@+id/tv_rv_item_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="7dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             tools:text="이형진" />
@@ -48,11 +48,10 @@
         app:layout_constraintTop_toBottomOf="@+id/rv_item_rv">
 
         <TextView
+            android:id="@+id/tv_rv_item_like_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_rv_item_like_count"
-            tools:text="6개"
-            />
+            tools:text="6개" />
 
     </LinearLayout>
 
