@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -34,9 +35,9 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             }
             else -> {
-                return BoardViewHolder(
+                return LoadingViewHolder(
                     LayoutInflater.from(parent.context)
-                        .inflate(R.layout.rv_board_item_no_image, parent, false)
+                        .inflate(R.layout.rv_item_loading, parent, false)
                 )
             }
         }
@@ -57,15 +58,14 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             tvLikeCount.text = board.likeNum.toString()
 
             val snapHelper = PagerSnapHelper()
-            rvImage.apply {
-                layoutManager = LinearLayoutManager(context).also {
-                    it.orientation = LinearLayoutManager.HORIZONTAL
-                }
-                val boardImageList= arrayListOf<String>()
-                val boardImages=board.images.toString().split(",")
-                for (i in boardImages)boardImageList.add(i)
-                adapter = ImageAdapter(boardImageList)
+            rvImage.layoutManager = LinearLayoutManager(context).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
             }
+            val boardImageList = arrayListOf<String>()
+            val boardImages = board.images.toString().split(",")
+            for (i in boardImages) boardImageList.add(i)
+            rvImage.adapter = ImageAdapter(boardImageList)
+            rvImage.onFlingListener=null
             snapHelper.attachToRecyclerView(rvImage)
             if (board.user.profile != 0) {
                 Glide.with(context)
@@ -90,6 +90,9 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
     }
+    inner class LoadingViewHolder(val view:View):RecyclerView.ViewHolder(view){
+        val pb=view.findViewById<ProgressBar>(R.id.progressBar_bottom)
+    }
 
 
     override fun getItemCount(): Int {
@@ -97,7 +100,7 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        val boardImage = boardList[position].images
+        val boardImage = boardList[position]?.images
         if (null != boardImage) {
             return 0
         } else if (LOADING_CHK) {
@@ -122,13 +125,16 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is BoardViewHolder) {
-            holder.bind(boardList[position])
+            holder.bind(boardList[position]!!)
         } else if (holder is BoardViewHolderNoImages) {
-            holder.bind(boardList[position])
+            holder.bind(boardList[position]!!)
         } else {
-
+//            boardList.add(null)
         }
     }
-    fun setLoadingChk(chk:Boolean){LOADING_CHK=chk}
+
+    fun setLoadingChk(chk: Boolean) {
+        LOADING_CHK = chk
+    }
 
 }

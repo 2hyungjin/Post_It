@@ -17,8 +17,9 @@ import kotlinx.android.synthetic.main.activity_board.*
 
 class BoardActivity : AppCompatActivity() {
     lateinit var boardViewModel: BoardVM
-    private val boardIdxList = arrayListOf<Int>(-1, -2)
-
+    private val boardIdxList = arrayListOf<Int>(-1)
+    private var MORE_LOADING=true
+    private var LOADING=true
     private lateinit var boardAdapter: BoardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,11 +27,14 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
         init()
         boardViewModel.getBoardRes.observe(this, Observer { res ->
+            if (res==null)MORE_LOADING=false
             boardIdxList.clear()
             for (i in res.findBoard) boardIdxList.add(i.boardId)
             boardAdapter.apply {
-                setList(res.findBoard as List<Res.FindBoard>)
-                removeProgressBar()
+                setLoadingChk(false)
+                setList(res.findBoard)
+                LOADING=true
+//                removeProgressBar()
             }
         })
 
@@ -58,6 +62,7 @@ class BoardActivity : AppCompatActivity() {
             chkIdx++
         }
         boardIdxListVerString += "]"
+        Log.d("board",boardIdxListVerString)
         boardViewModel.getBoard(boardIdxListVerString)
     }
 
@@ -72,7 +77,12 @@ class BoardActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.size-1) {
-                    loadBoard()
+                    if (MORE_LOADING||LOADING){
+                        LOADING=false
+                        boardAdapter.LOADING_CHK=true
+                        loadBoard()
+                        Log.d("board","loading")
+                    }
                     Log.d("board","load more")
                 }
             }

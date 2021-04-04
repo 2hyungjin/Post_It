@@ -18,6 +18,7 @@ class ImageAdapter(val imgList: ArrayList<String>) :
         fun bind(){
             Glide.with(context)
                 .load(imgList[adapterPosition])
+                .centerCrop()
                 .into(imgItem)
         }
     }
