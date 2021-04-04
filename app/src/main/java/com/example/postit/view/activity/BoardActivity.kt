@@ -29,7 +29,6 @@ class BoardActivity : AppCompatActivity() {
             boardIdxList.clear()
             for (i in res.findBoard) boardIdxList.add(i.boardId)
             boardAdapter.apply {
-                setViewType(true)
                 setList(res.findBoard as List<Res.FindBoard>)
                 removeProgressBar()
             }
@@ -74,9 +73,8 @@ class BoardActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.size-1) {
-//                    loadBoard()
+                    loadBoard()
                     Log.d("board","load more")
-                    boardAdapter.setViewType(false)
                 }
             }
         })
