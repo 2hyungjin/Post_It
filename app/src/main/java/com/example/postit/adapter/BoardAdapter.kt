@@ -61,7 +61,10 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 layoutManager = LinearLayoutManager(context).also {
                     it.orientation = LinearLayoutManager.HORIZONTAL
                 }
-                adapter = ImageAdapter(board.images as List<String>)
+                val boardImageList= arrayListOf<String>()
+                val boardImages=board.images.toString().split(",")
+                for (i in boardImages)boardImageList.add(i)
+                adapter = ImageAdapter(boardImageList)
             }
             snapHelper.attachToRecyclerView(rvImage)
             if (board.user.profile != 0) {

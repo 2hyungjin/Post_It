@@ -53,7 +53,6 @@ class BoardActivity : AppCompatActivity() {
         for (i in boardIdxList) {
             boardIdxListVerString += "$i"
             if (chkIdx != boardIdxList.lastIndex) {
-                Log.d("Board", boardIdxList.lastIndex.toString())
                 boardIdxListVerString += ","
             }
             chkIdx++

@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.postit.R
 import kotlinx.android.synthetic.main.rv_item_add_img.view.*
 
-class ImageAdapter(val imgList: List<String>) :
+class ImageAdapter(val imgList: ArrayList<String>) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     lateinit var context:Context
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
