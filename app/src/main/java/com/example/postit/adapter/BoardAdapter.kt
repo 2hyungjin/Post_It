@@ -18,16 +18,15 @@ import com.example.postit.network.model.Res
 class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val boardList = arrayListOf<Res.FindBoard?>()
     lateinit var context: Context
-    var LOADING_CHK = false
 
     override fun getItemViewType(position: Int): Int {
-        val boardImage = boardList[position]?.images
-        if (null != boardImage) {
+        val board = boardList[position]
+        if (null != board?.images) {
             return 0
-        } else if (LOADING_CHK) {
-            return -1
-        } else {
+        } else if (null != board) {
             return 1
+        } else {
+            return -1
         }
     }
 
@@ -121,7 +120,7 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun removeProgressBar() {
-        notifyItemRemoved(boardList.size)
+        notifyItemRemoved(boardList.lastIndex)
         notifyDataSetChanged()
     }
 
@@ -135,13 +134,10 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun showProgressBar() {
-        Log.d("board","board List = "+boardList.toString())
-        boardList.add(null)
-        notifyItemChanged(boardList.lastIndex)
-    }
 
-    fun setLoadingChk(chk: Boolean) {
-        LOADING_CHK = chk
+        Log.d("board", "board List = " + boardList.toString())
+        boardList.add(null)
+        notifyItemInserted(boardList.lastIndex)
     }
 
 }
