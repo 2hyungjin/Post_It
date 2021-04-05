@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postit.R
 import com.example.postit.adapter.BoardAdapter
-import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -45,7 +44,7 @@ class BoardActivity : AppCompatActivity() {
         val factory = ViewModelProviderFactory(repo)
         boardViewModel = ViewModelProvider(this, factory).get(BoardVM::class.java)
 
-        initScrollListener()
+        initRecyclerView()
 
         // 게시글 받아오기
         loadBoard()
@@ -66,7 +65,7 @@ class BoardActivity : AppCompatActivity() {
         boardViewModel.getBoard(boardIdxListVerString)
     }
 
-    fun initScrollListener() {
+    fun initRecyclerView() {
         boardAdapter = BoardAdapter()
         val layoutManager = LinearLayoutManager(this)
         rv_board.apply {
@@ -77,10 +76,11 @@ class BoardActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.size-1) {
-                    if (MORE_LOADING||LOADING){
+                    if (MORE_LOADING&&LOADING){
                         LOADING=false
-                        boardAdapter.LOADING_CHK=true
-                        loadBoard()
+                        boardAdapter.setLoadingChk(true)
+                        boardAdapter.showProgressBar()
+//                        loadBoard()
                         Log.d("board","loading")
                     }
                     Log.d("board","load more")

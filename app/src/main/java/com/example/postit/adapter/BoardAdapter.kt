@@ -1,6 +1,7 @@
 package com.example.postit.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,20 @@ import com.example.postit.R
 import com.example.postit.network.model.Res
 
 class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val boardList = arrayListOf<Res.FindBoard>()
+    private val boardList = arrayListOf<Res.FindBoard?>()
     lateinit var context: Context
     var LOADING_CHK = false
+
+    override fun getItemViewType(position: Int): Int {
+        val boardImage = boardList[position]?.images
+        if (null != boardImage) {
+            return 0
+        } else if (LOADING_CHK) {
+            return -1
+        } else {
+            return 1
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
@@ -65,7 +77,7 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val boardImages = board.images.toString().split(",")
             for (i in boardImages) boardImageList.add(i)
             rvImage.adapter = ImageAdapter(boardImageList)
-            rvImage.onFlingListener=null
+            rvImage.onFlingListener = null
             snapHelper.attachToRecyclerView(rvImage)
             if (board.user.profile != 0) {
                 Glide.with(context)
@@ -90,8 +102,9 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
         }
     }
-    inner class LoadingViewHolder(val view:View):RecyclerView.ViewHolder(view){
-        val pb=view.findViewById<ProgressBar>(R.id.progressBar_bottom)
+
+    inner class LoadingViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val pb = view.findViewById<ProgressBar>(R.id.progressBar_bottom)
     }
 
 
@@ -99,16 +112,6 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return boardList.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        val boardImage = boardList[position]?.images
-        if (null != boardImage) {
-            return 0
-        } else if (LOADING_CHK) {
-            return -1
-        } else {
-            return 1
-        }
-    }
 
     fun setList(list: List<Res.FindBoard>) {
         for (board in list) {
@@ -128,9 +131,13 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.bind(boardList[position]!!)
         } else if (holder is BoardViewHolderNoImages) {
             holder.bind(boardList[position]!!)
-        } else {
-//            boardList.add(null)
         }
+    }
+
+    fun showProgressBar() {
+        Log.d("board","board List = "+boardList.toString())
+        boardList.add(null)
+        notifyItemChanged(boardList.lastIndex)
     }
 
     fun setLoadingChk(chk: Boolean) {
