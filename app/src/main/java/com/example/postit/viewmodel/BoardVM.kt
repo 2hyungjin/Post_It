@@ -15,7 +15,6 @@ class BoardVM(val repo:AppRepo):ViewModel() {
         viewModelScope.launch {
             repo.getBoard(id).let { res->
                 if (res.isSuccessful){
-                    Log.d("BoardVM",res.body().toString())
                     getBoardRes.postValue(res.body())
                 }else{
                     Log.d("BoardVM",res.body().toString())

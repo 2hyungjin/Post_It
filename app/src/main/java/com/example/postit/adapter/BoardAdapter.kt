@@ -120,8 +120,8 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun removeProgressBar() {
+        boardList.remove(null)
         notifyItemRemoved(boardList.lastIndex)
-        notifyDataSetChanged()
     }
 
 
@@ -134,8 +134,6 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun showProgressBar() {
-
-        Log.d("board", "board List = " + boardList.toString())
         boardList.add(null)
         notifyItemInserted(boardList.lastIndex)
     }
