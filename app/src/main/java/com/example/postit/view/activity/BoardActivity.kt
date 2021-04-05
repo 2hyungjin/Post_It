@@ -26,11 +26,13 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
         init()
         boardViewModel.getBoardRes.observe(this, Observer { res ->
+
             if (res == null) MORE_LOADING = false
             for (i in res.findBoard) boardIdxList.add(i.boardId)
             boardAdapter.apply {
                 setList(res.findBoard)
                 LOADING = true
+                removeProgressBar()
             }
         })
         btn_asf.setOnClickListener {
@@ -86,14 +88,14 @@ class BoardActivity : AppCompatActivity() {
         rv_board.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.size - 1) {
+                if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
                     if (MORE_LOADING && LOADING) {
                         LOADING = false
-                        boardAdapter.showProgressBar()
-                        loadBoard()
-                        Log.d("board", "loading")
+                        rv_board.post {
+                            boardAdapter.showProgressBar()
+                            loadBoard()
+                        }
                     }
-                    Log.d("board", "load more")
                 }
             }
         })

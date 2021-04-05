@@ -135,7 +135,7 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun showProgressBar() {
         boardList.add(null)
-        notifyItemInserted(boardList.lastIndex)
+        notifyDataSetChanged()
     }
 
 }
