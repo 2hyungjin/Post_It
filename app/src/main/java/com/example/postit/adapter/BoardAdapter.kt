@@ -52,7 +52,6 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             }
         }
-
     }
 
 
@@ -137,5 +136,5 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         boardList.add(null)
         notifyDataSetChanged()
     }
-
 }
+
