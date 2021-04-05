@@ -61,12 +61,12 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val tvContents = view.findViewById<TextView>(R.id.tv_rv_item_contents)
         val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
         val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
-        val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
+//        val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
 
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
-            tvLikeCount.text = board.likeNum.toString()
+//            tvLikeCount.text = board.likeNum.toString()
 
             val snapHelper = PagerSnapHelper()
             rvImage.layoutManager = LinearLayoutManager(context).also {
