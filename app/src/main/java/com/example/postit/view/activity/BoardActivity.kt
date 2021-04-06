@@ -35,18 +35,6 @@ class BoardActivity : AppCompatActivity() {
                 removeProgressBar()
             }
         })
-        btn_asf.setOnClickListener {
-            if (MORE_LOADING && LOADING) {
-                LOADING = false
-                boardAdapter.showProgressBar()
-                loadBoard()
-                Log.d("board", "loading")
-            }
-            Log.d("board", "load more")
-
-            Log.d("board", boardIdxList.toString())
-            boardAdapter.removeProgressBar()
-        }
 
     }
 
