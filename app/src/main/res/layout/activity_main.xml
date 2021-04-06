@@ -59,17 +59,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/colorPrimary"
             android:onClick="onLoginClick"
-            android:text="@string/login" />
+            android:text="@string/login"
+            android:textColor="@color/colorAccent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_btn_sign_up"
             style="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
             android:onClick="onSignUpClick"
+
             android:text="@string/sign_up"
-            android:textColor="#ffffff" />
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
     <include

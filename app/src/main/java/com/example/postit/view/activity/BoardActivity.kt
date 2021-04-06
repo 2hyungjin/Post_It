@@ -24,16 +24,21 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+
         init()
         boardViewModel.getBoardRes.observe(this, Observer { res ->
-
-            if (res == null) MORE_LOADING = false
-            for (i in res.findBoard) boardIdxList.add(i.boardId)
-            boardAdapter.apply {
-                setList(res.findBoard)
-                LOADING = false
-                removeProgressBar()
+            if (res == null) {
+                MORE_LOADING = false
             }
+            else{
+                for (i in res.findBoard) boardIdxList.add(i.boardId)
+                boardAdapter.apply {
+                    setList(res.findBoard)
+                    LOADING = false
+                    removeProgressBar()
+                }
+            }
+
         })
 
     }

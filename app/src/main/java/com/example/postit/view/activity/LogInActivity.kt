@@ -3,6 +3,7 @@ package com.example.postit.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -21,19 +22,20 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d("login",App.prefs.token.toString())
         init()
         if (App.prefs.isAutoLoginChked) {
-            login_chk_auto_login.isChecked=true
+            login_chk_auto_login.isChecked = true
             autoLogin()
         }
 
         VM.loginRes.observe(this, Observer {
-            if(it.result==1){
+            if (it.result == 1) {
                 App.prefs.isAutoLoginChked = login_chk_auto_login.isChecked
+                Log.d("login", it.token)
                 App.prefs.token = it.token
                 startActivity(Intent(this, BoardActivity::class.java))
-            }
-            else{
+            } else {
                 Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                 hidePb()
             }
@@ -75,10 +77,12 @@ class LogInActivity : AppCompatActivity() {
         VM.autoLogin()
         Toast.makeText(this, "자동 로그인하였습니다", Toast.LENGTH_SHORT).show()
     }
-    fun showPb(){
-        login_pb.visibility=View.VISIBLE
+
+    fun showPb() {
+        login_pb.visibility = View.VISIBLE
     }
-    fun hidePb(){
-        login_pb.visibility=View.INVISIBLE
+
+    fun hidePb() {
+        login_pb.visibility = View.INVISIBLE
     }
 }

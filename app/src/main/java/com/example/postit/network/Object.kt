@@ -1,5 +1,6 @@
 package com.example.postit.network
 
+import android.util.Log
 import com.example.postit.network.Pref.App
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -23,9 +24,11 @@ class Object {
 
     class AuthInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
-            var req =
-                chain.request().newBuilder().addHeader("Authorization", App.prefs.token).build()
+            Log.d("login", App.prefs.token.toString())
+            val req =
+                chain.request().newBuilder().addHeader("Authorization", App.prefs.token?:"").build()
             return chain.proceed(req)
+
         }
     }
 }
