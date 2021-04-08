@@ -32,118 +32,112 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_edt_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="이름"
+        app:helperText="다른 사용자들에게 표시됨"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:layout_editor_absoluteX="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_edt_id"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="id"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:helperText="4에서 15자리 영문 혹은 숫자"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_edt_name"
+        tools:layout_editor_absoluteX="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_edt_pw"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="비밀번호"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:helperText="4에서 15자리 영문 혹은 숫자"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_edt_id"
+        app:passwordToggleEnabled="true"
+        tools:layout_editor_absoluteX="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_up_edt_pw2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:helperText="비밀번호를 다시 입력하세요."
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_edt_pw"
+        app:passwordToggleEnabled="true"
+        tools:layout_editor_absoluteX="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_edt_pw2"
+        tools:layout_editor_absoluteX="20dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_edt_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="이름"
-            app:helperText="다른 사용자들에게 표시됨">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_edt_id"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="id"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
-            app:helperText="4에서 15자리 영문 혹은 숫자">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:id="@+id/sign_up_btn_chkid"
-            android:onClick="chkId"
-            android:textColor="#2E2D2D"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디 중복 확인"
-            android:clickable="true"
-            />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_edt_pw"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="비밀번호"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
-            app:helperText="4에서 15자리 영문 혹은 숫자"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/sign_up_radio_male"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:checked="false"
+                android:text="남성" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/sign_up_edt_pw2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
-            app:helperText="비밀번호를 다시 입력하세요."
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/sign_up_radio_female"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_weight="1"
+                android:text="여성" />
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/sign_up_radio_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="false"
-                    android:text="남성" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:layout_width="wrap_content"
-                    android:id="@+id/sign_up_radio_female"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="여성" />
-
-            </RadioGroup>
-        </LinearLayout>
+        </RadioGroup>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -152,14 +146,30 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="가입하기"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorAccent"
+
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <include
-        layout="@layout/progress_bar"
         android:id="@+id/sign_up_pb"
-        android:visibility="invisible"/>
+        layout="@layout/progress_bar"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="20dp" />
 
+    <TextView
+        android:id="@+id/sign_up_btn_chkid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7dp"
+        android:clickable="true"
+        android:onClick="chkId"
+        android:text="아이디 중복 확인"
+        android:textColor="#2E2D2D"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_up_edt_id"
+        app:layout_constraintEnd_toEndOf="@+id/sign_up_edt_id"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_edt_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

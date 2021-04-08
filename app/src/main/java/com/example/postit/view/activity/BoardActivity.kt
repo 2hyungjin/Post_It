@@ -1,5 +1,6 @@
 package com.example.postit.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,11 +27,12 @@ class BoardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_board)
 
         init()
+        btn_post_board.setOnClickListener { intentToPost() }
+
         boardViewModel.getBoardRes.observe(this, Observer { res ->
             if (res == null) {
                 MORE_LOADING = false
-            }
-            else{
+            } else {
                 for (i in res.findBoard) boardIdxList.add(i.boardId)
                 boardAdapter.apply {
                     setList(res.findBoard)
@@ -38,7 +40,6 @@ class BoardActivity : AppCompatActivity() {
                     removeProgressBar()
                 }
             }
-
         })
 
     }
@@ -95,6 +96,11 @@ class BoardActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    fun intentToPost() {
+        val intent = Intent(this, PostActivity::class.java)
+        startActivity(intent)
     }
 }
 

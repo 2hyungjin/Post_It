@@ -12,10 +12,11 @@ import kotlinx.android.synthetic.main.rv_item_add_img.view.*
 
 class ImageAdapter(val imgList: ArrayList<String>) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
-    lateinit var context:Context
+    lateinit var context: Context
+
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imgItem=view.findViewById<ImageView>(R.id.img_rv_item_image)
-        fun bind(){
+        val imgItem = view.findViewById<ImageView>(R.id.img_rv_item_image)
+        fun bind() {
             Glide.with(context)
                 .load(imgList[adapterPosition])
                 .centerCrop()
@@ -23,11 +24,16 @@ class ImageAdapter(val imgList: ArrayList<String>) :
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+
+        return super.getItemViewType(position)
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ImageAdapter.ImageViewHolder {
-        context=parent.context
+        context = parent.context
         return ImageViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.rv_image_item, parent, false)
         )
