@@ -65,19 +65,16 @@ class PostActivity : AppCompatActivity() {
             .setCompleteButtonText("Done")
             .setEmptySelectionText("No Select")
             .setSelectedUriList(selectedUriList)
-            .showMultiImage(object : TedBottomSheetDialogFragment.OnMultiImageSelectedListener {
-                override fun onImagesSelected(uriList: MutableList<Uri>?) {
-                    Log.d("postit",uriList.toString())
-                    val uriListString = arrayListOf<String>()
-                    if (uriList != null) {
-                        for (i in uriList){
-                            uriListString.add(i.toString())
-                        }
+            .showMultiImage { uriList ->
+                Log.d("postit",uriList.toString())
+                val uriListString = arrayListOf<String>()
+                if (uriList != null) {
+                    for (i in uriList){
+                        uriListString.add(i.toString())
                     }
-                    MAX_COUNT -= uriList?.size ?: 0
-                    imageAdapter.setList(uriListString)
                 }
-
-            })
+                MAX_COUNT -= uriList?.size ?: 0
+                imageAdapter.setList(uriListString)
+            }
     }
 }
