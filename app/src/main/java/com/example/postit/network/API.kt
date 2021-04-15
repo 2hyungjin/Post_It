@@ -30,16 +30,13 @@ interface API {
     @Multipart
     @POST("board")
     suspend fun postContent(
-        @Part("date") date: RequestBody,
-        @Part("contents") content: RequestBody,
-        @Part("profile") profile: Int,
-        @Part files: ArrayList<MultipartBody.Part>,
-        @Part("show") show: RequestBody
+        @PartMap body: Map<String, RequestBody>,
+        @Part files:List<MultipartBody.Part>
     ): Response<Res.Res>
 
     @GET("board")
     suspend fun getBoards(
         @Query("boardIds") boardId: String
-    ):Response<Res.Board>
+    ): Response<Res.Board>
 
 }

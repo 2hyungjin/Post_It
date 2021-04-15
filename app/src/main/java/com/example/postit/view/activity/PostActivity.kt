@@ -13,21 +13,28 @@ import com.gun0912.tedpermission.TedPermission
 import gun0912.tedbottompicker.TedBottomPicker
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_post.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.Multipart
 
 class PostActivity : AppCompatActivity() {
     lateinit var permissionListener: PermissionListener
     lateinit var imageAdapter: ImageAdapter
-    val imgList = arrayListOf<String>()
+    val uriListString = arrayListOf<String>()
+
+    val imgList = arrayListOf<Uri>()
     var MAX_COUNT = 5
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
         init()
         btn_addImage_post.setOnClickListener { pickImage() }
+        btn_post_post.setOnClickListener { postBoard() }
     }
 
     fun init() {
-        imageAdapter = ImageAdapter(imgList, false)
+        imageAdapter = ImageAdapter(uriListString, false)
         rv_img_post.apply {
             layoutManager =
                 LinearLayoutManager(this@PostActivity).also {
@@ -53,6 +60,7 @@ class PostActivity : AppCompatActivity() {
     }
 
     fun pickImage() {
+        MAX_COUNT -= imageAdapter.imgList.size
         val selectedUriList = listOf<Uri>()
         TedPermission.with(this)
             .setPermissionListener(permissionListener)
@@ -66,15 +74,26 @@ class PostActivity : AppCompatActivity() {
             .setEmptySelectionText("No Select")
             .setSelectedUriList(selectedUriList)
             .showMultiImage { uriList ->
-                Log.d("postit",uriList.toString())
-                val uriListString = arrayListOf<String>()
+                Log.d("postit", uriList.toString())
                 if (uriList != null) {
-                    for (i in uriList){
+                    for (i in uriList) {
                         uriListString.add(i.toString())
+                        imgList.add(i)
                     }
                 }
-                MAX_COUNT -= uriList?.size ?: 0
                 imageAdapter.setList(uriListString)
             }
+    }
+
+    fun postBoard() {
+        val files = arrayListOf<MultipartBody.Part>()
+        for (file in imgList) {
+            val fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file.path)
+            val fileName = "photo$file.jpg"
+            val filePart = MultipartBody.Part.createFormData("files", fileName, fileBody)
+            files.add(filePart)
+        }
+        val dateBody=RequestBody.create(MediaType.parse("text/plain"),)
+
     }
 }

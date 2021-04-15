@@ -16,13 +16,13 @@ class AppRepo {
     suspend fun autoLogin() = myRetrofit.autoLogin()
 
     //main
-    suspend fun post(
-        date: RequestBody,
-        content: RequestBody,
-        profile: Int,
-        files: ArrayList<MultipartBody.Part>,
-        show: RequestBody
-    ) = myRetrofit.postContent(date,content,profile,files, show)
+//    suspend fun post(
+//        date: RequestBody,
+//        content: RequestBody,
+//        profile: Int,
+//        files: ArrayList<MultipartBody.Part>,
+//        show: RequestBody
+//    ) = myRetrofit.postContent(date,content,profile,files, show)
     suspend fun getBoard(boardIds:String)= myRetrofit.getBoards(boardIds)
 
 }
