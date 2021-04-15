@@ -93,7 +93,18 @@ class PostActivity : AppCompatActivity() {
             val filePart = MultipartBody.Part.createFormData("files", fileName, fileBody)
             files.add(filePart)
         }
-        val dateBody=RequestBody.create(MediaType.parse("text/plain"),)
 
+        val contentsBody =
+            RequestBody.create(MediaType.parse("text/plain"), edt_contents_post.text.toString())
+        val profileBody =
+            RequestBody.create(MediaType.parse("text/plain"), "1")
+        val showBody =
+            RequestBody.create(MediaType.parse("text/plain"), "all")
+
+        val partMap=mapOf<String,RequestBody>(
+            "contents" to contentsBody,
+            "profile" to profileBody,
+            "show" to showBody
+        )
     }
 }

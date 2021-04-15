@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_addImage_post">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_contents_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start" />
