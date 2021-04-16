@@ -9,6 +9,7 @@ import retrofit2.http.*
 import java.io.File
 
 interface API {
+    // Login
     @POST("signin")
     suspend fun signIn(
         @Body body: Req.ReqSignIn
@@ -27,10 +28,11 @@ interface API {
     @POST("autosignin")
     suspend fun autoLogin(): Response<Res.ResSignIn>
 
+    // board
     @Multipart
     @POST("board")
     suspend fun postContent(
-        @PartMap body: Map<String, RequestBody>,
+        @PartMap body: HashMap<String, RequestBody>,
         @Part files:List<MultipartBody.Part>
     ): Response<Res.Res>
 

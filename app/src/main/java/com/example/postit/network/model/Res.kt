@@ -10,7 +10,8 @@ object Res {
         val message: String
     )
     data class Res(
-        val result: Int
+        val result: Int,
+        val message: String
     )
 
     data class Board(

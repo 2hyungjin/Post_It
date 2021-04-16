@@ -1,13 +1,21 @@
 package com.example.postit.view.activity
 
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.postit.R
 import com.example.postit.adapter.ImageAdapter
+import com.example.postit.repository.AppRepo
+import com.example.postit.viewmodel.BoardVM
+import com.example.postit.viewmodel.ViewModelProviderFactory
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import gun0912.tedbottompicker.TedBottomPicker
@@ -17,23 +25,38 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Multipart
+import java.time.LocalDateTime
 
 class PostActivity : AppCompatActivity() {
+    lateinit var postViewModel: BoardVM
     lateinit var permissionListener: PermissionListener
     lateinit var imageAdapter: ImageAdapter
     val uriListString = arrayListOf<String>()
-
     val imgList = arrayListOf<Uri>()
     var MAX_COUNT = 5
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
         init()
         btn_addImage_post.setOnClickListener { pickImage() }
         btn_post_post.setOnClickListener { postBoard() }
+        postViewModel.postBoardRes.observe(this,Observer{res->
+            if (res==null){
+                Toast.makeText(this, "업로드에 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this, "업로드에 성공하였습니다", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun init() {
+        val repo = AppRepo()
+        val factory = ViewModelProviderFactory(repo)
+        postViewModel = ViewModelProvider(this, factory).get(BoardVM::class.java)
+
         imageAdapter = ImageAdapter(uriListString, false)
         rv_img_post.apply {
             layoutManager =
@@ -85,6 +108,7 @@ class PostActivity : AppCompatActivity() {
             }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun postBoard() {
         val files = arrayListOf<MultipartBody.Part>()
         for (file in imgList) {
@@ -100,11 +124,16 @@ class PostActivity : AppCompatActivity() {
             RequestBody.create(MediaType.parse("text/plain"), "1")
         val showBody =
             RequestBody.create(MediaType.parse("text/plain"), "all")
-
-        val partMap=mapOf<String,RequestBody>(
+        val dateBody=
+            RequestBody.create(MediaType.parse("text/plain"),LocalDateTime.now().toString())
+        val partMap=hashMapOf<String,RequestBody>(
             "contents" to contentsBody,
+            "date" to dateBody,
             "profile" to profileBody,
             "show" to showBody
         )
+        postViewModel.postBoard(partMap,files)
+
+        Log.d("post123",LocalDateTime.now().toString())
     }
 }

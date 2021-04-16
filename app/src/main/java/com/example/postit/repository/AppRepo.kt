@@ -15,14 +15,11 @@ class AppRepo {
     suspend fun chkId(id: String) = myRetrofit.chkId(id)
     suspend fun autoLogin() = myRetrofit.autoLogin()
 
-    //main
-//    suspend fun post(
-//        date: RequestBody,
-//        content: RequestBody,
-//        profile: Int,
-//        files: ArrayList<MultipartBody.Part>,
-//        show: RequestBody
-//    ) = myRetrofit.postContent(date,content,profile,files, show)
+
+    suspend fun post(
+        body:HashMap<String,RequestBody>,
+        files:List<MultipartBody.Part>
+    ) = myRetrofit.postContent(body,files)
     suspend fun getBoard(boardIds:String)= myRetrofit.getBoards(boardIds)
 
 }
