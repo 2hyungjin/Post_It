@@ -56,18 +56,18 @@ class BoardActivity : AppCompatActivity() {
     }
 
     fun loadBoard() {
-        var boardIdxListVerString = "["
-        var chkIdx = 0
-        for (i in boardIdxList) {
-            boardIdxListVerString += "$i"
-            if (chkIdx != boardIdxList.lastIndex) {
-                boardIdxListVerString += ","
-            }
-            chkIdx++
-        }
-        boardIdxListVerString += "]"
-        Log.d("board", boardIdxListVerString)
-        boardViewModel.getBoard(boardIdxListVerString)
+//        var boardIdxListVerString = "["
+//        var chkIdx = 0
+//        for (i in boardIdxList) {
+//            boardIdxListVerString += "$i"
+//            if (chkIdx != boardIdxList.lastIndex) {
+//                boardIdxListVerString += ","
+//            }
+//            chkIdx++
+//        }
+//        boardIdxListVerString += "]"
+//        Log.d("board", boardIdxListVerString)
+//        boardViewModel.getBoard(boardIdxListVerString)
     }
 
     fun initRecyclerView() {
