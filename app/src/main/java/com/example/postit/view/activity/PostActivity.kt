@@ -1,9 +1,11 @@
 package com.example.postit.view.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.postit.R
 import com.example.postit.adapter.ImageAdapter
+import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -40,6 +43,9 @@ class PostActivity : AppCompatActivity() {
                 Toast.makeText(this, "업로드에 실패하였습니다", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "업로드에 성공하였습니다", Toast.LENGTH_SHORT).show()
+                pb_board.visibility = View.GONE
+                setResult(Activity.RESULT_OK);
+                finish();
             }
         })
     }
@@ -105,6 +111,6 @@ class PostActivity : AppCompatActivity() {
             "show" to showBody
         )
         postViewModel.postBoard(partMap, files)
-        finish()
+        pb_board.visibility = View.VISIBLE
     }
 }

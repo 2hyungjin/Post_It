@@ -1,9 +1,11 @@
 package com.example.postit.view.activity
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,7 +30,13 @@ class BoardActivity : AppCompatActivity() {
 
         init()
         btn_post_board.setOnClickListener { intentToPost() }
-
+        boardViewModel.postBoardRes.observe(this, Observer {res->
+            if(res!=null){
+                Toast.makeText(this, "업로드에 성공하였습니다", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "업로드에 실패하였습니다", Toast.LENGTH_SHORT).show()
+            }
+        })
         boardViewModel.getBoardRes.observe(this, Observer { res ->
             if (res == null) {
                 MORE_LOADING = false
@@ -68,6 +76,7 @@ class BoardActivity : AppCompatActivity() {
         boardIdxListVerString += "]"
         Log.d("board", boardIdxListVerString)
         boardViewModel.getBoard(boardIdxListVerString)
+        boardAdapter.notifyDataSetChanged()
     }
 
     fun initRecyclerView() {
@@ -95,12 +104,22 @@ class BoardActivity : AppCompatActivity() {
                     }
                 }
             }
+
         })
     }
 
     fun intentToPost() {
         val intent = Intent(this, PostActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, 8080)
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 8080 && resultCode == Activity.RESULT_OK){
+        }
+
     }
 }
 
