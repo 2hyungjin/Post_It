@@ -33,7 +33,8 @@ interface API {
     @POST("board")
     suspend fun postContent(
         @PartMap body: HashMap<String, RequestBody>,
-        @Part files:List<MultipartBody.Part>
+        @Part("profile") profile: Int = 0,
+        @Part files: List<MultipartBody.Part>?
     ): Response<Res.Res>
 
     @GET("board")

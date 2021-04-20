@@ -8,6 +8,15 @@
     tools:context=".view.activity.PostActivity"
     tools:deviceIds="wear">
 
+    <ImageView
+        android:id="@+id/imgV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <ImageButton
         android:id="@+id/btn_addImage_post"
         android:layout_width="100dp"
@@ -42,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

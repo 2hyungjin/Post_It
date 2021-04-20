@@ -1,7 +1,6 @@
 package com.example.postit.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +70,7 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             rvImage.layoutManager = LinearLayoutManager(context).also {
                 it.orientation = LinearLayoutManager.HORIZONTAL
             }
-            val boardImageList = arrayListOf<String>()
+            val boardImageList = arrayListOf<String?>()
             val boardImages = board.images.toString().split(",")
             for (i in boardImages) boardImageList.add(i)
             rvImage.adapter = ImageAdapter(boardImageList, true)

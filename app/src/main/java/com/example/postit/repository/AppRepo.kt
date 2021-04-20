@@ -19,7 +19,7 @@ class AppRepo {
     suspend fun post(
         body:HashMap<String,RequestBody>,
         files:List<MultipartBody.Part>
-    ) = myRetrofit.postContent(body,files)
+    ) = myRetrofit.postContent(body = body,files = files)
     suspend fun getBoard(boardIds:String)= myRetrofit.getBoards(boardIds)
 
 }

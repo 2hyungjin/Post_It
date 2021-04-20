@@ -11,9 +11,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.postit.R
-import kotlinx.android.synthetic.main.rv_item_add_img.view.*
 
-class ImageAdapter(val imgList: ArrayList<String>, val VIEW_TYPE: Boolean) :
+class ImageAdapter(val imgList: ArrayList<String?>, val VIEW_TYPE: Boolean) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     lateinit var context: Context
 
@@ -64,12 +63,12 @@ class ImageAdapter(val imgList: ArrayList<String>, val VIEW_TYPE: Boolean) :
     }
 
     override fun onBindViewHolder(holder: ImageAdapter.ImageViewHolder, position: Int) {
-        holder.bind(imgList[position])
+        holder.bind(imgList[position]!!)
     }
 
     fun setList(imgList: ArrayList<String>) {
         this.imgList.addAll(imgList)
-        Log.d("postit", this.imgList.toString())
+        Log.d("post123", this.imgList.toString())
         notifyDataSetChanged()
     }
 
