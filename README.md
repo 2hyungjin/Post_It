@@ -60,7 +60,7 @@ class App :Application(){
 
 ### OkHttp3 Interceptor 사용하기
 
-일일히 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
+일일 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
 
 OkHttp3의 Interceptor를 사용하면 REST API를 요청할 때 요청을 가로채(intercept) 헤더를 붙인 뒤 다시 전송할 수 있게 해줌
 
