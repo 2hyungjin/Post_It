@@ -135,5 +135,9 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         boardList.add(null)
         notifyDataSetChanged()
     }
+    fun resetBoards(){
+        boardList.clear()
+        notifyDataSetChanged()
+    }
 }
 

@@ -30,10 +30,10 @@ class BoardActivity : AppCompatActivity() {
 
         init()
         btn_post_board.setOnClickListener { intentToPost() }
-        boardViewModel.postBoardRes.observe(this, Observer {res->
-            if(res!=null){
+        boardViewModel.postBoardRes.observe(this, Observer { res ->
+            if (res != null) {
                 Toast.makeText(this, "업로드에 성공하였습니다", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(this, "업로드에 실패하였습니다", Toast.LENGTH_SHORT).show()
             }
         })
@@ -76,7 +76,6 @@ class BoardActivity : AppCompatActivity() {
         boardIdxListVerString += "]"
         Log.d("board", boardIdxListVerString)
         boardViewModel.getBoard(boardIdxListVerString)
-        boardAdapter.notifyDataSetChanged()
     }
 
     fun initRecyclerView() {
@@ -114,12 +113,19 @@ class BoardActivity : AppCompatActivity() {
     }
 
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 8080 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 8080 && resultCode == Activity.RESULT_OK) {
+            resetBoardList()
         }
+    }
 
+    fun resetBoardList() {
+        boardAdapter.resetBoards()
+        boardIdxList.apply {
+            clear()
+            add(-1)
+        }
     }
 }
 
