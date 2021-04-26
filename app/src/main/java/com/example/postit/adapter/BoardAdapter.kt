@@ -1,9 +1,11 @@
 package com.example.postit.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -12,9 +14,12 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.postit.R
+import com.example.postit.R.drawable
+import com.example.postit.R.drawable.*
 import com.example.postit.network.model.Res
 
-class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BoardAdapter(private var likeBoard: (Int) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val boardList = arrayListOf<Res.FindBoard?>()
     lateinit var context: Context
 
@@ -59,12 +64,29 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val tvContents = view.findViewById<TextView>(R.id.tv_rv_item_contents)
         val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
         val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
-//        val tvLikeCount = view.findViewById<TextView>(R.id.tv_rv_item_like_count)
+        val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_image)
+        val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_image)
 
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
-//            tvLikeCount.text = board.likeNum.toString()
+            tvLikeCount.text = board.likeNum.toString() + "명"
+            btnLike.isSelected = board.like
+
+            btnLike.setOnClickListener {
+                likeBoard.invoke(board.boardId)
+                if (!btnLike.isSelected) {
+                    btnLike.isSelected=true
+                    tvLikeCount.text = (board.likeNum + 1).toString() + "명"
+                    board.likeNum++
+                } else {
+                    btnLike.isSelected=false
+                    tvLikeCount.text = (board.likeNum - 1).toString() + "명"
+                    board.likeNum--
+                }
+                board.like=!board.like
+
+            }
 
             val snapHelper = PagerSnapHelper()
             rvImage.layoutManager = LinearLayoutManager(context).also {
@@ -89,13 +111,34 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val tvUserName = view.findViewById<TextView>(R.id.tv_rv_item_username)
         val tvContents = view.findViewById<TextView>(R.id.tv_rv_item_contents_no_image)
         val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
+        val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_no_image)
+        val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_no_image)
+
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
+            tvLikeCount.text = board.likeNum.toString() + "명"
+
+
             if (board.user.profile != 0) {
                 Glide.with(context)
                     .load(board.user.profile)
                     .into(imgProfile)
+            }
+            btnLike.isSelected = board.like
+
+            btnLike.setOnClickListener {
+                likeBoard.invoke(board.boardId)
+                if (!btnLike.isSelected) {
+                    btnLike.isSelected=true
+                    tvLikeCount.text = (board.likeNum + 1).toString() + "명"
+                    board.likeNum++
+                } else {
+                    btnLike.isSelected=false
+                    tvLikeCount.text = (board.likeNum - 1).toString() + "명"
+                    board.likeNum--
+                }
+                board.like=!board.like
             }
         }
     }
@@ -135,9 +178,12 @@ class BoardAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         boardList.add(null)
         notifyDataSetChanged()
     }
-    fun resetBoards(){
+
+    fun resetBoards() {
         boardList.clear()
         notifyDataSetChanged()
     }
+
+
 }
 

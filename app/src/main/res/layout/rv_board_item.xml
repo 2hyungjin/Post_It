@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
-    android:paddingBottom="7dp"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="7dp">
 
 
     <LinearLayout
@@ -35,26 +35,64 @@
 
 
     <TextView
-        android:layout_marginLeft="5dp"
         android:id="@+id/tv_rv_item_contents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/rv_item_rv"
         tools:text="콘텐츠" />
 
     <LinearLayout
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="right"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_contents">
 
-        <include
-            layout="@layout/rv_item_bottom"
-            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_like_rv_item_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/btn_like" />
+
+        <ImageView
+            android:id="@+id/btn_comment_rv_item_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="3dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_comment_black_36dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <TextView
+            android:id="@+id/tv_like_count_rv_item_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0명"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이 좋아함"
+            android:textColor="@color/black" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

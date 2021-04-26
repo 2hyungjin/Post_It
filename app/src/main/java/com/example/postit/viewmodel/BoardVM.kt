@@ -11,31 +11,43 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class BoardVM(val repo:AppRepo):ViewModel() {
-    val getBoardRes= MutableLiveData<Res.Board>()
-    val postBoardRes=MutableLiveData<Res.Res>()
-    fun getBoard(id:String){
+class BoardVM(val repo: AppRepo) : ViewModel() {
+    val getBoardRes = MutableLiveData<Res.Board>()
+    val postBoardRes = MutableLiveData<Res.Res>()
+    fun getBoard(id: String) {
         viewModelScope.launch {
-            repo.getBoard(id).let { res->
-                if (res.isSuccessful){
+            repo.getBoard(id).let { res ->
+                if (res.isSuccessful) {
                     getBoardRes.postValue(res.body())
-                }else{
-                    Log.d("BoardVM",res.body().toString())
+                } else {
+                    Log.d("BoardVM", res.body().toString())
                     getBoardRes.postValue(null)
                 }
             }
         }
     }
-    fun postBoard(body: HashMap<String,RequestBody>,files:List<MultipartBody.Part>){
+
+    fun postBoard(body: HashMap<String, RequestBody>, files: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            repo.post(body,files).let {res->
-                if (res.isSuccessful){
-                    Log.d("post123",res.message())
-                    Log.d("post123",res.body().toString())
+            repo.post(body, files).let { res ->
+                if (res.isSuccessful) {
+                    Log.d("post123", res.message())
+                    Log.d("post123", res.body().toString())
                     postBoardRes.postValue(res.body())
-                }
-                else{
+                } else {
                     postBoardRes.postValue(null)
+                }
+            }
+        }
+    }
+
+    fun likeBoard(boardId: Int) {
+        viewModelScope.launch {
+            repo.likeBoard(boardId).let { res ->
+                if (res.isSuccessful) {
+                    Log.d("post123", "요청 보냄" + res.toString())
+                } else {
+                    Log.d("post123", res.toString())
                 }
             }
         }

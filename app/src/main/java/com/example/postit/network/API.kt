@@ -42,4 +42,9 @@ interface API {
         @Query("boardIds") boardId: String
     ): Response<Res.Board>
 
+    @POST("/board/like/{boardId}")
+    suspend fun like(
+        @Path("boardId") boardId: Int
+    ): Response<Res.Res>
+
 }

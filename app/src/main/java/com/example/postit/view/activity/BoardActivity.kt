@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -85,7 +84,10 @@ class BoardActivity : AppCompatActivity() {
     }
 
     fun initRecyclerView() {
-        boardAdapter = BoardAdapter()
+
+        boardAdapter = BoardAdapter {
+            likeBoard(it)
+        }
         val layoutManager = LinearLayoutManager(this)
 
         rv_board.apply {
@@ -136,6 +138,8 @@ class BoardActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
+        setSupportActionBar(toolbar_board)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -149,6 +153,10 @@ class BoardActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun likeBoard(boardId: Int) {
+        boardViewModel.likeBoard(boardId)
     }
 }
 

@@ -22,8 +22,8 @@ object Res {
         val contents: String,
         val date: Any,
         val images: Any,
-        val like: Boolean,
-        val likeNum: Int,
+        var like: Boolean,
+        var likeNum: Int,
         val showId: String,
         val user: User,
         @SerializedName("user_Id")

@@ -21,5 +21,5 @@ class AppRepo {
         files:List<MultipartBody.Part>
     ) = myRetrofit.postContent(body = body,files = files)
     suspend fun getBoard(boardIds:String)= myRetrofit.getBoards(boardIds)
-
+    suspend fun likeBoard(boardId: Int)= myRetrofit.like(boardId)
 }
