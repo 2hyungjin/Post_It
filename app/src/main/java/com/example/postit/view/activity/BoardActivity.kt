@@ -5,6 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postit.R
 import com.example.postit.adapter.BoardAdapter
+import com.example.postit.network.Pref.App
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -59,6 +63,8 @@ class BoardActivity : AppCompatActivity() {
 
         initRecyclerView()
 
+        setSupportActionBar(toolbar_board)
+        toolbar_board.title = "Post IT"
         // 게시글 받아오기
         loadBoard()
     }
@@ -126,6 +132,23 @@ class BoardActivity : AppCompatActivity() {
             clear()
             add(-1)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                App.prefs.token = null
+                startActivity(Intent(this@BoardActivity, LogInActivity::class.java))
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

@@ -35,6 +35,7 @@ class LogInActivity : AppCompatActivity() {
                 Log.d("login", it.token)
                 App.prefs.token = it.token
                 startActivity(Intent(this, BoardActivity::class.java))
+                this.finish()
             } else {
                 Toast.makeText(this, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                 hidePb()
@@ -47,6 +48,7 @@ class LogInActivity : AppCompatActivity() {
                 hidePb()
                 App.prefs.token = it.token
                 startActivity(Intent(this, BoardActivity::class.java))
+                this.finish()
             } else {
                 Toast.makeText(this, "자동 로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                 hidePb()
@@ -75,7 +77,6 @@ class LogInActivity : AppCompatActivity() {
     fun autoLogin() {
         showPb()
         VM.autoLogin()
-        Toast.makeText(this, "자동 로그인하였습니다", Toast.LENGTH_SHORT).show()
     }
 
     fun showPb() {

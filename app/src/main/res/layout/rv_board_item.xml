@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_margin="7dp"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:paddingBottom="7dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -13,7 +14,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -34,10 +35,11 @@
 
 
     <TextView
+        android:layout_marginLeft="5dp"
         android:id="@+id/tv_rv_item_contents"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/rv_item_rv"
         tools:text="콘텐츠" />
@@ -45,11 +47,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_contents">
 
+        <include
+            layout="@layout/rv_item_bottom"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

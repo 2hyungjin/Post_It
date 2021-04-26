@@ -33,8 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_cancel_24" />
+                            <entry key="outputName" value="ic_logout_black_36dp" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/logout_black_36dp.svg" />
                           </map>
                         </option>
                       </PersistentState>
