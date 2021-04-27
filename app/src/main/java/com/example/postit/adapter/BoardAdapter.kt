@@ -18,7 +18,10 @@ import com.example.postit.R.drawable
 import com.example.postit.R.drawable.*
 import com.example.postit.network.model.Res
 
-class BoardAdapter(private var likeBoard: (Int) -> Unit) :
+class BoardAdapter(
+    private var likeBoard: (Int) -> Unit,
+    private var intentToComments: (Int) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val boardList = arrayListOf<Res.FindBoard?>()
     lateinit var context: Context
@@ -66,7 +69,8 @@ class BoardAdapter(private var likeBoard: (Int) -> Unit) :
         val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
         val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_image)
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_image)
-
+//        val btnComments=view.findViewById<Button>(R.id.)
+        
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
@@ -76,15 +80,15 @@ class BoardAdapter(private var likeBoard: (Int) -> Unit) :
             btnLike.setOnClickListener {
                 likeBoard.invoke(board.boardId)
                 if (!btnLike.isSelected) {
-                    btnLike.isSelected=true
+                    btnLike.isSelected = true
                     tvLikeCount.text = (board.likeNum + 1).toString() + "명"
                     board.likeNum++
                 } else {
-                    btnLike.isSelected=false
+                    btnLike.isSelected = false
                     tvLikeCount.text = (board.likeNum - 1).toString() + "명"
                     board.likeNum--
                 }
-                board.like=!board.like
+                board.like = !board.like
 
             }
 
@@ -130,15 +134,15 @@ class BoardAdapter(private var likeBoard: (Int) -> Unit) :
             btnLike.setOnClickListener {
                 likeBoard.invoke(board.boardId)
                 if (!btnLike.isSelected) {
-                    btnLike.isSelected=true
+                    btnLike.isSelected = true
                     tvLikeCount.text = (board.likeNum + 1).toString() + "명"
                     board.likeNum++
                 } else {
-                    btnLike.isSelected=false
+                    btnLike.isSelected = false
                     tvLikeCount.text = (board.likeNum - 1).toString() + "명"
                     board.likeNum--
                 }
-                board.like=!board.like
+                board.like = !board.like
             }
         }
     }

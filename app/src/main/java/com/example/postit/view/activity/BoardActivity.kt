@@ -62,8 +62,8 @@ class BoardActivity : AppCompatActivity() {
 
         initRecyclerView()
 
-        setSupportActionBar(toolbar_board)
-        toolbar_board.title = "Post IT"
+        setSupportActionBar(toolbar_comments)
+        toolbar_comments.title = "Post IT"
         // 게시글 받아오기
         loadBoard()
     }
@@ -138,7 +138,7 @@ class BoardActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
-        setSupportActionBar(toolbar_board)
+        setSupportActionBar(toolbar_comments)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
@@ -157,6 +157,12 @@ class BoardActivity : AppCompatActivity() {
 
     private fun likeBoard(boardId: Int) {
         boardViewModel.likeBoard(boardId)
+    }
+
+    private fun intentToComments(boardId: Int) {
+        val intent = Intent(this@BoardActivity, CommentsActivity::class.java)
+        intent.putExtra("boardId",boardId)
+        startActivity(intent)
     }
 }
 

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.postit.network.model.Comments
 import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import okhttp3.RequestBody
 class BoardVM(val repo: AppRepo) : ViewModel() {
     val getBoardRes = MutableLiveData<Res.Board>()
     val postBoardRes = MutableLiveData<Res.Res>()
+    val commentsRes = MutableLiveData<Comments>()
     fun getBoard(id: String) {
         viewModelScope.launch {
             repo.getBoard(id).let { res ->
@@ -53,6 +55,16 @@ class BoardVM(val repo: AppRepo) : ViewModel() {
         }
     }
     fun getComments(boardId: Int){
-
+        viewModelScope.launch {
+            repo.getComments(boardId).let { res->
+                if (res.isSuccessful){
+                    commentsRes.postValue(res.body())
+                }else{
+                    commentsRes.postValue(null)
+                    Log.d("comments",res.message())
+                    Log.d("comments", res.errorBody().toString())
+                }
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
     tools:context=".view.activity.BoardActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_board"
+        android:id="@+id/toolbar_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_board"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_comments"
         tools:listitem="@layout/rv_board_item" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

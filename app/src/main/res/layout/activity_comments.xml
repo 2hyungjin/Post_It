@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.activity.CommentsActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_board"
+        android:id="@+id/toolbar_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -25,13 +25,13 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_comments"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_board"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_comments"
         tools:listitem="@layout/rv_item_comment" />
 
     <androidx.cardview.widget.CardView
@@ -62,7 +62,10 @@
         android:background="@drawable/ic_baseline_send_24"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" /> "
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+    <include layout="@layout/progress_bar"
+        android:id="@+id/progress_bar_comments"
+        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
