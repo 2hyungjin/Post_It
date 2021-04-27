@@ -39,18 +39,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/rv_item_rv"
         tools:text="콘텐츠" />
 
     <LinearLayout
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:gravity="right"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_contents">
@@ -61,22 +61,21 @@
             android:layout_height="24dp"
             android:background="@drawable/btn_like" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_comment_rv_item_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="3dp"
-            android:background="@color/white"
+            android:background="@drawable/ic_comment_black_36dp"
             android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_comment_black_36dp" />
+            android:focusable="true" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5">

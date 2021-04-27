@@ -69,8 +69,8 @@ class BoardAdapter(
         val rvImage = view.findViewById<RecyclerView>(R.id.rv_item_rv)
         val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_image)
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_image)
-//        val btnComments=view.findViewById<Button>(R.id.)
-        
+        val btnComments=view.findViewById<Button>(R.id.btn_comment_rv_item_image)
+
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
@@ -89,7 +89,9 @@ class BoardAdapter(
                     board.likeNum--
                 }
                 board.like = !board.like
-
+            }
+            btnComments.setOnClickListener {
+                intentToComments.invoke(board.boardId)
             }
 
             val snapHelper = PagerSnapHelper()
@@ -117,6 +119,7 @@ class BoardAdapter(
         val imgProfile = view.findViewById<ImageView>(R.id.img_rv_item_profile)
         val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_no_image)
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_no_image)
+        val btnComments=view.findViewById<Button>(R.id.btn_comment_rv_item_no_image)
 
         fun bind(board: Res.FindBoard) {
             tvContents.text = board.contents
@@ -143,6 +146,9 @@ class BoardAdapter(
                     board.likeNum--
                 }
                 board.like = !board.like
+            }
+            btnComments.setOnClickListener {
+                intentToComments.invoke(board.boardId)
             }
         }
     }

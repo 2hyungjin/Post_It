@@ -30,7 +30,6 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
-
         init()
         btn_post_board.setOnClickListener { intentToPost() }
         boardViewModel.postBoardRes.observe(this, Observer { res ->
@@ -85,9 +84,13 @@ class BoardActivity : AppCompatActivity() {
 
     fun initRecyclerView() {
 
-        boardAdapter = BoardAdapter {
+        boardAdapter = BoardAdapter({
             likeBoard(it)
+        },{
+            intentToComments(it)
         }
+        )
+
         val layoutManager = LinearLayoutManager(this)
 
         rv_board.apply {

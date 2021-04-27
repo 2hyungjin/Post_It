@@ -17,7 +17,7 @@ class CommentsAdapter(val intentToProfile: (Int) -> Unit) :
     private val commentsList = arrayListOf<Comment>()
 
     inner class CommentsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imgProfile: ImageView = view.findViewById<ImageView>(R.id.img_rv_item_profile)
+        val imgProfile: ImageView = view.findViewById<ImageView>(R.id.img_rv_item_profile_comments)
         val tvUserName: TextView = view.findViewById<TextView>(R.id.tv_rv_item_username_comments)
         val tvComment: TextView = view.findViewById<TextView>(R.id.tv_rv_item_comment_comments)
         fun bind(comment: Comment) {

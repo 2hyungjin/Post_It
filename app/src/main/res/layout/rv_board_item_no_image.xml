@@ -39,15 +39,14 @@
             android:layout_height="24dp"
             android:background="@drawable/btn_like" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_comment_rv_item_no_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="3dp"
-            android:background="@color/white"
+            android:background="@drawable/ic_comment_black_36dp"
             android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_comment_black_36dp" />
+            android:focusable="true" />
     </LinearLayout>
 
     <LinearLayout

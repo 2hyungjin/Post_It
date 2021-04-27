@@ -27,6 +27,7 @@ class CommentsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
+        init()
         commentsViewModel.commentsRes.observe(this, Observer {res->
             progress_bar_comments.visibility=View.GONE
             commentList.addAll(res.comments)
@@ -42,6 +43,7 @@ class CommentsActivity : AppCompatActivity() {
         val factory = ViewModelProviderFactory(repo)
         commentsViewModel = ViewModelProvider(this, factory).get(BoardVM::class.java)
         rvInit()
+        toolBarInit()
         loadComments()
     }
     fun loadComments(){
@@ -61,17 +63,18 @@ class CommentsActivity : AppCompatActivity() {
         Log.d("comments", "intent to profile")
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater
+    fun toolBarInit(){
         setSupportActionBar(toolbar_comments)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        return super.onCreateOptionsMenu(menu)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.home) {
-            finish()
+        when(item.itemId){
+            android.R.id.home->{
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
