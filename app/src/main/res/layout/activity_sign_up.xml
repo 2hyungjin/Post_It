@@ -22,15 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="어렵지 않습니다."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -41,7 +32,7 @@
         android:layout_marginTop="30dp"
         android:hint="이름"
         app:helperText="다른 사용자들에게 표시됨"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:layout_editor_absoluteX="20dp">
 
         <com.google.android.material.textfield.TextInputEditText

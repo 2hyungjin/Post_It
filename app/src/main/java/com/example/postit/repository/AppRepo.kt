@@ -22,4 +22,5 @@ class AppRepo {
     ) = myRetrofit.postContent(body = body,files = files)
     suspend fun getBoard(boardIds:String)= myRetrofit.getBoards(boardIds)
     suspend fun likeBoard(boardId: Int)= myRetrofit.like(boardId)
+    suspend fun getComments(boardId: Int)= myRetrofit.getComments(boardId)
 }

@@ -7,6 +7,7 @@
 
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/img_rv_item_profile"
         android:layout_width="30dp"
         android:layout_height="30dp"

@@ -52,4 +52,7 @@ class BoardVM(val repo: AppRepo) : ViewModel() {
             }
         }
     }
+    fun getComments(boardId: Int){
+
+    }
 }

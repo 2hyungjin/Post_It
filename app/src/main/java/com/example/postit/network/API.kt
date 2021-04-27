@@ -1,5 +1,6 @@
 package com.example.postit.network
 
+import com.example.postit.network.model.Comments
 import com.example.postit.network.model.Req
 import com.example.postit.network.model.Res
 import okhttp3.MultipartBody
@@ -42,9 +43,14 @@ interface API {
         @Query("boardIds") boardId: String
     ): Response<Res.Board>
 
-    @POST("/board/like/{boardId}")
+    @POST("board/like/{boardId}")
     suspend fun like(
         @Path("boardId") boardId: Int
     ): Response<Res.Res>
 
+    @GET("comments")
+    suspend fun getComments(
+        @Query("boardId") boardId: Int,
+        @Query("comments_Ids") comments_Ids: Int = -1
+    ): Response<Comments>
 }
