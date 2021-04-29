@@ -51,4 +51,8 @@ class CommentsAdapter(val intentToProfile: (Int) -> Unit) :
         commentsList.addAll(comments)
         notifyDataSetChanged()
     }
+    fun clearComments(){
+        commentsList.clear()
+        notifyDataSetChanged()
+    }
 }

@@ -1,11 +1,11 @@
 package com.example.postit.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.postit.network.model.Comments
+import com.example.postit.network.model.Req
 import com.example.postit.network.model.Res
 import com.example.postit.repository.AppRepo
 import kotlinx.coroutines.launch
@@ -15,7 +15,9 @@ import okhttp3.RequestBody
 class BoardVM(val repo: AppRepo) : ViewModel() {
     val getBoardRes = MutableLiveData<Res.Board>()
     val postBoardRes = MutableLiveData<Res.Res>()
-    val commentsRes = MutableLiveData<Comments>()
+    val getCommentsRes = MutableLiveData<Comments>()
+    val postCommentsRes = MutableLiveData<Res.Res>()
+
     fun getBoard(id: String) {
         viewModelScope.launch {
             repo.getBoard(id).let { res ->
@@ -58,11 +60,27 @@ class BoardVM(val repo: AppRepo) : ViewModel() {
         viewModelScope.launch {
             repo.getComments(boardId).let { res->
                 if (res.isSuccessful){
-                    commentsRes.postValue(res.body())
+                    getCommentsRes.postValue(res.body())
                 }else{
-                    commentsRes.postValue(null)
+                    getCommentsRes.postValue(null)
                     Log.d("comments",res.message())
                     Log.d("comments", res.errorBody().toString())
+                }
+            }
+        }
+    }
+    fun postComments(body:Req.ReqComments){
+        viewModelScope.launch {
+            repo.postComments(body).let {res->
+                if (res.isSuccessful){
+                    postCommentsRes.postValue(res.body())
+                }
+                else{
+                    postCommentsRes.postValue(null)
+                    Log.d("comments",res.message())
+                    Log.d("comments",res.code().toString())
+                    Log.d("comments",res.body().toString())
+                    Log.d("comments",res.errorBody().toString())
                 }
             }
         }

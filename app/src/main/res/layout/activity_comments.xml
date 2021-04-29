@@ -46,16 +46,19 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
+            android:id="@+id/edt_comment_content_comments"
             android:layout_margin="5dp"
             android:hint="댓글을 입력하세요"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/comment"
             android:maxLines="1" />
     </androidx.cardview.widget.CardView>
 
+
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_post_comment_comments"
         android:layout_width="28dp"
         android:layout_marginEnd="5dp"
         android:layout_height="28dp"
@@ -66,6 +69,8 @@
     <include layout="@layout/progress_bar"
         android:id="@+id/progress_bar_comments"
         android:visibility="gone"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

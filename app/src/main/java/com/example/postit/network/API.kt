@@ -53,4 +53,9 @@ interface API {
         @Query("boardId") boardId: Int,
         @Query("comments_Ids") comments_Ids: Int = -1
     ): Response<Comments>
+
+    @POST("comments")
+    suspend fun postComments(
+        @Body body: Req.ReqComments
+    ): Response<Res.Res>
 }
