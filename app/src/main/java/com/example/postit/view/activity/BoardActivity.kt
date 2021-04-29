@@ -51,6 +51,9 @@ class BoardActivity : AppCompatActivity() {
                 }
             }
         })
+        btn_logo_board.setOnClickListener {
+            resetBoardList()
+        }
 
     }
 
