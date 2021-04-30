@@ -26,6 +26,9 @@ class CommentsAdapter(val intentToProfile: (Int) -> Unit) :
                     .load(comment.user.profile)
                     .into(imgProfile)
             }
+            imgProfile.setOnClickListener {
+                intentToProfile.invoke(comment.userId)
+            }
             tvUserName.text = comment.user.name
             tvComment.text = comment.comment
         }
@@ -51,7 +54,8 @@ class CommentsAdapter(val intentToProfile: (Int) -> Unit) :
         commentsList.addAll(comments)
         notifyDataSetChanged()
     }
-    fun clearComments(){
+
+    fun clearComments() {
         commentsList.clear()
         notifyDataSetChanged()
     }
