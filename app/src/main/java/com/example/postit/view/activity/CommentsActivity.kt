@@ -1,5 +1,6 @@
 package com.example.postit.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -45,7 +46,7 @@ class CommentsActivity : AppCompatActivity() {
         }
     }
 
-    fun init() {
+    private fun init() {
         commentsAdapter = CommentsAdapter {
             intentToProfile(it)
         }
@@ -58,30 +59,26 @@ class CommentsActivity : AppCompatActivity() {
         loadComments()
     }
 
-    fun loadComments() {
+    private fun loadComments() {
         progress_bar_comments.visibility = View.VISIBLE
         commentsViewModel.getComments(boardId)
     }
 
-    fun rvInit() {
+    private fun rvInit() {
         rv_comments.apply {
             layoutManager = LinearLayoutManager(this@CommentsActivity)
             adapter = commentsAdapter
         }
     }
 
-    fun intentToProfile(userId: Int) {
-        Log.d("comments", "intent to profile")
-    }
-
-    fun toolBarInit() {
+    private fun toolBarInit() {
         setSupportActionBar(toolbar_comments)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
     }
 
-    fun postComments() {
+    private fun postComments() {
         val content = edt_comment_content_comments.text.toString()
         edt_comment_content_comments.text=null
         commentsViewModel.postComments(Req.ReqComments(content,boardId))
@@ -94,5 +91,9 @@ class CommentsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+    private fun intentToProfile(userId: Int){
+        val intent=Intent(this,ProfileActivity::class.java)
+        startActivity(intent)
     }
 }

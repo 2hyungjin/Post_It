@@ -91,6 +91,8 @@ class BoardActivity : AppCompatActivity() {
             likeBoard(it)
         },{
             intentToComments(it)
+        },{
+            intentToComments(it)
         }
         )
 
@@ -121,7 +123,7 @@ class BoardActivity : AppCompatActivity() {
         })
     }
 
-    fun intentToPost() {
+    private fun intentToPost() {
         val intent = Intent(this, PostActivity::class.java)
         startActivityForResult(intent, 8080)
     }
@@ -134,7 +136,7 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 
-    fun resetBoardList() {
+    private fun resetBoardList() {
         boardAdapter.resetBoards()
         boardIdxList.apply {
             clear()
@@ -168,6 +170,10 @@ class BoardActivity : AppCompatActivity() {
     private fun intentToComments(boardId: Int) {
         val intent = Intent(this@BoardActivity, CommentsActivity::class.java)
         intent.putExtra("boardId",boardId)
+        startActivity(intent)
+    }
+    fun intentToProfile(userId: Int){
+        val intent=Intent(this,ProfileActivity::class.java)
         startActivity(intent)
     }
 }

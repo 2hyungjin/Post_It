@@ -1,6 +1,7 @@
 package com.example.postit.network
 
 import com.example.postit.network.model.Comments
+import com.example.postit.network.model.Profile
 import com.example.postit.network.model.Req
 import com.example.postit.network.model.Res
 import okhttp3.MultipartBody
@@ -59,6 +60,9 @@ interface API {
         @Body body: Req.ReqComments
     ): Response<Res.Res>
 
-    @GET("yourProfile")
-    fun getMyProfile()
+    @GET("/user/{user_Id}")
+    fun getProfile(
+        @Path("user_Id") user_Id: Int,
+        @Query("boardIds") boardIds: Array<String>
+    ): Response<Profile>
 }
