@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="q">
-        <activity android:name=".view.activity.CommentsActivity"></activity>
+        <activity android:name=".view.activity.ProfileActivity">
+        </activity>
+        <activity android:name=".view.activity.CommentsActivity" />
         <activity android:name=".view.activity.PostActivity" />
 
         <uses-library
@@ -41,6 +43,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

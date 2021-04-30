@@ -58,4 +58,7 @@ interface API {
     suspend fun postComments(
         @Body body: Req.ReqComments
     ): Response<Res.Res>
+
+    @GET("yourProfile")
+    fun getMyProfile()
 }
