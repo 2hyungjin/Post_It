@@ -27,8 +27,9 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         init()
         profileViewModel.getProfileRes.observe(this, Observer { profile ->
-            tv_user_name_profile.text = profile.user.name
-            if (profile.user.profile!=0){
+            Log.d("profile", profile.toString())
+//            tv_user_name_profile.text = profile.user.name ?: "알 수 없음"
+            if (profile.user.profile != 0) {
                 Glide.with(this)
                     .load(profile.user.profile)
                     .into(img_profile_profile)
@@ -90,8 +91,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun getProfile() {
         Log.d("profile", "getting profile ..")
-//        val userId = intent.getIntExtra("userId", -1)
-//        profileViewModel.getProfile(userId, boardIds as List<Int>)
+        val userId = intent.getIntExtra("userId", -1)
+        profileViewModel.getProfile(userId, boardIds as List<Int>)
     }
 
     private fun likeBoard(boardId: Int) {

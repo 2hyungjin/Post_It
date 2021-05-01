@@ -61,7 +61,7 @@ interface API {
     ): Response<Res.Res>
 
     @GET("/user/{user_Id}")
-    fun getProfile(
+    suspend fun getProfile(
         @Path("user_Id") user_Id: Int,
         @Query("boardIds") boardIds: List<Int>
     ): Response<Profile>
