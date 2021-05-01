@@ -89,17 +89,16 @@ class BoardActivity : AppCompatActivity() {
 
         boardAdapter = BoardAdapter({
             likeBoard(it)
-        },{
+        }, {
             intentToComments(it)
-        },{
-            intentToComments(it)
+        }, {
+            intentToProfile(it)
         }
         )
 
         val layoutManager = LinearLayoutManager(this)
 
         rv_board.apply {
-
             this.layoutManager = layoutManager
             adapter = boardAdapter
         }
@@ -108,7 +107,7 @@ class BoardActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 // layoutManager가 생성됐고 리스트에서 마지막으로 보이는 position이 리스트의 마지막 인덱스와 같은지 검사한다 (나의 경우에는 리스트에 기본값이 있어서 -1을 하였다)
-                if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
                     if (MORE_LOADING && !LOADING) // 추가로 로딩할 게시판이 있는지, 현재 로딩 중인지을 체크하는 변수
                     {
                         LOADING = true // 현재 로딩 중
@@ -169,11 +168,13 @@ class BoardActivity : AppCompatActivity() {
 
     private fun intentToComments(boardId: Int) {
         val intent = Intent(this@BoardActivity, CommentsActivity::class.java)
-        intent.putExtra("boardId",boardId)
+        intent.putExtra("boardId", boardId)
         startActivity(intent)
     }
-    fun intentToProfile(userId: Int){
-        val intent=Intent(this,ProfileActivity::class.java)
+
+    fun intentToProfile(userId: Int) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        intent.putExtra("userId", userId)
         startActivity(intent)
     }
 }

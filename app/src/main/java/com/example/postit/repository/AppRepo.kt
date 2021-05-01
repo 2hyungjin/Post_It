@@ -15,7 +15,7 @@ class AppRepo {
     suspend fun chkId(id: String) = myRetrofit.chkId(id)
     suspend fun autoLogin() = myRetrofit.autoLogin()
 
-
+    //board
     suspend fun post(
         body: HashMap<String, RequestBody>,
         files: List<MultipartBody.Part>
@@ -25,4 +25,5 @@ class AppRepo {
     suspend fun likeBoard(boardId: Int) = myRetrofit.like(boardId)
     suspend fun getComments(boardId: Int) = myRetrofit.getComments(boardId)
     suspend fun postComments(body: Req.ReqComments) = myRetrofit.postComments(body)
+    suspend fun getProfile(userId: Int, boardIds: List<Int>) = myRetrofit.getProfile(userId,boardIds)
 }

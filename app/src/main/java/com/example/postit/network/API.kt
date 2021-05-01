@@ -63,6 +63,6 @@ interface API {
     @GET("/user/{user_Id}")
     fun getProfile(
         @Path("user_Id") user_Id: Int,
-        @Query("boardIds") boardIds: Array<String>
+        @Query("boardIds") boardIds: List<Int>
     ): Response<Profile>
 }

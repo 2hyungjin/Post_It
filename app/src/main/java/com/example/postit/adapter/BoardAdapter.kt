@@ -155,6 +155,7 @@ class BoardAdapter(
                 intentToComments.invoke(board.boardId)
             }
             imgProfile.setOnClickListener {
+                Log.d("profile","profile click")
                 intentToProfile.invoke(board.userId)
             }
         }
