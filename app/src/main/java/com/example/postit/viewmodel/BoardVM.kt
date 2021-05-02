@@ -89,7 +89,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
         }
     }
 
-    fun getProfile(userId: Int, boardIds: List<Int>) {
+    fun getProfile(userId: Int, boardIds: String) {
         viewModelScope.launch {
             repo.getProfile(userId, boardIds).let { res ->
                 if (res.isSuccessful) {

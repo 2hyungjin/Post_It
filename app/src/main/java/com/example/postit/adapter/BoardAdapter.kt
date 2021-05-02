@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.postit.R
-import com.example.postit.R.drawable
-import com.example.postit.R.drawable.*
-import com.example.postit.network.model.Res
+import com.example.postit.network.model.FindBoard
 
 class BoardAdapter(
     private var likeBoard: (Int) -> Unit,
@@ -24,7 +22,7 @@ class BoardAdapter(
     private var intentToProfile: (Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val boardList = arrayListOf<Res.FindBoard?>()
+    private val boardList = arrayListOf<FindBoard?>()
     lateinit var context: Context
 
     override fun getItemViewType(position: Int): Int {
@@ -72,7 +70,7 @@ class BoardAdapter(
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_image)
         val btnComments = view.findViewById<Button>(R.id.btn_comment_rv_item_image)
 
-        fun bind(board: Res.FindBoard) {
+        fun bind(board: FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
@@ -125,7 +123,7 @@ class BoardAdapter(
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_no_image)
         val btnComments = view.findViewById<Button>(R.id.btn_comment_rv_item_no_image)
 
-        fun bind(board: Res.FindBoard) {
+        fun bind(board: FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
@@ -155,7 +153,7 @@ class BoardAdapter(
                 intentToComments.invoke(board.boardId)
             }
             imgProfile.setOnClickListener {
-                Log.d("profile","profile click")
+                Log.d("profile",board.boardId.toString())
                 intentToProfile.invoke(board.userId)
             }
         }
@@ -171,7 +169,7 @@ class BoardAdapter(
     }
 
 
-    fun setList(list: List<Res.FindBoard>) {
+    fun setList(list: List<FindBoard>) {
         for (board in list) {
             boardList.add(board)
         }

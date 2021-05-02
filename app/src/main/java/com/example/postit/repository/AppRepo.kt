@@ -25,5 +25,5 @@ class AppRepo {
     suspend fun likeBoard(boardId: Int) = myRetrofit.like(boardId)
     suspend fun getComments(boardId: Int) = myRetrofit.getComments(boardId)
     suspend fun postComments(body: Req.ReqComments) = myRetrofit.postComments(body)
-    suspend fun getProfile(userId: Int, boardIds: List<Int>) = myRetrofit.getProfile(userId,boardIds)
+    suspend fun getProfile(userId: Int, boardIds: String) = myRetrofit.getProfile(userId,boardIds)
 }

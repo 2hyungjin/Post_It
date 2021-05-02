@@ -8,7 +8,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
-import java.io.File
 
 interface API {
     // Login
@@ -63,6 +62,6 @@ interface API {
     @GET("/user/{user_Id}")
     suspend fun getProfile(
         @Path("user_Id") user_Id: Int,
-        @Query("boardIds") boardIds: List<Int>
+        @Query("boardIds") boardIds: String
     ): Response<Profile>
 }

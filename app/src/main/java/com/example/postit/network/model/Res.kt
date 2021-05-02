@@ -17,18 +17,7 @@ object Res {
     data class Board(
         val findBoard: List<FindBoard>
     )
-    data class FindBoard(
-        val boardId: Int,
-        val contents: String,
-        val date: Any,
-        val images: Any,
-        var like: Boolean,
-        var likeNum: Int,
-        val showId: String,
-        val user: User,
-        @SerializedName("user_Id")
-        val userId: Int
-    )
+
     data class User(
         val gender: Int,
         val profile: Int,

@@ -8,8 +8,9 @@ data class FindBoard(
     val canDelete: Boolean,
     val contents: String,
     val date: String,
-    val like: Boolean,
-    val likeNum: Int,
+    val images: Any,
+    var like: Boolean,
+    var likeNum: Int,
     val showId: String,
     val user: UserX,
     @SerializedName("user_Id")
