@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:layout_height="wrap_content">
 
 
@@ -15,6 +16,7 @@
         android:src="@drawable/ic_baseline_person_24" />
 
     <TextView
+        android:layout_weight="1"
         android:id="@+id/tv_rv_item_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,4 +26,14 @@
         android:textStyle="bold"
         android:textSize="16dp"
         tools:text="이형진" />
+
+    <ImageButton
+        android:visibility="gone"
+        android:layout_gravity="center_vertical"
+        android:background="@null"
+        android:src="@drawable/ic_baseline_more_vert_24"
+        android:id="@+id/btn_more_rv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>

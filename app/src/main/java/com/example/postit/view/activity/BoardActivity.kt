@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -65,6 +66,9 @@ class BoardActivity : AppCompatActivity() {
         initRecyclerView()
 
         setSupportActionBar(toolbar_comments)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_account_circle_black_36dp)
+
         toolbar_comments.title = "Post IT"
         // 게시글 받아오기
         loadBoard()
@@ -93,6 +97,8 @@ class BoardActivity : AppCompatActivity() {
             intentToComments(it)
         }, {
             intentToProfile(it)
+        }, {
+            deleteBoard(it)
         }
         )
 
@@ -158,6 +164,9 @@ class BoardActivity : AppCompatActivity() {
                 startActivity(Intent(this@BoardActivity, LogInActivity::class.java))
                 finish()
             }
+            android.R.id.home -> {
+
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -176,6 +185,9 @@ class BoardActivity : AppCompatActivity() {
         val intent = Intent(this, ProfileActivity::class.java)
         intent.putExtra("userId", userId)
         startActivity(intent)
+    }
+
+    private fun deleteBoard(boardId: Int) {
     }
 }
 

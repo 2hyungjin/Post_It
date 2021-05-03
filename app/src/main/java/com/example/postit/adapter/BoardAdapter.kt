@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +16,8 @@ import com.example.postit.network.model.FindBoard
 class BoardAdapter(
     private var likeBoard: (Int) -> Unit,
     private var intentToComments: (Int) -> Unit,
-    private var intentToProfile: (Int) -> Unit
+    private var intentToProfile: (Int) -> Unit,
+    private var deleteBoard: (Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val boardList = arrayListOf<FindBoard?>()
@@ -69,12 +67,14 @@ class BoardAdapter(
         val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_image)
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_image)
         val btnComments = view.findViewById<Button>(R.id.btn_comment_rv_item_image)
+        val btnMore = view.findViewById<ImageButton>(R.id.btn_more_rv_item)
 
         fun bind(board: FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
             btnLike.isSelected = board.like
+            if (board.canDelete) btnMore.visibility = View.VISIBLE
 
             btnLike.setOnClickListener {
                 likeBoard.invoke(board.boardId)
@@ -122,13 +122,14 @@ class BoardAdapter(
         val tvLikeCount = view.findViewById<TextView>(R.id.tv_like_count_rv_item_no_image)
         val btnLike = view.findViewById<Button>(R.id.btn_like_rv_item_no_image)
         val btnComments = view.findViewById<Button>(R.id.btn_comment_rv_item_no_image)
+        val btnMore = view.findViewById<ImageButton>(R.id.btn_more_rv_item)
 
         fun bind(board: FindBoard) {
             tvContents.text = board.contents
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
 
-
+            if (board.canDelete) btnMore.visibility = View.VISIBLE
             if (board.user.profile != 0) {
                 Glide.with(context)
                     .load(board.user.profile)
@@ -153,7 +154,7 @@ class BoardAdapter(
                 intentToComments.invoke(board.boardId)
             }
             imgProfile.setOnClickListener {
-                Log.d("profile",board.boardId.toString())
+                Log.d("profile", board.boardId.toString())
                 intentToProfile.invoke(board.userId)
             }
         }
