@@ -48,6 +48,11 @@ interface API {
         @Path("boardId") boardId: Int
     ): Response<Res.Res>
 
+    @HTTP(method = "DELETE", path = "board", hasBody = true)
+    suspend fun deleteBoard(
+        @Query("boardId") boardId: Int
+    ): Response<Res.Res>
+
     @GET("comments")
     suspend fun getComments(
         @Query("boardId") boardId: Int,

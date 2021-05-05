@@ -1,8 +1,12 @@
-package com.example.postit.adapter
+package com.ex
+
+import com.example.postit.adapter.ImageAdapter
+
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -74,7 +78,6 @@ class BoardAdapter(
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
             btnLike.isSelected = board.like
-            if (board.canDelete) btnMore.visibility = View.VISIBLE
 
             btnLike.setOnClickListener {
                 likeBoard.invoke(board.boardId)
@@ -111,6 +114,15 @@ class BoardAdapter(
             imgProfile.setOnClickListener {
                 intentToProfile.invoke(board.userId)
             }
+            btnMore.setOnClickListener {
+                val popUpMenu = PopupMenu(context, btnMore)
+                MenuInflater(context).inflate(R.menu.menu_more, popUpMenu.menu)
+                popUpMenu.setOnMenuItemClickListener { item ->
+                    if (item.itemId == R.id.menu_delete) deleteBoard.invoke(board.boardId)
+                    false
+                }
+                popUpMenu.show()
+            }
         }
     }
 
@@ -129,7 +141,6 @@ class BoardAdapter(
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
 
-            if (board.canDelete) btnMore.visibility = View.VISIBLE
             if (board.user.profile != 0) {
                 Glide.with(context)
                     .load(board.user.profile)
@@ -156,6 +167,15 @@ class BoardAdapter(
             imgProfile.setOnClickListener {
                 Log.d("profile", board.boardId.toString())
                 intentToProfile.invoke(board.userId)
+            }
+            btnMore.setOnClickListener {
+                val popUpMenu = PopupMenu(context, btnMore)
+                MenuInflater(context).inflate(R.menu.menu_more, popUpMenu.menu)
+                popUpMenu.setOnMenuItemClickListener { item ->
+                    if (item.itemId == R.id.menu_delete) deleteBoard.invoke(board.boardId)
+                    false
+                }
+                popUpMenu.show()
             }
         }
     }
@@ -199,6 +219,12 @@ class BoardAdapter(
     fun resetBoards() {
         boardList.clear()
         notifyDataSetChanged()
+    }
+
+    fun deleteBoard(id: Int) {
+        val target = boardList.find { it?.boardId == id }
+        boardList.remove(target)
+        notifyItemRemoved(boardList.indexOf(target))
     }
 
 

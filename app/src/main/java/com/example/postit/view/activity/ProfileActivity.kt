@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ex.BoardAdapter
 import com.example.postit.R
-import com.example.postit.adapter.BoardAdapter
 import com.example.postit.network.model.FindBoard
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
@@ -31,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         init()
         profileViewModel.getProfileRes.observe(this, Observer { profile ->
-            Log.d("profile",boardIds.toString())
+            Log.d("profile", boardIds.toString())
             tv_user_name_profile.text = profile.user.name
             if (profile.user.profile != 0) {
                 Glide.with(this)
@@ -43,6 +44,13 @@ class ProfileActivity : AppCompatActivity() {
                 LOADING_CHK = true
                 for (i in profile.findBoard) boardIds.add(i.boardId)
                 boardAdapter.setList(profile.findBoard)
+            }
+        })
+        profileViewModel.deleteBoardRes.observe(this, Observer { res ->
+            if(res==null){
+                Toast.makeText(this, "게시글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -75,7 +83,7 @@ class ProfileActivity : AppCompatActivity() {
             intentToComments(it)
         }, {
             //nothing to do
-        },{
+        }, {
             deleteBoard(it)
         })
     }
@@ -127,6 +135,8 @@ class ProfileActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
+
     private fun deleteBoard(boardId: Int) {
+        profileViewModel.deleteBoard(boardId)
     }
 }

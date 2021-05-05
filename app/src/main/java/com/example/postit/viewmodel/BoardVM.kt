@@ -16,9 +16,12 @@ import okhttp3.RequestBody
 class BoardVM(private val repo: AppRepo) : ViewModel() {
     val getBoardRes = MutableLiveData<Res.Board>()
     val postBoardRes = MutableLiveData<Res.Res>()
+    val deleteBoardRes=MutableLiveData<Res.Res>()
+
     val getCommentsRes = MutableLiveData<Comments>()
     val postCommentsRes = MutableLiveData<Res.Res>()
     val getProfileRes = MutableLiveData<Profile>()
+
 
     fun getBoard(id: String) {
         viewModelScope.launch {
@@ -96,10 +99,25 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
                     getProfileRes.postValue(res.body())
                 }else{
                     getProfileRes.postValue(null)
-                    Log.d("profile",res.message())
-                    Log.d("profile",res.code().toString())
-                    Log.d("profile",res.body().toString())
-                    Log.d("profile",res.errorBody().toString())
+                    Log.d("profile","message : "+res.message())
+                    Log.d("profile","body : "+res.body().toString())
+                    Log.d("profile","code : "+res.code().toString())
+                    Log.d("profile","error body : "+res.errorBody().toString())
+                }
+            }
+        }
+    }
+    fun deleteBoard(boardId:Int){
+        viewModelScope.launch {
+            repo.deleteBoard(boardId).let {res->
+                if (res.isSuccessful){
+                    deleteBoardRes.postValue(res.body())
+                }else{
+                    getProfileRes.postValue(null)
+                    Log.d("board",res.message())
+                    Log.d("board",res.code().toString())
+                    Log.d("board",res.body().toString())
+                    Log.d("board",res.errorBody().toString())
                 }
             }
         }

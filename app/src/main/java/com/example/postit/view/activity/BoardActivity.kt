@@ -7,14 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ex.BoardAdapter
 import com.example.postit.R
-import com.example.postit.adapter.BoardAdapter
 import com.example.postit.network.Pref.App
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
@@ -50,6 +49,13 @@ class BoardActivity : AppCompatActivity() {
                     LOADING = false
                     removeProgressBar()
                 }
+            }
+        })
+        boardViewModel.deleteBoardRes.observe(this, Observer { res ->
+            if (res == null) {
+                Toast.makeText(this, "게시글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
         btn_logo_board.setOnClickListener {
@@ -188,6 +194,9 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun deleteBoard(boardId: Int) {
+        boardViewModel.deleteBoard(boardId)
+        boardAdapter.deleteBoard(boardId)
+        boardIdxList.remove(boardId)
     }
 }
 
