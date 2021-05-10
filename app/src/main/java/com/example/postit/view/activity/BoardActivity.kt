@@ -76,8 +76,6 @@ class BoardActivity : AppCompatActivity() {
         initRecyclerView()
 
         setSupportActionBar(toolbar_comments)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_account_circle_black_36dp)
 
         toolbar_comments.title = "Post IT"
         // 게시글 받아오기
@@ -175,7 +173,7 @@ class BoardActivity : AppCompatActivity() {
                 startActivity(Intent(this@BoardActivity, LogInActivity::class.java))
                 finish()
             }
-            android.R.id.home -> {
+            R.id.menu_profile -> {
 
             }
         }

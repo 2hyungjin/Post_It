@@ -2,9 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_profile"
+        android:title="마이페이지"
+        android:icon="@drawable/ic_account_circle_black_36dp"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/menu_logout"
         android:title="로그아웃"
         android:icon="@drawable/ic_logout_black_36dp"
         app:showAsAction="always"
         />
+
 </menu>
