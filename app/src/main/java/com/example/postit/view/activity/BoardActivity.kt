@@ -60,7 +60,11 @@ class BoardActivity : AppCompatActivity() {
         })
         btn_logo_board.setOnClickListener {
             resetBoardList()
+            getMyProfile()
         }
+        boardViewModel.getMyProfileRes.observe(this, Observer {res->
+            supportActionBar?.setIcon(res.user.profile)
+        })
 
     }
 
@@ -78,6 +82,7 @@ class BoardActivity : AppCompatActivity() {
         toolbar_comments.title = "Post IT"
         // 게시글 받아오기
         loadBoard()
+        getMyProfile()
     }
 
     fun loadBoard() {
@@ -195,8 +200,10 @@ class BoardActivity : AppCompatActivity() {
 
     private fun deleteBoard(boardId: Int) {
         boardViewModel.deleteBoard(boardId)
-        boardAdapter.deleteBoard(boardId)
         boardIdxList.remove(boardId)
+    }
+    private fun getMyProfile(){
+        boardViewModel.getMyProfile()
     }
 }
 

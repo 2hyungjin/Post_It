@@ -20,6 +20,7 @@ class AppRepo {
         body: HashMap<String, RequestBody>,
         files: List<MultipartBody.Part>
     ) = myRetrofit.postContent(body = body, files = files)
+
     suspend fun getBoard(boardIds: String) = myRetrofit.getBoards(boardIds)
     suspend fun likeBoard(boardId: Int) = myRetrofit.like(boardId)
     suspend fun deleteBoard(boardId: Int) = myRetrofit.deleteBoard(boardId)
@@ -27,4 +28,5 @@ class AppRepo {
     suspend fun getComments(boardId: Int) = myRetrofit.getComments(boardId)
     suspend fun postComments(body: Req.ReqComments) = myRetrofit.postComments(body)
     suspend fun getProfile(userId: Int, boardIds: String) = myRetrofit.getProfile(userId, boardIds)
+    suspend fun getMyProfile() = myRetrofit.getMyProfile()
 }

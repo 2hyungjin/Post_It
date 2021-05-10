@@ -1,9 +1,6 @@
 package com.example.postit.network
 
-import com.example.postit.network.model.Comments
-import com.example.postit.network.model.Profile
-import com.example.postit.network.model.Req
-import com.example.postit.network.model.Res
+import com.example.postit.network.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -70,5 +67,7 @@ interface API {
         @Query("boardIds") boardIds: String
     ): Response<Profile>
 
+    @GET("yourProfile")
+    suspend fun getMyProfile():Response<MyProfile>
 
 }

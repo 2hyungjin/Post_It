@@ -118,11 +118,15 @@ class BoardAdapter(
                 val popUpMenu = PopupMenu(context, btnMore)
                 MenuInflater(context).inflate(R.menu.menu_more, popUpMenu.menu)
                 popUpMenu.setOnMenuItemClickListener { item ->
-                    if (item.itemId == R.id.menu_delete) deleteBoard.invoke(board.boardId)
+                    if (item.itemId == R.id.menu_delete) {
+                        deleteBoard.invoke(board.boardId)
+                        deleteBoard(board)
+                    }
                     false
                 }
                 popUpMenu.show()
             }
+            tvUserName.setOnClickListener { Log.d("board", board.boardId.toString()) }
         }
     }
 
@@ -172,11 +176,16 @@ class BoardAdapter(
                 val popUpMenu = PopupMenu(context, btnMore)
                 MenuInflater(context).inflate(R.menu.menu_more, popUpMenu.menu)
                 popUpMenu.setOnMenuItemClickListener { item ->
-                    if (item.itemId == R.id.menu_delete) deleteBoard.invoke(board.boardId)
+                    if (item.itemId == R.id.menu_delete) {
+                        deleteBoard.invoke(board.boardId)
+                        deleteBoard(board)
+                    }
                     false
                 }
                 popUpMenu.show()
             }
+            tvUserName.setOnClickListener { Log.d("board", board.boardId.toString()) }
+
         }
     }
 
@@ -221,10 +230,14 @@ class BoardAdapter(
         notifyDataSetChanged()
     }
 
-    fun deleteBoard(id: Int) {
-        val target = boardList.find { it?.boardId == id }
-        boardList.remove(target)
-        notifyItemRemoved(boardList.indexOf(target))
+    fun deleteBoard(target: FindBoard) {
+        Log.d("board", target.toString())
+        if (target.canDelete) {
+            boardList.remove(target)
+            notifyDataSetChanged()
+        } else {
+            Toast.makeText(context, "권한이 없습니다", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

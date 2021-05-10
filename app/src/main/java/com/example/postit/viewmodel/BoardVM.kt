@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.postit.network.model.Comments
-import com.example.postit.network.model.Profile
-import com.example.postit.network.model.Req
-import com.example.postit.network.model.Res
+import com.example.postit.network.model.*
 import com.example.postit.repository.AppRepo
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -21,7 +18,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
     val getCommentsRes = MutableLiveData<Comments>()
     val postCommentsRes = MutableLiveData<Res.Res>()
     val getProfileRes = MutableLiveData<Profile>()
-
+    val getMyProfileRes=MutableLiveData<MyProfile>()
 
     fun getBoard(id: String) {
         viewModelScope.launch {
@@ -118,6 +115,22 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
                     Log.d("board",res.code().toString())
                     Log.d("board",res.body().toString())
                     Log.d("board",res.errorBody().toString())
+                }
+            }
+        }
+    }
+    fun getMyProfile(){
+        viewModelScope.launch {
+            repo.getMyProfile().let {res->
+                if (res.isSuccessful){
+                    getMyProfileRes.postValue(res.body())
+                }else{
+                    getProfileRes.postValue(null)
+                    Log.d("board",res.message())
+                    Log.d("board",res.code().toString())
+                    Log.d("board",res.body().toString())
+                    Log.d("board",res.errorBody().toString())
+
                 }
             }
         }
