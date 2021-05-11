@@ -70,7 +70,7 @@ class BoardActivity : AppCompatActivity() {
                 .centerCrop()
                 .into(btn_menu_my_profile)
             tv_menu_user_name.text = res.user.name
-            myId=res.user.userId
+            myId = res.user.userId
         })
         btn_menu_my_profile.setOnClickListener {
 
@@ -181,12 +181,13 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun intentToProfile(userId: Int) {
-        if (userId!=myId){
+        if (userId != myId) {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
-        }else{
-
+        } else {
+            val intent = Intent(this, MyProfileActivity::class.java)
+            startActivity(intent)
         }
 
     }
