@@ -7,27 +7,69 @@
     tools:context=".view.activity.BoardActivity">
 
     <androidx.appcompat.widget.Toolbar
+        app:contentInsetStart="5dp"
         style="@style/Base.Widget.AppCompat.Toolbar"
         android:id="@+id/toolbar_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="7dp"
-
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:clickable="true"
-            android:id="@+id/btn_logo_board"
-            android:textSize="24sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Post IT"/>
+            <TextView
+                android:id="@+id/btn_logo_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif"
+                android:text="Post IT"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/btn_menu_my_profile"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:clickable="true"
+                android:id="@+id/btn_menu_my_profile"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_account_circle_black_36dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_menu_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_menu_my_profile"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="nickname" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_menu_logout"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_logout_black_36dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView

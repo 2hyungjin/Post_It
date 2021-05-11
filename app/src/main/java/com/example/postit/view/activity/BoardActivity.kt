@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
 import com.example.postit.network.Pref.App
@@ -25,6 +26,7 @@ class BoardActivity : AppCompatActivity() {
     private val boardIdxList = arrayListOf<Int>(-1)
     private var MORE_LOADING = true
     private var LOADING = false
+    var myId: Int = 0
     private lateinit var boardAdapter: BoardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +64,17 @@ class BoardActivity : AppCompatActivity() {
             resetBoardList()
             getMyProfile()
         }
-        boardViewModel.getMyProfileRes.observe(this, Observer {res->
-            supportActionBar?.setIcon(res.user.profile)
+        boardViewModel.getMyProfileRes.observe(this, Observer { res ->
+            Glide.with(applicationContext)
+                .load(res.user.profile)
+                .centerCrop()
+                .into(btn_menu_my_profile)
+            tv_menu_user_name.text = res.user.name
+            myId=res.user.userId
         })
+        btn_menu_my_profile.setOnClickListener {
+
+        }
 
     }
 
@@ -79,6 +89,7 @@ class BoardActivity : AppCompatActivity() {
 
         toolbar_comments.title = "Post IT"
         // 게시글 받아오기
+        supportActionBar?.setDisplayShowHomeEnabled(false)
         loadBoard()
         getMyProfile()
     }
@@ -158,27 +169,6 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater
-        setSupportActionBar(toolbar_comments)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        menuInflater.inflate(R.menu.menu_toolbar, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_logout -> {
-                App.prefs.token = null
-                startActivity(Intent(this@BoardActivity, LogInActivity::class.java))
-                finish()
-            }
-            R.id.menu_profile -> {
-
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun likeBoard(boardId: Int) {
         boardViewModel.likeBoard(boardId)
@@ -191,16 +181,22 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun intentToProfile(userId: Int) {
-        val intent = Intent(this, ProfileActivity::class.java)
-        intent.putExtra("userId", userId)
-        startActivity(intent)
+        if (userId!=myId){
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
+        }else{
+
+        }
+
     }
 
     private fun deleteBoard(boardId: Int) {
         boardViewModel.deleteBoard(boardId)
         boardIdxList.remove(boardId)
     }
-    private fun getMyProfile(){
+
+    private fun getMyProfile() {
         boardViewModel.getMyProfile()
     }
 }

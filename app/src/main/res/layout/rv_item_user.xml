@@ -11,9 +11,8 @@
         android:id="@+id/img_rv_item_profile"
         android:layout_width="29dp"
         android:layout_height="30dp"
-        android:background="@drawable/image_circle"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_person_24" />
+        android:src="@drawable/ic_account_circle_black_36dp" />
 
     <TextView
         android:layout_weight="1"
