@@ -2,6 +2,7 @@ package com.example.postit.network.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class UserXXX(
     val genderId: Int,
@@ -9,4 +10,4 @@ data class UserXXX(
     val profile: Int,
     @SerializedName("user_Id")
     val userId: Int
-)
+) : Serializable

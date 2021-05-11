@@ -9,5 +9,9 @@
         android:id="@+id/myProfileFragment"
         android:name="com.example.postit.view.fragment.MyProfileFragment"
         android:label="my_profile_fragment"
-        tools:layout="@layout/my_profile_fragment" />
+        tools:layout="@layout/my_profile_fragment">
+        <argument
+            android:name="user"
+            app:argType="com.example.postit.network.model.UserXXX" />
+    </fragment>
 </navigation>

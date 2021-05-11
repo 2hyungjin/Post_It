@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
 import com.example.postit.network.Pref.App
+import com.example.postit.network.model.User
+import com.example.postit.network.model.UserXXX
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -26,7 +28,7 @@ class BoardActivity : AppCompatActivity() {
     private val boardIdxList = arrayListOf<Int>(-1)
     private var MORE_LOADING = true
     private var LOADING = false
-    var myId: Int = 0
+    lateinit var me: UserXXX
     private lateinit var boardAdapter: BoardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +72,7 @@ class BoardActivity : AppCompatActivity() {
                 .centerCrop()
                 .into(btn_menu_my_profile)
             tv_menu_user_name.text = res.user.name
-            myId = res.user.userId
+            me = res.user
         })
         btn_menu_my_profile.setOnClickListener {
 
@@ -109,8 +111,7 @@ class BoardActivity : AppCompatActivity() {
         boardViewModel.getBoard(boardIdxListVerString)
     }
 
-    fun initRecyclerView() {
-
+    private fun initRecyclerView() {
         boardAdapter = BoardAdapter({
             likeBoard(it)
         }, {
@@ -175,18 +176,19 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun intentToComments(boardId: Int) {
-        val intent = Intent(this@BoardActivity, CommentsActivity::class.java)
+        val intent = Intent(this, CommentsActivity::class.java)
         intent.putExtra("boardId", boardId)
         startActivity(intent)
     }
 
     private fun intentToProfile(userId: Int) {
-        if (userId != myId) {
+        if (userId != me.userId) {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
         } else {
             val intent = Intent(this, MyProfileActivity::class.java)
+            intent.putExtra("user",me)
             startActivity(intent)
         }
 

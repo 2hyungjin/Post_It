@@ -91,9 +91,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_profile"
                 tools:listitem="@layout/rv_board_item"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
