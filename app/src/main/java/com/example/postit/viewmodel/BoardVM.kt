@@ -93,6 +93,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
         viewModelScope.launch {
             repo.getProfile(userId, boardIds).let { res ->
                 if (res.isSuccessful) {
+                    Log.d("profile",res.body().toString())
                     getProfileRes.postValue(res.body())
                 }else{
                     getProfileRes.postValue(null)

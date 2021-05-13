@@ -11,24 +11,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
 import com.example.postit.network.model.UserXXX
 import com.example.postit.repository.AppRepo
 import com.example.postit.view.activity.CommentsActivity
-import com.example.postit.view.activity.MyProfileActivity
 import com.example.postit.view.activity.PostActivity
-import com.example.postit.view.activity.ProfileActivity
 import com.example.postit.viewmodel.BoardVM
+import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
-import kotlinx.android.synthetic.main.activity_board.*
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
 
 class MyProfileFragment : Fragment() {
-    lateinit var myProfileViewModel: BoardVM
+    lateinit var boardViewModel: BoardVM
+    lateinit var myProfileViewModel: MyProfileViewModel
     private val boardIdxList = arrayListOf<Int>(-1)
     private lateinit var boardAdapter: BoardAdapter
     private var MORE_LOADING = true
@@ -50,19 +50,15 @@ class MyProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        myProfileViewModel.getBoardRes.observe(requireActivity(), Observer { res ->
-            if (res == null) {
-                MORE_LOADING = false
-            } else {
-                for (i in res.findBoard) boardIdxList.add(i.boardId)
-                boardAdapter.apply {
-                    setList(res.findBoard)
-                    LOADING = false
-                    removeProgressBar()
-                }
+        boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
+            if (profile.findBoard.isEmpty()) MORE_LOADING = false
+            else {
+                LOADING = true
+                for (i in profile.findBoard) boardIdxList.add(i.boardId)
+                boardAdapter.setList(profile.findBoard)
             }
         })
-        myProfileViewModel.deleteBoardRes.observe(requireActivity(), Observer { res ->
+        boardViewModel.deleteBoardRes.observe(requireActivity(), Observer { res ->
             if (res == null) {
                 Toast.makeText(requireContext(), "게시글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show()
             } else {
@@ -73,16 +69,26 @@ class MyProfileFragment : Fragment() {
 
 
     fun init() {
-        initRecyclerView()
         initViewModel()
+        initProfile()
+        initRecyclerView()
         loadBoard()
-
+    }
+    private fun initProfile(){
+        me = myProfileViewModel.userXXX
+        tv_user_name_my_profile.text = me.name
+        if (me.profile != 0) {
+            Glide.with(this)
+                .load(me.profile)
+                .into(img_profile_profile)
+        }
     }
 
-    fun initViewModel() {
+    private fun initViewModel() {
         val repo = AppRepo()
         val factory = ViewModelProviderFactory(repo)
-        myProfileViewModel = ViewModelProvider(requireActivity(), factory)[BoardVM::class.java]
+        boardViewModel = ViewModelProvider(requireActivity(), factory)[BoardVM::class.java]
+        myProfileViewModel = ViewModelProvider(requireActivity())[MyProfileViewModel::class.java]
     }
 
     private fun initRecyclerView() {
@@ -131,9 +137,7 @@ class MyProfileFragment : Fragment() {
             if (i != boardIdxList[boardIdxList.lastIndex]) boardListString += ","
         }
         boardListString += "]"
-        val bundle = arguments?.getBundle("user")
-        val user= bundle?.get("user") as UserXXX
-        myProfileViewModel.getProfile(user.userId, boardListString)
+        boardViewModel.getProfile(me.userId, boardListString)
     }
 
     private fun intentToPost() {
@@ -142,7 +146,7 @@ class MyProfileFragment : Fragment() {
     }
 
     private fun likeBoard(boardId: Int) {
-        myProfileViewModel.likeBoard(boardId)
+        boardViewModel.likeBoard(boardId)
     }
 
     private fun intentToComments(boardId: Int) {
@@ -153,7 +157,7 @@ class MyProfileFragment : Fragment() {
 
 
     private fun deleteBoard(boardId: Int) {
-        myProfileViewModel.deleteBoard(boardId)
+        boardViewModel.deleteBoard(boardId)
         boardIdxList.remove(boardId)
     }
 }

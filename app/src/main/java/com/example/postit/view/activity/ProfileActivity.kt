@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
-import com.example.postit.network.model.FindBoard
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.my_profile_fragment.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var profileViewModel: BoardVM
