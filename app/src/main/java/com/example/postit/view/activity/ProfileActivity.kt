@@ -31,6 +31,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         init()
+
         profileViewModel.getProfileRes.observe(this, Observer { profile ->
             Log.d("profile", boardIds.toString())
             tv_user_name_profile.text = profile.user.name
@@ -56,6 +57,13 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun recreate() {
+        Log.d("profile","resume")
+        getProfile()
+
+        super.recreate()
     }
 
     private fun init() {

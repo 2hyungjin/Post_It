@@ -12,7 +12,7 @@ data class FindBoard(
     var like: Boolean,
     var likeNum: Int,
     val showId: String,
-    val user: UserX,
+    val user: UserXXXX,
     @SerializedName("user_Id")
     val userId: Int
 )

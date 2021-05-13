@@ -94,6 +94,7 @@ class CommentsActivity : AppCompatActivity() {
     }
     private fun intentToProfile(userId: Int){
         val intent=Intent(this,ProfileActivity::class.java)
+        intent.putExtra("userId",userId)
         startActivity(intent)
     }
 }

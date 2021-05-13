@@ -30,19 +30,16 @@ class MyProfileActivity : AppCompatActivity() {
 
         val navController= Navigation.findNavController(this,R.id.fragment_nav)
         val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
-        toolbar_my_profile.setupWithNavController(navController,appBarConfiguration)
-
-
-        setSupportActionBar(toolbar_my_profile).let {
-            supportActionBar?.setDisplayShowHomeEnabled(true)
-            supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar_my_profile.apply {
+            setupWithNavController(navController,appBarConfiguration)
+            setNavigationOnClickListener {
+                navController.navigateUp()
+            }
         }
+
+
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId==android.R.id.home)finish()
-        return super.onOptionsItemSelected(item)
-    }
 
 }

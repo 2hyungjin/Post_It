@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -51,6 +53,7 @@ class MyProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        navController=findNavController()
         boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
             if (profile.findBoard.isEmpty()) MORE_LOADING = false
             else {
@@ -66,6 +69,9 @@ class MyProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
+        btn_change_user_name_my_profile.setOnClickListener {
+            navigateToChangeUserName()
+        }
     }
 
 
@@ -74,7 +80,6 @@ class MyProfileFragment : Fragment() {
         initProfile()
         initRecyclerView()
         loadBoard()
-
     }
     private fun initProfile(){
         me = myProfileViewModel.userXXX
@@ -161,6 +166,9 @@ class MyProfileFragment : Fragment() {
     private fun deleteBoard(boardId: Int) {
         boardViewModel.deleteBoard(boardId)
         boardIdxList.remove(boardId)
+    }
+    private fun navigateToChangeUserName(){
+        navController.navigate(R.id.action_myProfileFragment_to_changeUserNameFragment)
     }
 
 }
