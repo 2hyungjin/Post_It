@@ -55,14 +55,18 @@
                 tools:layout_editor_absoluteX="10dp" />
 
             <TextView
+                android:background="@drawable/ripple_select"
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center_vertical"
                 android:padding="15dp"
+                android:clickable="true"
+
                 android:text="닉네임 변경하기"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@+id/view1" />
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                android:focusable="true" />
 
             <View
                 android:id="@+id/view"
@@ -73,6 +77,8 @@
                 tools:layout_editor_absoluteX="10dp" />
 
             <TextView
+                android:background="@drawable/ripple_select"
+                android:clickable="true"
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +87,8 @@
                 android:text="비밀번호 변경하기"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/view"
-                tools:layout_editor_absoluteX="0dp" />
+                tools:layout_editor_absoluteX="0dp"
+                android:focusable="true" />
 
             <View
                 android:id="@+id/view2"
@@ -104,6 +111,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:overScrollMode="never"
                 android:id="@+id/rv_my_profile"
                 tools:listitem="@layout/rv_board_item"
                 android:layout_width="match_parent"

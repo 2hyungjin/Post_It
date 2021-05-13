@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -73,6 +74,7 @@ class MyProfileFragment : Fragment() {
         initProfile()
         initRecyclerView()
         loadBoard()
+
     }
     private fun initProfile(){
         me = myProfileViewModel.userXXX
@@ -160,4 +162,5 @@ class MyProfileFragment : Fragment() {
         boardViewModel.deleteBoard(boardId)
         boardIdxList.remove(boardId)
     }
+
 }

@@ -8,10 +8,13 @@
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.example.postit.view.fragment.MyProfileFragment"
-        android:label="my_profile_fragment"
         tools:layout="@layout/my_profile_fragment">
-        <argument
-            android:name="user"
-            app:argType="com.example.postit.network.model.UserXXX" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_changeUserNameFragment"
+            app:destination="@id/changeUserNameFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/changeUserNameFragment"
+        android:name="com.example.postit.view.fragment.ChangeUserNameFragment"
+        tools:layout="@layout/change_user_name_fragment" />
 </navigation>

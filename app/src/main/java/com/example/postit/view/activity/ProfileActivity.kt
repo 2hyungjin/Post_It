@@ -24,6 +24,7 @@ class ProfileActivity : AppCompatActivity() {
     private val boardIds = arrayListOf<Int>(-1)
     private lateinit var boardAdapter: BoardAdapter
     private var LOADING_CHK: Boolean = true
+    private var isLoaded: Boolean = false
     private var MORE_LOADING_CHK: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +34,14 @@ class ProfileActivity : AppCompatActivity() {
         profileViewModel.getProfileRes.observe(this, Observer { profile ->
             Log.d("profile", boardIds.toString())
             tv_user_name_profile.text = profile.user.name
+            isLoaded = true
             if (profile.user.profile != 0) {
                 Glide.with(this)
                     .load(profile.user.profile)
                     .into(img_profile_profile)
             }
+
+
             if (profile.findBoard.isEmpty()) MORE_LOADING_CHK = false
             else {
                 LOADING_CHK = true
@@ -46,9 +50,9 @@ class ProfileActivity : AppCompatActivity() {
             }
         })
         profileViewModel.deleteBoardRes.observe(this, Observer { res ->
-            if(res==null){
+            if (res == null) {
                 Toast.makeText(this, "게시글 삭제에 실패했습니다", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(this, "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
@@ -136,6 +140,5 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun deleteBoard(boardId: Int) {
-        profileViewModel.deleteBoard(boardId)
     }
 }
