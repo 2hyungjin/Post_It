@@ -80,6 +80,7 @@ class MyProfileFragment : Fragment() {
         initProfile()
         initRecyclerView()
         loadBoard()
+        myProfileViewModel.isMyProfile=true
     }
     private fun initProfile(){
         me = myProfileViewModel.userXXX
