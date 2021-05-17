@@ -75,7 +75,12 @@ class BoardActivity : AppCompatActivity() {
             me = res.user
         })
         btn_menu_my_profile.setOnClickListener {
-
+            intentToProfile(me.userId)
+        }
+        btn_menu_logout.setOnClickListener {
+            App.prefs.token=null
+            App.prefs.isAutoLoginChked=false
+            finish()
         }
 
     }
@@ -178,6 +183,8 @@ class BoardActivity : AppCompatActivity() {
     private fun intentToComments(boardId: Int) {
         val intent = Intent(this, CommentsActivity::class.java)
         intent.putExtra("boardId", boardId)
+        intent.putExtra("user",me)
+
         startActivity(intent)
     }
 

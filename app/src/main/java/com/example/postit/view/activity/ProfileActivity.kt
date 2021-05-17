@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
+import com.example.postit.network.model.UserXXX
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -128,8 +129,8 @@ class ProfileActivity : AppCompatActivity() {
             if (i != boardIds[boardIds.lastIndex]) boardListString += ","
         }
         boardListString += "]"
-        val userId = intent.getIntExtra("userId", -1)
-        profileViewModel.getProfile(userId, boardListString)
+        val user = intent.getSerializableExtra("user") as UserXXX
+        profileViewModel.getProfile(user.userId, boardListString)
     }
 
     private fun likeBoard(boardId: Int) {

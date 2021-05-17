@@ -13,6 +13,7 @@ import com.example.postit.R
 import com.example.postit.adapter.CommentsAdapter
 import com.example.postit.network.model.Comment
 import com.example.postit.network.model.Req
+import com.example.postit.network.model.UserXXX
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
@@ -80,8 +81,8 @@ class CommentsActivity : AppCompatActivity() {
 
     private fun postComments() {
         val content = edt_comment_content_comments.text.toString()
-        edt_comment_content_comments.text=null
-        commentsViewModel.postComments(Req.ReqComments(content,boardId))
+        edt_comment_content_comments.text = null
+        commentsViewModel.postComments(Req.ReqComments(content, boardId))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -92,9 +93,16 @@ class CommentsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun intentToProfile(userId: Int){
-        val intent=Intent(this,ProfileActivity::class.java)
-        intent.putExtra("userId",userId)
+
+    private fun intentToProfile(userId: Int) {
+        lateinit var intent: Intent
+        val user = (this.intent.getSerializableExtra("user") as UserXXX)
+        if (user.userId == userId) {
+            intent = Intent(this, MyProfileActivity::class.java)
+        } else {
+            intent = Intent(this, ProfileActivity::class.java)
+        }
+        intent.putExtra("user", user)
         startActivity(intent)
     }
 }

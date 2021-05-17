@@ -9,6 +9,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:layout_gravity="top"
         android:id="@+id/img_rv_item_profile_comments"
         android:layout_width="30dp"
         android:layout_height="30dp"

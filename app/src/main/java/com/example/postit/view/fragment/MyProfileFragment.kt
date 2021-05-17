@@ -26,6 +26,7 @@ import com.example.postit.view.activity.PostActivity
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
 
@@ -48,12 +49,13 @@ class MyProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        navController=findNavController()
+        navController = findNavController()
         boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
             if (profile.findBoard.isEmpty()) MORE_LOADING = false
             else {
@@ -72,6 +74,9 @@ class MyProfileFragment : Fragment() {
         btn_change_user_name_my_profile.setOnClickListener {
             navigateToChangeUserName()
         }
+        btn_back_my_profile.setOnClickListener {
+            activity?.finish()
+        }
     }
 
 
@@ -80,9 +85,9 @@ class MyProfileFragment : Fragment() {
         initProfile()
         initRecyclerView()
         loadBoard()
-        myProfileViewModel.isMyProfile=true
     }
-    private fun initProfile(){
+
+    private fun initProfile() {
         me = myProfileViewModel.userXXX
         tv_user_name_my_profile.text = me.name
         if (me.profile != 0) {
@@ -160,6 +165,7 @@ class MyProfileFragment : Fragment() {
     private fun intentToComments(boardId: Int) {
         val intent = Intent(requireContext(), CommentsActivity::class.java)
         intent.putExtra("boardId", boardId)
+        intent.putExtra("user",me)
         startActivity(intent)
     }
 
@@ -168,7 +174,10 @@ class MyProfileFragment : Fragment() {
         boardViewModel.deleteBoard(boardId)
         boardIdxList.remove(boardId)
     }
-    private fun navigateToChangeUserName(){
+
+    private fun navigateToChangeUserName() {
+        boardIdxList.clear()
+        boardIdxList.add(-1)
         navController.navigate(R.id.action_myProfileFragment_to_changeUserNameFragment)
     }
 
