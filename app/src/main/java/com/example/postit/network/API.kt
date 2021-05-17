@@ -68,6 +68,9 @@ interface API {
     ): Response<Profile>
 
     @GET("yourProfile")
-    suspend fun getMyProfile():Response<MyProfile>
+    suspend fun getMyProfile(): Response<MyProfile>
+
+    @PUT("user/change/name")
+    suspend fun changeUserName(@Body name: String):Response<Res.Res>
 
 }

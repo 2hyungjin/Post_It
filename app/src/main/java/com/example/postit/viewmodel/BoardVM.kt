@@ -20,6 +20,8 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
     val getProfileRes = MutableLiveData<Profile>()
     val getMyProfileRes=MutableLiveData<MyProfile>()
 
+    val changeUserNameRes=MutableLiveData<Res.Res>()
+
     fun getBoard(id: String) {
         viewModelScope.launch {
             repo.getBoard(id).let { res ->
@@ -132,6 +134,22 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
                     Log.d("board",res.body().toString())
                     Log.d("board",res.errorBody().toString())
 
+                }
+            }
+        }
+    }
+    fun changeUserName(name:String){
+        viewModelScope.launch {
+            repo.changeUserName(name).let {res->
+                if (res.isSuccessful){
+                    changeUserNameRes.postValue(res.body())
+                }
+                else{
+                    changeUserNameRes.postValue(null)
+                    Log.d("changeUserName",res.message())
+                    Log.d("changeUserName",res.code().toString())
+                    Log.d("changeUserName",res.body().toString())
+                    Log.d("changeUserName",res.errorBody().toString())
                 }
             }
         }
