@@ -20,7 +20,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
     val getProfileRes = MutableLiveData<Profile>()
     val getMyProfileRes=MutableLiveData<MyProfile>()
 
-    val changeUserNameRes=MutableLiveData<Res.Res>()
+    val changeUserNameRes=MutableLiveData<Any>()
 
     fun getBoard(id: String) {
         viewModelScope.launch {
