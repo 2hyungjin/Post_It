@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.postit.R
 import com.example.postit.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
+import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.change_user_name_fragment.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.my_profile_fragment.*
 class ChangeUserNameFragment : Fragment() {
     lateinit var boardViewModel: BoardVM
     lateinit var navController: NavController
+    lateinit var myProfileViewModel: MyProfileViewModel
+    lateinit var newName: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +38,7 @@ class ChangeUserNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        navController=findNavController()
+        navController = findNavController()
         btn_back_change_user_name.setOnClickListener {
             navController.navigateUp()
         }
@@ -43,12 +46,12 @@ class ChangeUserNameFragment : Fragment() {
             changeUserName()
         }
         boardViewModel.changeUserNameRes.observe(requireActivity(), Observer {
-            if (it!=null){
-                progress_bar_change_user_name.visibility=View.GONE
-                btn_change_user_name_change_user_name.visibility=View.VISIBLE
+            if (it != null) {
+                progress_bar_change_user_name.visibility = View.GONE
+                btn_change_user_name_change_user_name.visibility = View.VISIBLE
+                myProfileViewModel.userXXX.name = newName
                 navController.navigateUp()
-            }
-            else{
+            } else {
                 Toast.makeText(requireContext(), "이름 변경에 실패했습니", Toast.LENGTH_SHORT).show()
             }
 
@@ -60,18 +63,20 @@ class ChangeUserNameFragment : Fragment() {
     }
 
     private fun viewModelInit() {
-        val repo=AppRepo()
-        val factory=ViewModelProviderFactory(repo)
-        boardViewModel=ViewModelProvider(requireActivity(),factory)[BoardVM::class.java]
+        val repo = AppRepo()
+        val factory = ViewModelProviderFactory(repo)
+        boardViewModel = ViewModelProvider(requireActivity(), factory)[BoardVM::class.java]
+        myProfileViewModel = ViewModelProvider(requireActivity())[MyProfileViewModel::class.java]
     }
 
 
     private fun changeUserName() {
-        val userName=edt_change_name.text.toString()
-        Log.d("changeUserName",userName)
+        val userName = edt_change_name.text.toString()
+        Log.d("changeUserName", userName)
+        newName = userName
         boardViewModel.changeUserName(userName)
-        btn_change_user_name_change_user_name.visibility=View.INVISIBLE
-        progress_bar_change_user_name.visibility=View.VISIBLE
+        btn_change_user_name_change_user_name.visibility = View.INVISIBLE
+        progress_bar_change_user_name.visibility = View.VISIBLE
     }
 
 }

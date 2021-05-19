@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class UserXXX(
     val genderId: Int,
-    val name: String,
+    var name: String,
     val profile: Int,
     @SerializedName("user_Id")
     val userId: Int

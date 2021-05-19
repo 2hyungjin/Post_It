@@ -29,8 +29,8 @@
                 android:focusable="true"
                 android:fontFamily="sans-serif"
                 android:text="Post IT"
-                android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +40,8 @@
             <ImageView
                 android:clickable="true"
                 android:id="@+id/btn_menu_my_profile"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:background="@drawable/ic_account_circle_black_36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:textColor="@color/black"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_menu_my_profile"
@@ -82,6 +83,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_comments"
         tools:listitem="@layout/rv_board_item" />
+    <include
+        android:visibility="gone"
+        android:id="@+id/view_empty_board_board"
+        layout="@layout/layout_empty_board"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_comments" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"

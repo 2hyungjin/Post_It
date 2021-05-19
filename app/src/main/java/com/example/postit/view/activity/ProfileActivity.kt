@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,7 +45,10 @@ class ProfileActivity : AppCompatActivity() {
             }
 
 
-            if (profile.findBoard.isEmpty()) MORE_LOADING_CHK = false
+            if (profile.findBoard.isEmpty()){
+                MORE_LOADING_CHK = false
+                view_empty_board_profile.visibility= View.VISIBLE
+            }
             else {
                 LOADING_CHK = true
                 for (i in profile.findBoard) boardIds.add(i.boardId)

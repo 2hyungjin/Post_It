@@ -51,6 +51,13 @@
                     tools:text="이름이름이름" />
             </LinearLayout>
 
+            <include
+                android:id="@+id/view_empty_board_profile"
+                layout="@layout/layout_empty_board"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_board_profile"
                 android:layout_width="match_parent"

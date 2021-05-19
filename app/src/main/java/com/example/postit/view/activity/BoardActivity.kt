@@ -80,7 +80,7 @@ class BoardActivity : AppCompatActivity() {
         btn_menu_logout.setOnClickListener {
             App.prefs.token=null
             App.prefs.isAutoLoginChked=false
-            finish()
+            intentToLogin()
         }
 
     }
@@ -208,6 +208,11 @@ class BoardActivity : AppCompatActivity() {
 
     private fun getMyProfile() {
         boardViewModel.getMyProfile()
+    }
+    private fun intentToLogin(){
+        val intent=Intent(this,LogInActivity::class.java)
+        startActivity(intent)
+        this.finish()
     }
 }
 

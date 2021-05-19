@@ -57,8 +57,10 @@ class MyProfileFragment : Fragment() {
         init()
         navController = findNavController()
         boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
-            if (profile.findBoard.isEmpty()) MORE_LOADING = false
-            else {
+            if (profile.findBoard.isEmpty()) {
+                MORE_LOADING = false
+                view_empty_board_my_profile.visibility = View.VISIBLE
+            } else {
                 LOADING = true
                 for (i in profile.findBoard) boardIdxList.add(i.boardId)
                 boardAdapter.setList(profile.findBoard)
@@ -165,7 +167,7 @@ class MyProfileFragment : Fragment() {
     private fun intentToComments(boardId: Int) {
         val intent = Intent(requireContext(), CommentsActivity::class.java)
         intent.putExtra("boardId", boardId)
-        intent.putExtra("user",me)
+        intent.putExtra("user", me)
         startActivity(intent)
     }
 
