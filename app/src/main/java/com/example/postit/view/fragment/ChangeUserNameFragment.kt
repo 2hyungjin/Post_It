@@ -2,6 +2,7 @@ package com.example.postit.view.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,8 +43,14 @@ class ChangeUserNameFragment : Fragment() {
             changeUserName()
         }
         boardViewModel.changeUserNameRes.observe(requireActivity(), Observer {
-            progress_bar_change_user_name.visibility=View.GONE
-            btn_change_user_name_change_user_name.visibility=View.VISIBLE
+            if (it!=null){
+                progress_bar_change_user_name.visibility=View.GONE
+                btn_change_user_name_change_user_name.visibility=View.VISIBLE
+                navController.navigateUp()
+            }
+            else{
+                Toast.makeText(requireContext(), "이름 변경에 실패했습니", Toast.LENGTH_SHORT).show()
+            }
 
         })
     }
@@ -61,6 +68,7 @@ class ChangeUserNameFragment : Fragment() {
 
     private fun changeUserName() {
         val userName=edt_change_name.text.toString()
+        Log.d("changeUserName",userName)
         boardViewModel.changeUserName(userName)
         btn_change_user_name_change_user_name.visibility=View.INVISIBLE
         progress_bar_change_user_name.visibility=View.VISIBLE

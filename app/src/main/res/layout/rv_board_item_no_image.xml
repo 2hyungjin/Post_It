@@ -7,13 +7,14 @@
     android:layout_marginBottom="5dp"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="7dp">
+    android:padding="3dp">
 
     <include
         android:id="@+id/rv_item_user_no_image"
         layout="@layout/rv_item_user" />
 
     <TextView
+        android:layout_marginLeft="2dp"
         android:id="@+id/tv_rv_item_contents_no_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
