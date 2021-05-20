@@ -42,6 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/btn_change_profile_my_profile"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_margin="20dp"

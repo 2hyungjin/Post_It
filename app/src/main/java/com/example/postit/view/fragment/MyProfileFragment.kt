@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -24,8 +25,10 @@ import com.example.postit.view.activity.PostActivity
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
+import com.opensooq.supernova.gligar.GligarPicker
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
+import okhttp3.RequestBody
 
 class MyProfileFragment : Fragment() {
     lateinit var boardViewModel: BoardVM
@@ -75,6 +78,12 @@ class MyProfileFragment : Fragment() {
         }
         btn_back_my_profile.setOnClickListener {
             activity?.finish()
+        }
+        btn_change_password_my_profile.setOnClickListener {
+            navigateToChangePassword()
+        }
+        btn_change_profile_my_profile.setOnClickListener {
+
         }
     }
 
@@ -178,6 +187,35 @@ class MyProfileFragment : Fragment() {
         boardIdxList.clear()
         boardIdxList.add(-1)
         navController.navigate(R.id.action_myProfileFragment_to_changeUserNameFragment)
+    }
+
+    private fun navigateToChangePassword() {
+        boardIdxList.clear()
+        boardIdxList.add(-1)
+        navController.navigate(R.id.action_myProfileFragment_to_changePasswordFragment)
+    }
+
+    private fun pickImage() {
+        GligarPicker().requestCode(1001).withActivity(requireActivity())
+            .limit(1).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != AppCompatActivity.RESULT_OK) {
+            return
+        }
+        when (requestCode) {
+            1001 -> {
+                val profile = data?.extras?.getString(GligarPicker.IMAGES_RESULT)
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun changeProfile(profile: String) {
+        val body = HashMap<String, RequestBody>()
+
+//        boardViewModel.changeUserProfile()
     }
 
 }

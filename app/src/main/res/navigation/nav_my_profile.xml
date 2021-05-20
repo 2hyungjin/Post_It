@@ -14,9 +14,17 @@
             app:destination="@id/changeUserNameFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/changeUserNameFragment"
         android:name="com.example.postit.view.fragment.ChangeUserNameFragment"
         tools:layout="@layout/change_user_name_fragment" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.postit.view.fragment.ChangePasswordFragment"
+        android:label="change_password_fragment"
+        tools:layout="@layout/change_password_fragment" />
 </navigation>

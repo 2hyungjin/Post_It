@@ -22,7 +22,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
 
     val changeUserNameRes = MutableLiveData<Res.Res>()
     val changeUserPasswordRes = MutableLiveData<Res.Res>()
-
+    val changeUserProfileRes=MutableLiveData<Res.Res>()
     fun getBoard(id: String) {
         viewModelScope.launch {
             repo.getBoard(id).let { res ->
@@ -164,12 +164,26 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
                 if (res.isSuccessful) {
                     changeUserPasswordRes.postValue(res.body())
                 } else {
-                    changeUserPasswordRes.postValue(null)
-                    Log.d("changeUserName", res.message())
-                    Log.d("changeUserName", res.code().toString())
-                    Log.d("changeUserName", res.body().toString())
-                    Log.d("changeUserName", res.errorBody().toString())
-
+                    changeUserPasswordRes.postValue(res.body())
+                    Log.d("changeUserPassword", res.message())
+                    Log.d("changeUserPassword", res.code().toString())
+                    Log.d("changeUserPassword", res.body().toString())
+                    Log.d("changeUserPassword", res.errorBody().toString())
+                }
+            }
+        }
+    }
+    fun changeUserProfile(body: HashMap<String, RequestBody>, files: MultipartBody.Part){
+        viewModelScope.launch {
+            repo.changeUserProfile(body,files).let {res->
+                if (res.isSuccessful){
+                    changeUserProfileRes.postValue(res.body())
+                }else{
+                    changeUserProfileRes.postValue(res.body())
+                    Log.d("changeUserProfile", res.message())
+                    Log.d("changeUserProfile", res.code().toString())
+                    Log.d("changeUserProfile", res.body().toString())
+                    Log.d("changeUserProfile", res.errorBody().toString())
                 }
             }
         }

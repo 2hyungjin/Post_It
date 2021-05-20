@@ -79,4 +79,11 @@ interface API {
         @Query("changePassword") changePassword: String
     ): Response<Res.Res>
 
+    @POST("board")
+    suspend fun changeProfile(
+        @PartMap body: HashMap<String, RequestBody>,
+        @Part("profile") profile: Int = 1,
+        @Part files: MultipartBody.Part
+    ): Response<Res.Res>
+
 }

@@ -33,4 +33,9 @@ class AppRepo {
             password,
             changePassword
         )
+
+    suspend fun changeUserProfile(
+        body: HashMap<String, RequestBody>,
+        file: MultipartBody.Part
+    ) = myRetrofit.changeProfile(body, files = file)
 }

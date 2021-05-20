@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.postit.R
+import com.example.postit.network.model.Res
 import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.MyProfileViewModel
@@ -22,7 +23,7 @@ class ChangeUserNameFragment : Fragment() {
     lateinit var boardViewModel: BoardVM
     lateinit var navController: NavController
     lateinit var myProfileViewModel: MyProfileViewModel
-    lateinit var newName: String
+    var newName: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,24 +38,32 @@ class ChangeUserNameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        boardViewModel.changeUserNameRes.observe(viewLifecycleOwner, Observer {
+            when {
+                it == null -> {
+                    Toast.makeText(requireContext(), "이름 변경에 실패했습니다", Toast.LENGTH_SHORT).show()
+                }
+                it.result == 0 -> {
+
+                }
+                it.result == 1 -> {
+                    progress_bar_change_user_name.visibility = View.INVISIBLE
+                    btn_change_password_change_user_name.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), "이름을 변경했습니다", Toast.LENGTH_SHORT).show()
+                    myProfileViewModel.userXXX.name = newName
+                    boardViewModel.changeUserNameRes.postValue(Res.Res(0,""))
+                    navController.navigateUp()
+                }
+            }
+        })
+
         navController = findNavController()
-        btn_back_change_password.setOnClickListener {
+        btn_back_change_user_name.setOnClickListener {
             navController.navigateUp()
         }
-        btn_change_user_name_change_password.setOnClickListener {
+        btn_change_password_change_user_name.setOnClickListener {
             changeUserName()
         }
-        boardViewModel.changeUserNameRes.observe(requireActivity(), Observer {
-            if (it != null) {
-                progress_bar_change_user_name.visibility = View.GONE
-                btn_change_user_name_change_password.visibility = View.VISIBLE
-                myProfileViewModel.userXXX.name = newName
-                navController.navigateUp()
-            } else {
-                Toast.makeText(requireContext(), "이름 변경에 실패했습니", Toast.LENGTH_SHORT).show()
-            }
-
-        })
     }
 
     private fun init() {
@@ -74,7 +83,7 @@ class ChangeUserNameFragment : Fragment() {
         Log.d("changeUserName", userName)
         newName = userName
         boardViewModel.changeUserName(userName)
-        btn_change_user_name_change_password.visibility = View.INVISIBLE
+        btn_change_password_change_user_name.visibility = View.INVISIBLE
         progress_bar_change_user_name.visibility = View.VISIBLE
     }
 

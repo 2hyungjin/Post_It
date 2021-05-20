@@ -25,18 +25,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
             android:id="@+id/edt_change_password_change_password"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="변경할 이름을 입력하세요" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_back_change_password"
+        android:id="@+id/btn_back_change_user_name"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,11 +47,11 @@
 
     <com.google.android.material.button.MaterialButton
         style="@style/Widget.MaterialComponents.Button"
-        android:id="@+id/btn_change_user_name_change_password"
+        android:id="@+id/btn_change_password_change_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="변경하기"
-        app:layout_constraintBottom_toTopOf="@+id/btn_back_change_password"
+        app:layout_constraintBottom_toTopOf="@+id/btn_back_change_user_name"
         tools:layout_editor_absoluteX="10dp" />
     <include layout="@layout/progress_bar"
         android:id="@+id/progress_bar_change_user_name"
