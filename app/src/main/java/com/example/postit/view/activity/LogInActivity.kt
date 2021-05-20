@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.postit.R
 import com.example.postit.network.Pref.App
 import com.example.postit.network.model.Req
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.LoginVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,9 +22,9 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("login",App.prefs.token.toString())
+        Log.d("login", App.prefs.token.toString())
         init()
-        if (App.prefs.isAutoLoginChked) {
+        if (App.prefs.isAutoLoginChked && App.prefs.token != null) {
             login_chk_auto_login.isChecked = true
             autoLogin()
         }

@@ -13,8 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.postit.R
 import com.example.postit.adapter.ImageAdapter
-import com.example.postit.network.model.Res
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import com.opensooq.supernova.gligar.GligarPicker

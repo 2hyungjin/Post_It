@@ -12,21 +12,18 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
 import com.example.postit.network.model.UserXXX
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.view.activity.CommentsActivity
 import com.example.postit.view.activity.PostActivity
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
 

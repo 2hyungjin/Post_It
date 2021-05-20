@@ -1,15 +1,13 @@
 package com.example.postit.viewmodel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.postit.network.Pref.App
 import com.example.postit.network.model.Req
 import com.example.postit.network.model.Req.ReqSignIn
 import com.example.postit.network.model.Res
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

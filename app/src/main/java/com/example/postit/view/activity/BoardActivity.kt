@@ -5,8 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,9 +14,8 @@ import com.bumptech.glide.Glide
 import com.ex.BoardAdapter
 import com.example.postit.R
 import com.example.postit.network.Pref.App
-import com.example.postit.network.model.User
 import com.example.postit.network.model.UserXXX
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_board.*

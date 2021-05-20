@@ -71,6 +71,12 @@ interface API {
     suspend fun getMyProfile(): Response<MyProfile>
 
     @PUT("user/change/name")
-    suspend fun changeUserName(@Query("name") name: String):Response<Any>
+    suspend fun changeUserName(@Query("name") name: String): Response<Res.Res>
+
+    @PUT("user/change/password")
+    suspend fun changeUserPassword(
+        @Query("password") password: String,
+        @Query("changePassword") changePassword: String
+    ): Response<Res.Res>
 
 }

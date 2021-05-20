@@ -2,7 +2,7 @@ package com.example.postit.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 
 class ViewModelProviderFactory(
     private val repo:AppRepo

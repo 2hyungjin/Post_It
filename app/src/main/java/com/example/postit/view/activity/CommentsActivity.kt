@@ -3,7 +3,6 @@ package com.example.postit.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -14,12 +13,11 @@ import com.example.postit.adapter.CommentsAdapter
 import com.example.postit.network.model.Comment
 import com.example.postit.network.model.Req
 import com.example.postit.network.model.UserXXX
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_comments.toolbar_comments
-import kotlinx.android.synthetic.main.activity_post.*
 
 class CommentsActivity : AppCompatActivity() {
     lateinit var commentsAdapter: CommentsAdapter

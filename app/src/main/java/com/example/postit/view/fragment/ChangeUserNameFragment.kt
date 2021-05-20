@@ -12,12 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.postit.R
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import com.example.postit.viewmodel.BoardVM
 import com.example.postit.viewmodel.MyProfileViewModel
 import com.example.postit.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.change_user_name_fragment.*
-import kotlinx.android.synthetic.main.my_profile_fragment.*
 
 class ChangeUserNameFragment : Fragment() {
     lateinit var boardViewModel: BoardVM
@@ -39,16 +38,16 @@ class ChangeUserNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         navController = findNavController()
-        btn_back_change_user_name.setOnClickListener {
+        btn_back_change_password.setOnClickListener {
             navController.navigateUp()
         }
-        btn_change_user_name_change_user_name.setOnClickListener {
+        btn_change_user_name_change_password.setOnClickListener {
             changeUserName()
         }
         boardViewModel.changeUserNameRes.observe(requireActivity(), Observer {
             if (it != null) {
                 progress_bar_change_user_name.visibility = View.GONE
-                btn_change_user_name_change_user_name.visibility = View.VISIBLE
+                btn_change_user_name_change_password.visibility = View.VISIBLE
                 myProfileViewModel.userXXX.name = newName
                 navController.navigateUp()
             } else {
@@ -71,11 +70,11 @@ class ChangeUserNameFragment : Fragment() {
 
 
     private fun changeUserName() {
-        val userName = edt_change_name.text.toString()
+        val userName = edt_change_password_change_password.text.toString()
         Log.d("changeUserName", userName)
         newName = userName
         boardViewModel.changeUserName(userName)
-        btn_change_user_name_change_user_name.visibility = View.INVISIBLE
+        btn_change_user_name_change_password.visibility = View.INVISIBLE
         progress_bar_change_user_name.visibility = View.VISIBLE
     }
 

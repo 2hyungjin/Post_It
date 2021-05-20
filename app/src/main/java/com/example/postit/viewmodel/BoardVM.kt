@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.postit.network.model.*
-import com.example.postit.repository.AppRepo
+import com.example.postit.network.repository.AppRepo
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,14 +13,15 @@ import okhttp3.RequestBody
 class BoardVM(private val repo: AppRepo) : ViewModel() {
     val getBoardRes = MutableLiveData<Res.Board>()
     val postBoardRes = MutableLiveData<Res.Res>()
-    val deleteBoardRes=MutableLiveData<Res.Res>()
+    val deleteBoardRes = MutableLiveData<Res.Res>()
 
     val getCommentsRes = MutableLiveData<Comments>()
     val postCommentsRes = MutableLiveData<Res.Res>()
     val getProfileRes = MutableLiveData<Profile>()
-    val getMyProfileRes=MutableLiveData<MyProfile>()
+    val getMyProfileRes = MutableLiveData<MyProfile>()
 
-    val changeUserNameRes=MutableLiveData<Any>()
+    val changeUserNameRes = MutableLiveData<Res.Res>()
+    val changeUserPasswordRes = MutableLiveData<Res.Res>()
 
     fun getBoard(id: String) {
         viewModelScope.launch {
@@ -95,61 +96,80 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
         viewModelScope.launch {
             repo.getProfile(userId, boardIds).let { res ->
                 if (res.isSuccessful) {
-                    Log.d("profile",res.body().toString())
+                    Log.d("profile", res.body().toString())
                     getProfileRes.postValue(res.body())
-                }else{
+                } else {
                     getProfileRes.postValue(null)
-                    Log.d("profile","message : "+res.message())
-                    Log.d("profile","body : "+res.body().toString())
-                    Log.d("profile","code : "+res.code().toString())
-                    Log.d("profile","error body : "+res.errorBody().toString())
+                    Log.d("profile", "message : " + res.message())
+                    Log.d("profile", "body : " + res.body().toString())
+                    Log.d("profile", "code : " + res.code().toString())
+                    Log.d("profile", "error body : " + res.errorBody().toString())
                 }
             }
         }
     }
-    fun deleteBoard(boardId:Int){
+
+    fun deleteBoard(boardId: Int) {
         viewModelScope.launch {
-            repo.deleteBoard(boardId).let {res->
-                if (res.isSuccessful){
+            repo.deleteBoard(boardId).let { res ->
+                if (res.isSuccessful) {
                     deleteBoardRes.postValue(res.body())
-                }else{
+                } else {
                     getProfileRes.postValue(null)
-                    Log.d("board",res.message())
-                    Log.d("board",res.code().toString())
-                    Log.d("board",res.body().toString())
-                    Log.d("board",res.errorBody().toString())
+                    Log.d("board", res.message())
+                    Log.d("board", res.code().toString())
+                    Log.d("board", res.body().toString())
+                    Log.d("board", res.errorBody().toString())
                 }
             }
         }
     }
-    fun getMyProfile(){
+
+    fun getMyProfile() {
         viewModelScope.launch {
-            repo.getMyProfile().let {res->
-                if (res.isSuccessful){
+            repo.getMyProfile().let { res ->
+                if (res.isSuccessful) {
                     getMyProfileRes.postValue(res.body())
-                }else{
+                } else {
                     getProfileRes.postValue(null)
-                    Log.d("board",res.message())
-                    Log.d("board",res.code().toString())
-                    Log.d("board",res.body().toString())
-                    Log.d("board",res.errorBody().toString())
+                    Log.d("board", res.message())
+                    Log.d("board", res.code().toString())
+                    Log.d("board", res.body().toString())
+                    Log.d("board", res.errorBody().toString())
 
                 }
             }
         }
     }
-    fun changeUserName(name:String){
+
+    fun changeUserName(name: String) {
         viewModelScope.launch {
-            repo.changeUserName(name).let {res->
-                if (res.isSuccessful){
+            repo.changeUserName(name).let { res ->
+                if (res.isSuccessful) {
                     changeUserNameRes.postValue(res.body())
-                }
-                else{
+                } else {
                     changeUserNameRes.postValue(null)
-                    Log.d("changeUserName",res.message())
-                    Log.d("changeUserName",res.code().toString())
-                    Log.d("changeUserName",res.body().toString())
-                    Log.d("changeUserName",res.errorBody().toString())
+                    Log.d("changeUserName", res.message())
+                    Log.d("changeUserName", res.code().toString())
+                    Log.d("changeUserName", res.body().toString())
+                    Log.d("changeUserName", res.errorBody().toString())
+                }
+            }
+        }
+    }
+
+    fun changeUserPassword(password: String, changePassword: String) {
+        viewModelScope.launch {
+            repo.changeUserPassword(password, changePassword).let { res ->
+                if (res.isSuccessful) {
+                    changeUserPasswordRes.postValue(res.body())
+                } else {
+                    changeUserPasswordRes.postValue(null)
+                    Log.d("changeUserName", res.message())
+                    Log.d("changeUserName", res.code().toString())
+                    Log.d("changeUserName", res.body().toString())
+                    Log.d("changeUserName", res.errorBody().toString())
+
                 }
             }
         }
