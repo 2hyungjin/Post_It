@@ -79,6 +79,7 @@ interface API {
         @Query("changePassword") changePassword: String
     ): Response<Res.Res>
 
+    @Multipart
     @POST("board")
     suspend fun changeProfile(
         @PartMap body: HashMap<String, RequestBody>,

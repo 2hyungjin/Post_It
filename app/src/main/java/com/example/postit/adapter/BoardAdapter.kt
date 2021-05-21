@@ -106,10 +106,13 @@ class BoardAdapter(
             rvImage.adapter = ImageAdapter(boardImageList, true)
             rvImage.onFlingListener = null
             snapHelper.attachToRecyclerView(rvImage)
-            if (board.user.profile != 0) {
+            if (board.user.profile != null) {
                 Glide.with(context)
                     .load(board.user.profile)
+                    .circleCrop()
                     .into(imgProfile)
+            } else {
+                imgProfile.setImageResource(R.drawable.ic_account_circle_black_36dp)
             }
             imgProfile.setOnClickListener {
                 intentToProfile.invoke(board.userId)
@@ -145,10 +148,13 @@ class BoardAdapter(
             tvUserName.text = board.user.userName
             tvLikeCount.text = board.likeNum.toString() + "명"
 
-            if (board.user.profile != 0) {
+            if (board.user.profile != null) {
                 Glide.with(context)
                     .load(board.user.profile)
+                    .circleCrop()
                     .into(imgProfile)
+            } else {
+                imgProfile.setImageResource(R.drawable.ic_account_circle_black_36dp)
             }
             btnLike.isSelected = board.like
 

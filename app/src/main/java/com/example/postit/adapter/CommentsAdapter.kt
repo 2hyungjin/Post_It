@@ -21,10 +21,13 @@ class CommentsAdapter(val intentToProfile: (Int) -> Unit) :
         val tvUserName: TextView = view.findViewById<TextView>(R.id.tv_rv_item_username_comments)
         val tvComment: TextView = view.findViewById<TextView>(R.id.tv_rv_item_comment_comments)
         fun bind(comment: Comment) {
-            if (comment.user.profile != 0) {
+            if (comment.user.profile != null) {
                 Glide.with(context)
                     .load(comment.user.profile)
+                    .circleCrop()
                     .into(imgProfile)
+            }else{
+                imgProfile.setImageResource(R.drawable.ic_account_circle_black_36dp)
             }
             imgProfile.setOnClickListener {
                 intentToProfile.invoke(comment.userId)

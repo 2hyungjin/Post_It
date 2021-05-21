@@ -19,6 +19,7 @@ import com.example.postit.R
 import com.example.postit.network.model.UserXXX
 import com.example.postit.view.fragment.MyProfileFragment
 import com.example.postit.viewmodel.MyProfileViewModel
+import com.opensooq.supernova.gligar.GligarPicker
 import kotlinx.android.synthetic.main.activity_my_profile.*
 
 class MyProfileActivity : AppCompatActivity() {
@@ -32,5 +33,19 @@ class MyProfileActivity : AppCompatActivity() {
         myProfileViewModel.userXXX = user
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode != AppCompatActivity.RESULT_OK) {
+            return
+        }
+        when (requestCode) {
+            1001 -> {
+                val profile = data?.extras?.getStringArray(GligarPicker.IMAGES_RESULT)// return list of selected images paths.
+                if (profile != null) {
+                    myProfileViewModel.profile.postValue(profile[0])
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
 }

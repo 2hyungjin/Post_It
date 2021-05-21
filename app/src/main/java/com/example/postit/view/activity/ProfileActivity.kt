@@ -37,18 +37,18 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("profile", boardIds.toString())
             tv_user_name_profile.text = profile.user.name
             isLoaded = true
-            if (profile.user.profile != 0) {
+            if (profile.user.profile != null) {
                 Glide.with(this)
                     .load(profile.user.profile)
+                    .circleCrop()
                     .into(img_profile_profile)
             }
 
 
-            if (profile.findBoard.isEmpty()){
+            if (profile.findBoard.isEmpty()) {
                 MORE_LOADING_CHK = false
-                view_empty_board_profile.visibility= View.VISIBLE
-            }
-            else {
+                view_empty_board_profile.visibility = View.VISIBLE
+            } else {
                 LOADING_CHK = true
                 for (i in profile.findBoard) boardIds.add(i.boardId)
                 boardAdapter.setList(profile.findBoard)
@@ -64,7 +64,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     override fun recreate() {
-        Log.d("profile","resume")
+        Log.d("profile", "resume")
         getProfile()
 
         super.recreate()

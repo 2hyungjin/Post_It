@@ -1,6 +1,7 @@
 package com.example.postit.view.fragment
 
 import android.content.Intent
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -28,7 +30,12 @@ import com.example.postit.viewmodel.ViewModelProviderFactory
 import com.opensooq.supernova.gligar.GligarPicker
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.my_profile_fragment.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Multipart
+import java.io.File
+import java.time.LocalDateTime
 
 class MyProfileFragment : Fragment() {
     lateinit var boardViewModel: BoardVM
@@ -52,6 +59,7 @@ class MyProfileFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
@@ -73,6 +81,11 @@ class MyProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "게시글을 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         })
+        myProfileViewModel.profile.observe(requireActivity(), Observer {
+            changeProfile(it)
+        })
+
+
         btn_change_user_name_my_profile.setOnClickListener {
             navigateToChangeUserName()
         }
@@ -83,7 +96,7 @@ class MyProfileFragment : Fragment() {
             navigateToChangePassword()
         }
         btn_change_profile_my_profile.setOnClickListener {
-
+            pickImage()
         }
     }
 
@@ -98,10 +111,11 @@ class MyProfileFragment : Fragment() {
     private fun initProfile() {
         me = myProfileViewModel.userXXX
         tv_user_name_my_profile.text = me.name
-        if (me.profile != 0) {
+        if (me.profile != null) {
             Glide.with(this)
                 .load(me.profile)
-                .into(img_profile_profile)
+                .circleCrop()
+                .into(img_profile_my_profile)
         }
     }
 
@@ -200,22 +214,24 @@ class MyProfileFragment : Fragment() {
             .limit(1).show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != AppCompatActivity.RESULT_OK) {
-            return
-        }
-        when (requestCode) {
-            1001 -> {
-                val profile = data?.extras?.getString(GligarPicker.IMAGES_RESULT)
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun changeProfile(profile: String) {
-        val body = HashMap<String, RequestBody>()
+        val dateBody =
+            RequestBody.create(MediaType.parse("text/plain"), LocalDateTime.now().toString())
+        val contentBody = RequestBody.create(MediaType.parse("text/plain"), "")
+        val showBody = RequestBody.create(MediaType.parse("text/plain"), "all")
+        val body = hashMapOf<String, RequestBody>(
+            "content" to contentBody,
+            "date" to dateBody,
+            "show" to showBody
+        )
 
-//        boardViewModel.changeUserProfile()
+        val file = File(profile)
+        val fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+        val filePart = MultipartBody.Part.createFormData("files", file.name, fileBody)
+
+        boardViewModel.changeUserProfile(body, filePart)
     }
 
 }

@@ -64,10 +64,12 @@ class BoardActivity : AppCompatActivity() {
             getMyProfile()
         }
         boardViewModel.getMyProfileRes.observe(this, Observer { res ->
-            Glide.with(applicationContext)
-                .load(res.user.profile)
-                .centerCrop()
-                .into(btn_menu_my_profile)
+            if (res.user.profile != null) {
+                Glide.with(applicationContext)
+                    .load(res.user.profile)
+                    .circleCrop()
+                    .into(btn_menu_my_profile)
+            }
             tv_menu_user_name.text = res.user.name
             me = res.user
         })
@@ -75,8 +77,8 @@ class BoardActivity : AppCompatActivity() {
             intentToProfile(me.userId)
         }
         btn_menu_logout.setOnClickListener {
-            App.prefs.token=null
-            App.prefs.isAutoLoginChked=false
+            App.prefs.token = null
+            App.prefs.isAutoLoginChked = false
             intentToLogin()
         }
 
@@ -180,7 +182,7 @@ class BoardActivity : AppCompatActivity() {
     private fun intentToComments(boardId: Int) {
         val intent = Intent(this, CommentsActivity::class.java)
         intent.putExtra("boardId", boardId)
-        intent.putExtra("user",me)
+        intent.putExtra("user", me)
 
         startActivity(intent)
     }
@@ -192,7 +194,7 @@ class BoardActivity : AppCompatActivity() {
             startActivity(intent)
         } else {
             val intent = Intent(this, MyProfileActivity::class.java)
-            intent.putExtra("user",me)
+            intent.putExtra("user", me)
             startActivity(intent)
         }
 
@@ -206,8 +208,9 @@ class BoardActivity : AppCompatActivity() {
     private fun getMyProfile() {
         boardViewModel.getMyProfile()
     }
-    private fun intentToLogin(){
-        val intent=Intent(this,LogInActivity::class.java)
+
+    private fun intentToLogin() {
+        val intent = Intent(this, LogInActivity::class.java)
         startActivity(intent)
         this.finish()
     }
