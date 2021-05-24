@@ -175,6 +175,7 @@ class BoardVM(private val repo: AppRepo) : ViewModel() {
     }
     fun changeUserProfile(body: HashMap<String, RequestBody>, files: MultipartBody.Part){
         viewModelScope.launch {
+            Log.d("changeUserProfile","aa")
             repo.changeUserProfile(body,files).let {res->
                 if (res.isSuccessful){
                     changeUserProfileRes.postValue(res.body())

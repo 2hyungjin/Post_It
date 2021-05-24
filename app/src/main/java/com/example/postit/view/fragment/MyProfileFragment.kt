@@ -65,11 +65,11 @@ class MyProfileFragment : Fragment() {
         init()
         navController = findNavController()
         boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
+            boardAdapter.removeProgressBar()
             if (profile.findBoard.isEmpty()) {
                 MORE_LOADING = false
                 view_empty_board_my_profile.visibility = View.VISIBLE
             } else {
-                LOADING = true
                 for (i in profile.findBoard) boardIdxList.add(i.boardId)
                 boardAdapter.setList(profile.findBoard)
             }
@@ -83,6 +83,17 @@ class MyProfileFragment : Fragment() {
         })
         myProfileViewModel.profile.observe(requireActivity(), Observer {
             changeProfile(it)
+        })
+        boardViewModel.changeUserProfileRes.observe(requireActivity(), Observer {
+            if (it.result==1){
+                boardIdxList.clear()
+                boardIdxList.add(-1)
+                loadBoard()
+                Toast.makeText(requireContext(), "프로필 사진을 변경했습니다", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(requireContext(), "프로필 사진 변경에 실패했습니다", Toast.LENGTH_SHORT).show()
+            }
+
         })
 
 
@@ -144,13 +155,12 @@ class MyProfileFragment : Fragment() {
             adapter = boardAdapter
         }
         rv_my_profile.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            //activity
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                // layoutManager가 생성됐고 리스트에서 마지막으로 보이는 position이 리스트의 마지막 인덱스와 같은지 검사한다 (나의 경우에는 리스트에 기본값이 있어서 -1을 하였다)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
+                    Log.d("changeUserProfile","Loading $LOADING, MORE $MORE_LOADING")
                     if (MORE_LOADING && !LOADING) // 추가로 로딩할 게시판이 있는지, 현재 로딩 중인지을 체크하는 변수
                     {
+                        Log.d("changeUserProfile","loading")
                         LOADING = true // 현재 로딩 중
                         rv_my_profile.post {
                             boardAdapter.showProgressBar() // recyclerView에 ProgressBar를 띄움
@@ -158,6 +168,7 @@ class MyProfileFragment : Fragment() {
                         }
                     }
                 }
+                super.onScrolled(recyclerView, dx, dy)
             }
 
         })
@@ -173,11 +184,6 @@ class MyProfileFragment : Fragment() {
         }
         boardListString += "]"
         boardViewModel.getProfile(me.userId, boardListString)
-    }
-
-    private fun intentToPost() {
-        val intent = Intent(requireContext(), PostActivity::class.java)
-        startActivityForResult(intent, 8080)
     }
 
     private fun likeBoard(boardId: Int) {
@@ -219,10 +225,10 @@ class MyProfileFragment : Fragment() {
     private fun changeProfile(profile: String) {
         val dateBody =
             RequestBody.create(MediaType.parse("text/plain"), LocalDateTime.now().toString())
-        val contentBody = RequestBody.create(MediaType.parse("text/plain"), "")
+        val contentBody = RequestBody.create(MediaType.parse("text/plain"), "${me.name}님이 프로필 사진을 변경했습니다")
         val showBody = RequestBody.create(MediaType.parse("text/plain"), "all")
         val body = hashMapOf<String, RequestBody>(
-            "content" to contentBody,
+            "contents" to contentBody,
             "date" to dateBody,
             "show" to showBody
         )

@@ -40,8 +40,8 @@ class ProfileActivity : AppCompatActivity() {
             if (profile.user.profile != null) {
                 Glide.with(this)
                     .load(profile.user.profile)
-                    .circleCrop()
                     .centerCrop()
+                    .circleCrop()
                     .into(img_profile_profile)
             } else {
                 img_profile_profile.setImageResource(R.drawable.ic_account_circle_black_36dp)
