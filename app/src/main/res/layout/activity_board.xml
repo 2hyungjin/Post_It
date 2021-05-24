@@ -40,8 +40,8 @@
             <ImageView
                 android:clickable="true"
                 android:id="@+id/btn_menu_my_profile"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:background="@drawable/ic_account_circle_black_36dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -34,18 +34,21 @@ class ProfileActivity : AppCompatActivity() {
         init()
 
         profileViewModel.getProfileRes.observe(this, Observer { profile ->
-            Log.d("profile", boardIds.toString())
+            Log.d("profile", profile.toString())
             tv_user_name_profile.text = profile.user.name
             isLoaded = true
             if (profile.user.profile != null) {
                 Glide.with(this)
                     .load(profile.user.profile)
                     .circleCrop()
+                    .centerCrop()
                     .into(img_profile_profile)
+            } else {
+                img_profile_profile.setImageResource(R.drawable.ic_account_circle_black_36dp)
             }
 
 
-            if (profile.findBoard.isEmpty()) {
+            if (boardIds.size == 1 && profile.findBoard.isEmpty()) {
                 MORE_LOADING_CHK = false
                 view_empty_board_profile.visibility = View.VISIBLE
             } else {
@@ -132,8 +135,8 @@ class ProfileActivity : AppCompatActivity() {
             if (i != boardIds[boardIds.lastIndex]) boardListString += ","
         }
         boardListString += "]"
-        val user = intent.getSerializableExtra("user") as UserXXX
-        profileViewModel.getProfile(user.userId, boardListString)
+        val userId = intent.getIntExtra("userId", -1)
+        profileViewModel.getProfile(userId, boardListString)
     }
 
     private fun likeBoard(boardId: Int) {

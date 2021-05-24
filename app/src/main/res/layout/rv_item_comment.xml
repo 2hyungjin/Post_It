@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:padding="7dp"
+    android:padding="5dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -13,10 +13,9 @@
         android:id="@+id/img_rv_item_profile_comments"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/image_circle"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_baseline_person_24" />
+        android:src="@drawable/ic_account_circle_black_36dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"

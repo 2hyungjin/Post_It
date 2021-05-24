@@ -97,10 +97,12 @@ class CommentsActivity : AppCompatActivity() {
         val user = (this.intent.getSerializableExtra("user") as UserXXX)
         if (user.userId == userId) {
             intent = Intent(this, MyProfileActivity::class.java)
+            intent.putExtra("user", user)
+
         } else {
             intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("userId",userId)
         }
-        intent.putExtra("user", user)
         startActivity(intent)
     }
 }

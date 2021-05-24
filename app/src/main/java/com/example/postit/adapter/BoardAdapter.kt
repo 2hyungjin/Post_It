@@ -109,6 +109,7 @@ class BoardAdapter(
             if (board.user.profile != null) {
                 Glide.with(context)
                     .load(board.user.profile)
+                    .centerCrop()
                     .circleCrop()
                     .into(imgProfile)
             } else {
@@ -151,6 +152,7 @@ class BoardAdapter(
             if (board.user.profile != null) {
                 Glide.with(context)
                     .load(board.user.profile)
+                    .centerCrop()
                     .circleCrop()
                     .into(imgProfile)
             } else {
