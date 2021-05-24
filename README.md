@@ -13,8 +13,6 @@ JSON Web Token의 약자로 안정성 있게 데이터를 교환하기 위해 �
 3. 토큰을 저장소(preference)에 저장
 4. 서버에 요청할 때 header에 토큰을 넣어 요청함
 
----
-
 ### Shared Preference
 
 간단한 설정 값을 앱 내부의 DB에 저장하기 용이함 (앱 삭제시 데이터도 소거됨)
@@ -54,13 +52,11 @@ class App :Application(){
 }
 ```
 
-
-
 ---
 
 ### OkHttp3 Interceptor 사용하기
 
-일일 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
+일일히 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
 
 OkHttp3의 Interceptor를 사용하면 REST API를 요청할 때 요청을 가로채(intercept) 헤더를 붙인 뒤 다시 전송할 수 있게 해줌
 
@@ -107,7 +103,7 @@ val retrofit: Retrofit by lazy {
 
 ---
 
-# Infinite Scroll (무한 스크롤)
+### Infinite Scroll (무한 스크롤)
 
 한번에 모든 게시글을 불러오는 행위는 자원 낭비가 너무 심하다.
 
@@ -145,13 +141,13 @@ override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 }
 ```
 
-#### Adapter.getItemViewType
+#### RecyclerView와 ViewType
 
 무한 스크롤 뿐 아니라 recyclerview에서 여러 Layout을 inflate하려면 ViewType에 따라 ViewHolder를 바꾸어주는 작업이 필요하다.
 
 View에 맞는 ViewHolder를 만든 뒤 Adapter에서 getItemViewType을 override한다.
 
-**getItemViewType**
+**Adapter.getItemViewType**
 
 ```kotlin
 override fun getItemViewType(position: Int): Int {
@@ -213,3 +209,66 @@ override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 ```
 
 onBindViewHolder에서 holder에 따라 bind를 시켜주면 된다.
+
+---
+
+### Multipart (Retrofit2로 이미지 전송하기)
+
+retrofit2를 이용하여 파일을 보내기 위해서는 multipart form data라는 것을 이용한다.
+
+multipart form data는 파일을 여러개로 나누어 전달하는 방식이다.(정확한 이유와 방식은 잘 모르겠다)
+
+#### 사용 방법
+
+약간의 번거로운 과정 외에는 일반 retrofitd의 사용법과 유사하다.
+
+**1. retrofit의 인터페이스 작성하기**
+
+```kotlin
+@Multipart
+@POST("board")
+suspend fun changeProfile(
+    @PartMap body: HashMap<String, RequestBody>,
+    @Part("profile") profile: Int = 1,
+    @Part files: MultipartBody.Part
+): Response<Res.Res>
+```
+
+multipart를 사용하기 위해선 @POST 어노테이션 위에 @Multipart 어노테이션을 사용해야 한다.
+
+또한 @Body가 아닌 **@Part**를 사용하고 자료형은 문자열은 **RequestBody**, 파일은 **MultipartBody.Part**를 사용한다. 
+
+파일이 많은 경우 MultipartBody.Part의 List를 사용하고 일반 문자열이 많을 경우 HashMap<String,RequestBody>를 사용한다.
+
+**2. RequestBody 만들기**
+
+```kotlin
+val contentBody = RequestBody.create(MediaType.parse("text/plain"), content)
+```
+
+문자열의 경우 위와 같은 방식으로 RequestBody를 만든다. 
+
+MediaType.parse("text/plain")을 통해 자료형이 문자열임을 명시하고 뒤에 내용을 넣는 방식이다.
+
+```kotlin
+val body = hashMapOf<String, RequestBody>(
+    "contents" to contentBody,
+   	...
+)
+```
+
+HashMap<String,RequestBody>를 사용했을 경우 위와 같은 방식으로 HashMap에 넣어서 보내면 된다.
+
+```kotlin
+val file = File(uri.path)
+val fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+val filePart = MultipartBody.Part.createFormData("files", file.name, fileBody)
+```
+
+파일의 경우 파일의 uri의 경로를 찾아 **file객체**를 만들어 주고
+
+MediaType.parse("image/jpeg")을 통해 자료형이 이미지임을 명시하고 파일을 넣어 **fileBody**를 만든다.
+
+마지막으로 multipart방식으로 보내기 위해 MultipartBody.Part.createFormData("key",file.name,fileBody)를 통해 **filePart**를 만들어 서버에 전송하면 된다.
+
+그 이후 및 그 외의 작업들은 기존의 retrofit과 동일하게 사용하면 된다.
