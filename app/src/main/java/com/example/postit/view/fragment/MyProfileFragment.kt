@@ -1,6 +1,7 @@
 package com.example.postit.view.fragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -46,6 +47,7 @@ class MyProfileFragment : Fragment() {
     private var LOADING = false
     private lateinit var me: UserXXX
     private lateinit var navController: NavController
+    private var newProfile: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,13 +66,24 @@ class MyProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         navController = findNavController()
-        boardViewModel.getProfileRes.observe(requireActivity(), Observer { profile ->
+        boardViewModel.getProfileRes.observe(viewLifecycleOwner, Observer { profile ->
             boardAdapter.removeProgressBar()
-            if (profile.findBoard.isEmpty()) {
+            if (profile.findBoard.isEmpty() && boardIdxList.size == 1) {
                 MORE_LOADING = false
                 view_empty_board_my_profile.visibility = View.VISIBLE
-            } else {
+            } else if (profile.findBoard.isEmpty()) {
+                MORE_LOADING = false
+            } else if (profile.findBoard.isNotEmpty()) {
+                LOADING = false
+                view_empty_board_my_profile.visibility = View.INVISIBLE
+                if (profile.user.profile != null && newProfile == null) {
+                    Glide.with(this)
+                        .load(me.profile)
+                        .circleCrop()
+                        .into(img_profile_my_profile)
+                }
                 for (i in profile.findBoard) boardIdxList.add(i.boardId)
+                Log.d("changeUserProfile", boardIdxList.toString())
                 boardAdapter.setList(profile.findBoard)
             }
         })
@@ -83,20 +96,25 @@ class MyProfileFragment : Fragment() {
         })
         myProfileViewModel.profile.observe(requireActivity(), Observer {
             changeProfile(it)
+            progress_bar_my_profile.visibility = View.VISIBLE
+            newProfile = it
         })
         boardViewModel.changeUserProfileRes.observe(requireActivity(), Observer {
-            if (it.result==1){
-                boardIdxList.clear()
-                boardIdxList.add(-1)
-                loadBoard()
+            progress_bar_my_profile.visibility = View.INVISIBLE
+            if (it == null) {
+
+            } else if (it.result == 1) {
+                Glide.with(this)
+                    .load(newProfile)
+                    .circleCrop()
+                    .into(img_profile_my_profile)
+                resetBoards()
+                boardViewModel.changeUserProfileRes.postValue(null)
                 Toast.makeText(requireContext(), "프로필 사진을 변경했습니다", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(requireContext(), "프로필 사진 변경에 실패했습니다", Toast.LENGTH_SHORT).show()
             }
-
         })
-
-
         btn_change_user_name_my_profile.setOnClickListener {
             navigateToChangeUserName()
         }
@@ -113,16 +131,17 @@ class MyProfileFragment : Fragment() {
 
 
     fun init() {
+        Log.d("changeUserProfile", "init..")
         initViewModel()
         initProfile()
         initRecyclerView()
-        loadBoard()
+        loadBoard2()
     }
 
     private fun initProfile() {
         me = myProfileViewModel.userXXX
         tv_user_name_my_profile.text = me.name
-        if (me.profile != null) {
+        if (me.profile != null && newProfile == null) {
             Glide.with(this)
                 .load(me.profile)
                 .circleCrop()
@@ -136,6 +155,7 @@ class MyProfileFragment : Fragment() {
         boardViewModel = ViewModelProvider(requireActivity(), factory)[BoardVM::class.java]
         myProfileViewModel = ViewModelProvider(requireActivity())[MyProfileViewModel::class.java]
     }
+
 
     private fun initRecyclerView() {
         boardAdapter = BoardAdapter({
@@ -157,10 +177,9 @@ class MyProfileFragment : Fragment() {
         rv_my_profile.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
-                    Log.d("changeUserProfile","Loading $LOADING, MORE $MORE_LOADING")
                     if (MORE_LOADING && !LOADING) // 추가로 로딩할 게시판이 있는지, 현재 로딩 중인지을 체크하는 변수
                     {
-                        Log.d("changeUserProfile","loading")
+                        Log.d("changeUserProfile", "loading")
                         LOADING = true // 현재 로딩 중
                         rv_my_profile.post {
                             boardAdapter.showProgressBar() // recyclerView에 ProgressBar를 띄움
@@ -175,8 +194,16 @@ class MyProfileFragment : Fragment() {
     }
 
     fun loadBoard() {
-        Log.d("myProfile", boardIdxList.toString())
+        var boardListString: String = "["
+        for (i in boardIdxList) {
+            boardListString += i
+            if (i != boardIdxList[boardIdxList.lastIndex]) boardListString += ","
+        }
+        boardListString += "]"
+        boardViewModel.getProfile(me.userId, boardListString)
+    }
 
+    fun loadBoard2() {
         var boardListString: String = "["
         for (i in boardIdxList) {
             boardListString += i
@@ -204,14 +231,12 @@ class MyProfileFragment : Fragment() {
     }
 
     private fun navigateToChangeUserName() {
-        boardIdxList.clear()
-        boardIdxList.add(-1)
+        resetBoards()
         navController.navigate(R.id.action_myProfileFragment_to_changeUserNameFragment)
     }
 
     private fun navigateToChangePassword() {
-        boardIdxList.clear()
-        boardIdxList.add(-1)
+        resetBoards()
         navController.navigate(R.id.action_myProfileFragment_to_changePasswordFragment)
     }
 
@@ -220,12 +245,22 @@ class MyProfileFragment : Fragment() {
             .limit(1).show()
     }
 
+    private fun resetBoards() {
+        Log.d("changeUserProfile", "navigate-------------")
+        boardAdapter.resetBoards()
+        boardIdxList.clear()
+        Log.d("changeUserProfile", "rmBoard ${boardIdxList.toString()}")
+        boardIdxList.add(-1)
+        MORE_LOADING = true
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun changeProfile(profile: String) {
         val dateBody =
             RequestBody.create(MediaType.parse("text/plain"), LocalDateTime.now().toString())
-        val contentBody = RequestBody.create(MediaType.parse("text/plain"), "${me.name}님이 프로필 사진을 변경했습니다")
+        val contentBody =
+            RequestBody.create(MediaType.parse("text/plain"), "${me.name}님이 프로필 사진을 변경했습니다")
         val showBody = RequestBody.create(MediaType.parse("text/plain"), "all")
         val body = hashMapOf<String, RequestBody>(
             "contents" to contentBody,
@@ -239,5 +274,6 @@ class MyProfileFragment : Fragment() {
 
         boardViewModel.changeUserProfile(body, filePart)
     }
+
 
 }

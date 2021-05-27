@@ -115,6 +115,9 @@ class BoardAdapter(
             } else {
                 imgProfile.setImageResource(R.drawable.ic_account_circle_black_36dp)
             }
+            view.setOnClickListener {
+                Log.d("changeUserProfile",boardList.toString())
+            }
             imgProfile.setOnClickListener {
                 intentToProfile.invoke(board.userId)
             }
@@ -208,6 +211,8 @@ class BoardAdapter(
 
 
     fun setList(list: List<FindBoard>) {
+        Log.d("changeUserProfile","adapter ${list.size}")
+        Log.d("changeUserProfile","adapter board: ${boardList.size}")
         for (board in list) {
             boardList.add(board)
         }
@@ -235,6 +240,7 @@ class BoardAdapter(
 
     fun resetBoards() {
         boardList.clear()
+        Log.d("changeUserProfile","rm ${boardList.size}")
         notifyDataSetChanged()
     }
 

@@ -41,8 +41,9 @@ class BoardActivity : AppCompatActivity() {
             }
         })
         boardViewModel.getBoardRes.observe(this, Observer { res ->
-            if (res == null) {
+            if (res.findBoard.isEmpty()) {
                 MORE_LOADING = false
+                boardAdapter.removeProgressBar()
             } else {
                 for (i in res.findBoard) boardIdxList.add(i.boardId)
                 boardAdapter.apply {
@@ -172,6 +173,7 @@ class BoardActivity : AppCompatActivity() {
             clear()
             add(-1)
         }
+        loadBoard()
     }
 
 
