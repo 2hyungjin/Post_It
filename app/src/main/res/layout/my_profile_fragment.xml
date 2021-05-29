@@ -22,6 +22,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:scaleType="fitCenter"
                 android:id="@+id/img_profile_my_profile"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
@@ -136,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="게시글"
                 android:textColor="@color/black"
                 android:textSize="28sp"
@@ -144,13 +145,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
-
-            <include
-                android:id="@+id/view_empty_board_my_profile"
-                layout="@layout/layout_empty_board"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_my_profile"
@@ -162,6 +156,12 @@
                 android:overScrollMode="never"
                 tools:listitem="@layout/rv_board_item" />
 
+            <include
+                android:id="@+id/view_empty_board_my_profile"
+                layout="@layout/layout_empty_board"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -184,7 +184,9 @@
             android:focusable="true"
             android:src="@drawable/ic_baseline_arrow_back_ios_24" />
     </Toolbar>
-    <include layout="@layout/progress_bar"
+
+    <include
         android:id="@+id/progress_bar_my_profile"
-        android:visibility="invisible"/>
+        layout="@layout/progress_bar"
+        android:visibility="invisible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

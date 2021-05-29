@@ -7,9 +7,11 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
         android:id="@+id/img_rv_item_image"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
 
         tools:srcCompat="@tools:sample/avatars" />
 </FrameLayout>

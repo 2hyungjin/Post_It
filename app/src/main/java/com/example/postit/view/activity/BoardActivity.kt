@@ -48,10 +48,10 @@ class BoardActivity : AppCompatActivity() {
                 for (i in res.findBoard) boardIdxList.add(i.boardId)
                 boardAdapter.apply {
                     setList(res.findBoard)
-                    LOADING = false
                     removeProgressBar()
                 }
             }
+            LOADING = false
         })
         boardViewModel.deleteBoardRes.observe(this, Observer { res ->
             if (res == null) {
@@ -102,6 +102,7 @@ class BoardActivity : AppCompatActivity() {
     }
 
     fun loadBoard() {
+        LOADING = true // 현재 로딩 중
         var boardIdxListVerString = "["
         var chkIdx = 0
         for (i in boardIdxList) {
@@ -112,7 +113,6 @@ class BoardActivity : AppCompatActivity() {
             chkIdx++
         }
         boardIdxListVerString += "]"
-        Log.d("board", boardIdxListVerString)
         boardViewModel.getBoard(boardIdxListVerString)
     }
 
@@ -137,18 +137,18 @@ class BoardActivity : AppCompatActivity() {
         rv_board.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             //activity
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
                 // layoutManager가 생성됐고 리스트에서 마지막으로 보이는 position이 리스트의 마지막 인덱스와 같은지 검사한다 (나의 경우에는 리스트에 기본값이 있어서 -1을 하였다)
                 if (layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
                     if (MORE_LOADING && !LOADING) // 추가로 로딩할 게시판이 있는지, 현재 로딩 중인지을 체크하는 변수
                     {
-                        LOADING = true // 현재 로딩 중
                         rv_board.post {
                             boardAdapter.showProgressBar() // recyclerView에 ProgressBar를 띄움
                             loadBoard() //추가 데이터 로드
                         }
                     }
                 }
+                super.onScrolled(recyclerView, dx, dy)
+
             }
 
         })
@@ -168,12 +168,16 @@ class BoardActivity : AppCompatActivity() {
     }
 
     private fun resetBoardList() {
-        boardAdapter.resetBoards()
-        boardIdxList.apply {
-            clear()
-            add(-1)
+        if (!LOADING){
+            boardAdapter.resetBoards()
+            boardIdxList.apply {
+                clear()
+                add(-1)
+            }
+            MORE_LOADING=true
+            Log.d("board","reset-------------")
+            loadBoard()
         }
-        loadBoard()
     }
 
 
