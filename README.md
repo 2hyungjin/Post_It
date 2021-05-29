@@ -30,7 +30,7 @@
 - Recyclerview의 scrollListner을 활용하여 무한 스크롤 기능을 구현하였습니다.
 - Multipart 방식을 사용하여 파일 전송을 구현하였습니다.
 
-**[프로젝트 하며 배운 내용 정리](http://www.google.co.kr)**
+**[프로젝트 하며 배운 내용 정리](https://github.com/2hyungjin/Post_It/blob/main/Explanation/%EB%B0%B0%EC%9A%B4%EB%82%B4%EC%9A%A9.md)**
 
 ---
 
