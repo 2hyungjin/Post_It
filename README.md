@@ -1,274 +1,43 @@
-# Post IT 프로젝트를 하며 배운 것
+# Post IT
 
-## JWT
+**IT에 관한 정보를 공유하는 커뮤니티 서비스입니다.**
 
-JSON Web Token의 약자로 안정성 있게 데이터를 교환하기 위해 사용
+## 기능
 
-서버에서 발급받은 토큰을 사용하여 데이터를 교환함
+- 회원 가입 및 로그인 (자동 로그인)
+- 게시글 쓰기 (이미지 업로드)
+- 게시글 조회 및 좋아요
+- 댓글 달기
+- 정보 수정 및 프로필 사진 변경
 
-#### 안드로이드에서의 jwt 로그인 과정
 
-1. 아이디 비밀번호 등을 통해 사용자가 로그인을 함
-2. 서버에서 토큰(access token)을 발급
-3. 토큰을 저장소(preference)에 저장
-4. 서버에 요청할 때 header에 토큰을 넣어 요청함
+<img src="https://user-images.githubusercontent.com/63038103/120059222-09a92800-c08b-11eb-9df5-6b399b5cef26.png" alt="Screenshot_1621943590"  width="10%" height="10%" /> <img src="https://user-images.githubusercontent.com/63038103/120059218-0150ed00-c08b-11eb-8ac1-966f2405455b.png" alt="Screenshot_1621943644" width="10%" height="10%"/> <img src="https://user-images.githubusercontent.com/63038103/120059219-04e47400-c08b-11eb-8883-fd53cd013f5d.png" alt="Screenshot_1622121564"  width="10%" height="10%" /> <img src="https://user-images.githubusercontent.com/63038103/120059223-0a41be80-c08b-11eb-893f-fa386db76e11.png" alt="Screenshot_1622121607" width="10%" height="10%"/> <img src="https://user-images.githubusercontent.com/63038103/120059224-0a41be80-c08b-11eb-870d-1af17ff7a3fb.png" alt="Screenshot_1622266362" width="10%" height="10%"/> <img src="https://user-images.githubusercontent.com/63038103/120059227-0d3caf00-c08b-11eb-93ee-2e0303fa8127.png" alt="Screenshot_1622266448" width="10%" height="10%"/> 
 
-### Shared Preference
+## 구성원
 
-간단한 설정 값을 앱 내부의 DB에 저장하기 용이함 (앱 삭제시 데이터도 소거됨)
+|              |    Android     |               Server                |
+| :----------: | :------------: | :---------------------------------: |
+|   **Name**   |     이형진     |               남주영                |
+| **Language** |     kotlin     | Express.js (TypeScript, JavaScript) |
+|   **Tool**   | Android Studio |         Visual Studio Code          |
 
-#### 사용방법
+## 기술
 
-1. Preference Class 생성 후 preference 인스턴스 생성
+- AAC ViewModel과 LiveData를 사용하여 MVVM 디자인 패턴으로 구현하였습니다.
+- Coroutine을 사용하여 retrofit2 비동기 처리를 하였습니다.
 
-```kotlin
-class Prefs(context: Context) {
-    private val prefNm="mPref"
-    private val prefs=context.getSharedPreferences(prefNm,MODE_PRIVATE)
-}
-```
+- OkHttp3 Interceptor 사용하여 JWT를 활용한 토큰 인증방식, 자동 로그인 기능을 구현하였습니다. 
+- Recyclerview의 scrollListner을 활용하여 무한 스크롤 기능을 구현하였습니다.
+- Multipart 방식을 사용하여 파일 전송을 구현하였습니다.
 
-2. get set 메서드를 통해 관리
-
-```kotlin
-var token:String?
-    get() = prefs.getString("token",null)
-    set(value){
-        prefs.edit().putString("token",value).apply()
-    }
-```
-
-3. activity보다 먼저 시작하기 위해 application에서 실행
-
-```kotlin
-class App :Application(){
-    companion object{
-        lateinit var prefs:Prefs
-    }
-    override fun onCreate() {
-        prefs=Prefs(applicationContext)
-        super.onCreate()
-    }
-}
-```
+**[프로젝트 하며 배운 내용 정리](https://github.com/2hyungjin/Post_It/blob/main/Explanation/%EB%B0%B0%EC%9A%B4%EB%82%B4%EC%9A%A9.md)**
 
 ---
 
-### OkHttp3 Interceptor 사용하기
+## 소감
 
-일일히 retrofit 메서드에 header 어노테이션을 사용하여 토큰을 부여할 수 있지만
-
-OkHttp3의 Interceptor를 사용하면 REST API를 요청할 때 요청을 가로채(intercept) 헤더를 붙인 뒤 다시 전송할 수 있게 해줌
-
-#### 사용방법
-
-1. Interceptor 생성
-
-```kotlin
-class AuthInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            var req =
-                chain.request().newBuilder().addHeader("Authorization", App.prefs.token).build()
-            return chain.proceed(req)
-        }
-    }
-```
-
-Interceptor를 상속받아 intercept 메서드를 구현
-
-chain에 "Authorization"이라는 key와 prefs의 value를 가진 헤더를 부여 후 다시 넘겨줌
-
-
-
-2. Client 생성
-
-```kotlin
-val okHttpClient = OkHttpClient.Builder().addInterceptor(AuthInterceptor()).build()
-```
-
-만들어 놓은 interceptor를 바탕으로 okHttpClient를 생성
-
-
-
-3. Client와 retrofit의 인스턴스를 연결
-
-```kotlin
-val retrofit: Retrofit by lazy {
-            Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-        }
-```
-
----
-
-### Infinite Scroll (무한 스크롤)
-
-한번에 모든 게시글을 불러오는 행위는 자원 낭비가 너무 심하다.
-
-서버에서 가져오는 데이터를 나누기 위해서는 페이지를 만드는 방법(페이지네이션)도 있지만 모바일의 경우 페이지네이션 방식보다 무한 스크롤을 구현하는 것이 사용자가 더 좋은 경험을 할 수 있게 한다,
-
-무한 스크롤의 기본적인 원리는
-
-1. 서버 측에서 분리된 데이터를 받는다
-2. 사용자의 RecyclerView 스크롤의 위치를 확인한다.
-3. 스크롤의 위치가 끝에 도달하면 더 많은 데이터를 가져온다.
-
-#### recyclerview.addOnScrollListener
-
-onScrollListener안의 onScrolled 메서드는 recyclerview의 스크롤 변화를 감지한다. 
-
-무한 스크롤을 구현할 때에는 onScrolled 메서드에서 스크롤의 움직임을 감지하여 리스트의 마지막에 도달했는지 확인한다.
-
-**Activity**
-
-```kotlin
-override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-    super.onScrolled(recyclerView, dx, dy)
-    //리스트에서 마지막으로 보이는 position이 리스트의 마지막 인덱스와 같은지 검사한다 (나의 경우에는 리스트에 기본값이 있어서 -1을 하였다)
-    if (layoutManager != null && 
-        layoutManager.findLastCompletelyVisibleItemPosition() == boardIdxList.lastIndex - 1) {
-        if (MORE_LOADING && !LOADING) // 추가로 로딩할 게시판이 있는지, 현재 로딩 중인지을 체크하는 변수
-        {
-            LOADING = true // 현재 로딩 중
-            rv_board.post {
-                boardAdapter.showProgressBar() // recyclerView에 ProgressBar를 띄움
-                loadBoard() //추가 데이터 로드
-            }
-        }
-    }
-}
-```
-
-#### RecyclerView와 ViewType
-
-무한 스크롤 뿐 아니라 recyclerview에서 여러 Layout을 inflate하려면 ViewType에 따라 ViewHolder를 바꾸어주는 작업이 필요하다.
-
-View에 맞는 ViewHolder를 만든 뒤 Adapter에서 getItemViewType을 override한다.
-
-**Adapter.getItemViewType**
-
-```kotlin
-override fun getItemViewType(position: Int): Int {
-    val board = boardList[position]
-    if (null != board?.images) {
-        return 0
-    } else if (null != board) {
-        return 1
-    } else {
-        return -1
-    }
-}
-```
-
-전달받은 데이터에 따라 ViewType을 설정한다.
-
-(나의 경우 이미지가 포함된 View라면 0, 이미지가 포함되지 않는 경우 1, 그 외 (progressbar)는 -1로 반환하였다.)
-
-**onCreateViewHolder**
-
-```kotlin
-override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    context = parent.context
-    when (viewType) {
-        0 -> {
-            return BoardViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.rv_board_item, parent, false)
-            )
-        }
-        1 -> {
-            return BoardViewHolderNoImages(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.rv_board_item_no_image, parent, false)
-            )
-        }
-        else -> {
-            return LoadingViewHolder(
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.rv_item_loading, parent, false)
-            )
-        }
-    }
-}
-```
-
-onCreateViewHolder에서 viewType에 대해 각자 다른 ViewHolder에게 return 해준다.
-
-**onBindViewHolder**
-
-```kotlin
-override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    if (holder is BoardViewHolder) {
-        holder.bind(boardList[position]!!)
-    } else if (holder is BoardViewHolderNoImages) {
-        holder.bind(boardList[position]!!)
-    }
-}
-```
-
-onBindViewHolder에서 holder에 따라 bind를 시켜주면 된다.
-
----
-
-### Multipart (Retrofit2로 이미지 전송하기)
-
-retrofit2를 이용하여 파일을 보내기 위해서는 multipart form data라는 것을 이용한다.
-
-multipart form data는 파일을 여러개로 나누어 전달하는 방식이다.(정확한 이유와 방식은 잘 모르겠다)
-
-#### 사용 방법
-
-약간의 번거로운 과정 외에는 일반 retrofitd의 사용법과 유사하다.
-
-**1. retrofit의 인터페이스 작성하기**
-
-```kotlin
-@Multipart
-@POST("board")
-suspend fun changeProfile(
-    @PartMap body: HashMap<String, RequestBody>,
-    @Part("profile") profile: Int = 1,
-    @Part files: MultipartBody.Part
-): Response<Res.Res>
-```
-
-multipart를 사용하기 위해선 @POST 어노테이션 위에 @Multipart 어노테이션을 사용해야 한다.
-
-또한 @Body가 아닌 **@Part**를 사용하고 자료형은 문자열은 **RequestBody**, 파일은 **MultipartBody.Part**를 사용한다. 
-
-파일이 많은 경우 MultipartBody.Part의 List를 사용하고 일반 문자열이 많을 경우 HashMap<String,RequestBody>를 사용한다.
-
-**2. RequestBody 만들기**
-
-```kotlin
-val contentBody = RequestBody.create(MediaType.parse("text/plain"), content)
-```
-
-문자열의 경우 위와 같은 방식으로 RequestBody를 만든다. 
-
-MediaType.parse("text/plain")을 통해 자료형이 문자열임을 명시하고 뒤에 내용을 넣는 방식이다.
-
-```kotlin
-val body = hashMapOf<String, RequestBody>(
-    "contents" to contentBody,
-   	...
-)
-```
-
-HashMap<String,RequestBody>를 사용했을 경우 위와 같은 방식으로 HashMap에 넣어서 보내면 된다.
-
-```kotlin
-val file = File(uri.path)
-val fileBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
-val filePart = MultipartBody.Part.createFormData("files", file.name, fileBody)
-```
-
-파일의 경우 파일의 uri의 경로를 찾아 **file객체**를 만들어 주고
-
-MediaType.parse("image/jpeg")을 통해 자료형이 이미지임을 명시하고 파일을 넣어 **fileBody**를 만든다.
-
-마지막으로 multipart방식으로 보내기 위해 MultipartBody.Part.createFormData("key",file.name,fileBody)를 통해 **filePart**를 만들어 서버에 전송하면 된다.
-
-그 이후 및 그 외의 작업들은 기존의 retrofit과 동일하게 사용하면 된다.
+> 처음 진행해보는 프로젝트라 부족한 부분이 많은 것 같습니다.
+>
+> 가독성 있는 코드를 작성하기 위해 노력해야겠습니다.
+>
+> 완성도 있는 앱을 위해서 motionLayout에 대해 공부하겠습니다.
